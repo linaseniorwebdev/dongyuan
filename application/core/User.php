@@ -20,4 +20,12 @@ class User {
 	public function getId() {
 		return $this->id;
 	}
+
+	public function getPermission() {
+		return $this->permission;
+	}
+
+	public function getStatus() {
+		return $this->status;
+	}
 }

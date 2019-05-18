@@ -85,3 +85,5 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 defined('SALT')                OR define('SALT', 'You will never reach here!');
+
+defined('APPNAME')             OR define('APPNAME', '东元商城');

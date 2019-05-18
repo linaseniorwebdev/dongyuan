@@ -36,9 +36,9 @@ class Base extends CI_Controller {
 	 */
 	public function load_header($params, $admin = null) {
 		if ($admin) {
-			$this->load->view('admin/header', $params);
+			$this->load->view('backend/header', $params);
 		} else {
-			$this->load->view('front/header', $params);
+			$this->load->view('frontend/header', $params);
 		}
 	}
 
@@ -49,9 +49,9 @@ class Base extends CI_Controller {
 	 */
 	public function load_footer($params, $admin = null) {
 		if ($admin) {
-			$this->load->view('admin/footer', $params);
+			$this->load->view('backend/footer', $params);
 		} else {
-			$this->load->view('front/footer', $params);
+			$this->load->view('frontend/footer', $params);
 		}
 	}
 
@@ -92,6 +92,8 @@ class Base extends CI_Controller {
 
 	/**
 	 * Check if current user has permission
+	 * @param $field
+	 * @return bool
 	 */
 	public function privilege($field) {
 		if ($this->login) {
