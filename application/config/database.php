@@ -80,7 +80,7 @@ $db['default'] = array(
 	'password' => 'mysql',
 	'database' => 'dongyuan',
 	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
+	'dbprefix' => 'dy_',
 	'pconnect' => FALSE,
 	'db_debug' => ENVIRONMENT !== 'production',
 	'cache_on' => FALSE,
