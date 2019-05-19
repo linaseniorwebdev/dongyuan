@@ -69,48 +69,125 @@ class Admin extends Base {
 	 * 角色管理
 	 */
 	public function role() {
-
+		if ($this->login) {
+			$hparams = array('title' => '控制台', 'lineawesome' => true);
+			$fparams = array();
+			$user = $this->user->getUsername();
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', array('com' => 'role'));
+			$this->load->view('backend/role');
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
 	}
 
 	/**
 	 * 用户管理
 	 */
 	public function user() {
-
+		if ($this->login) {
+			$hparams = array('title' => '控制台', 'lineawesome' => true);
+			$fparams = array();
+			$user = $this->user->getUsername();
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', array('com' => 'user'));
+			$this->load->view('backend/user');
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
 	}
 
 	/**
 	 * 分类管理
 	 */
 	public function category() {
-
+		if ($this->login) {
+			$hparams = array('title' => '控制台', 'lineawesome' => true);
+			$fparams = array();
+			$user = $this->user->getUsername();
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', array('com' => 'category'));
+			$this->load->view('backend/category');
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
 	}
 
 	/**
 	 * 地址管理
 	 */
 	public function address() {
-
+		if ($this->login) {
+			$hparams = array('title' => '控制台', 'lineawesome' => true);
+			$fparams = array();
+			$user = $this->user->getUsername();
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', array('com' => 'address'));
+			$this->load->view('backend/address');
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
 	}
 
 	/**
 	 * 库存管理
 	 */
 	public function inventory() {
-
+		if ($this->login) {
+			$hparams = array('title' => '控制台', 'lineawesome' => true);
+			$fparams = array();
+			$user = $this->user->getUsername();
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', array('com' => 'inventory'));
+			$this->load->view('backend/inventory');
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
 	}
 
 	/**
 	 * 订单管理
 	 */
 	public function order() {
-
+		if ($this->login) {
+			$hparams = array('title' => '控制台', 'lineawesome' => true);
+			$fparams = array();
+			$user = $this->user->getUsername();
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', array('com' => 'order'));
+			$this->load->view('backend/order');
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
 	}
 
 	/**
 	 * 我的账户
 	 */
 	public function profile() {
-
+		if ($this->login) {
+			$hparams = array('title' => '控制台', 'lineawesome' => true);
+			$fparams = array();
+			$user = $this->user->getUsername();
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', array('com' => 'profile'));
+			$this->load->view('backend/profile');
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
 	}
 }
