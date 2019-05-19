@@ -2,6 +2,7 @@
 
 class User {
 	private $id;		    // User ID
+	private $username;		// User Unique Name
 	private $permission;    // User Permission
 	private $status;        // User status
 
@@ -14,6 +15,7 @@ class User {
 		$instance->id           = $arr['id'];
 		$instance->permission   = (int)$arr['permission'];
 		$instance->status       = (int)$arr['status'];
+		$instance->username     = $arr['username'];
 		return $instance;
 	}
 
@@ -27,5 +29,13 @@ class User {
 
 	public function getStatus() {
 		return $this->status;
+	}
+
+	public function getUsername() {
+		return $this->username;
+	}
+
+	public function setUsername($username) {
+		$this->username = $username;
 	}
 }

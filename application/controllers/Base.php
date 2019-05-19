@@ -20,6 +20,10 @@ class Base extends CI_Controller {
 			$user = $this->Users_model->get_by_id($this->session->user);
 			$this->user = User::init($user);
 			$this->login = true;
+			if ((int)$user['permission'] < 5) {
+				$permission = $this->Permissions_model->get_by_id($user['permission']);
+				$this->user->setUsername($permission['name']);
+			}
 		} else {
 			$this->user = new User();
 			$this->login = false;
@@ -97,7 +101,7 @@ class Base extends CI_Controller {
 	 */
 	public function privilege($field) {
 		if ($this->login) {
-			$value = (int)$this->Permissions_model->get_value($field);
+			$value = (int)$this->Permissions_model->get_value($this->user->getPermission(), $field);
 			return $value === 1;
 		}
 		return false;

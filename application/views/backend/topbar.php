@@ -38,7 +38,7 @@
 				<ul class="nav navbar-nav float-right">
 					<li class="dropdown dropdown-user nav-item">
 						<a class="dropdown-toggle nav-link dropdown-user-link" href="javascript:void(0)" data-toggle="dropdown">
-							<span class="mr-1"><span class="user-name text-bold-700">Admin</span></span>
+							<span class="mr-1"><span class="user-name text-bold-700"><?=$username?></span></span>
 							<span class="avatar avatar-online">
 								<img src="public/uploads/users/empty.png" alt="avatar"><i></i>
 							</span>

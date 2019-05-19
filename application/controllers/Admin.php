@@ -13,8 +13,9 @@ class Admin extends Base {
 		if ($this->login) {
 			$hparams = array('title' => '控制台', 'lineawesome' => true);
 			$fparams = array();
+			$user = $this->user->getUsername();
 			$this->load_header($hparams, true);
-			$this->load->view('backend/topbar');
+			$this->load->view('backend/topbar', array('username' => $user));
 			$this->load->view('backend/sidebar');
 			$this->load->view('backend/index');
 			$this->load_footer($fparams, true);
@@ -62,5 +63,54 @@ class Admin extends Base {
 			$this->session->unset_userdata('user');
 		}
 		redirect('admin');
+	}
+
+	/**
+	 * 角色管理
+	 */
+	public function role() {
+
+	}
+
+	/**
+	 * 用户管理
+	 */
+	public function user() {
+
+	}
+
+	/**
+	 * 分类管理
+	 */
+	public function category() {
+
+	}
+
+	/**
+	 * 地址管理
+	 */
+	public function address() {
+
+	}
+
+	/**
+	 * 库存管理
+	 */
+	public function inventory() {
+
+	}
+
+	/**
+	 * 订单管理
+	 */
+	public function order() {
+
+	}
+
+	/**
+	 * 我的账户
+	 */
+	public function profile() {
+
 	}
 }
