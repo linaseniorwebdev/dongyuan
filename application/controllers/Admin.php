@@ -115,25 +115,24 @@ class Admin extends Base {
 	public function category() {
 		if ($this->login) {
 			if ($this->privilege('category')) {
+				$this->load->model('Categories_model');
+
 				$hparams = array('title' => '分类管理', 'lineawesome' => true);
-				$fparams = array();
+				$fparams = array('name' => 'category');
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
 
-				$lv = $_GET['t'];
-				$me = $_GET['m'];
-				$id = $_GET['i'];
-				if (!isset($lv)) {
-					$lv = '1';
-				}
-				if (!isset($me)) {
-					$me = 'list';
-				}
-				$data = array();
-
+				$lv = (isset($_GET['l'])?$_GET['l']:null);
+				$id = (isset($_GET['i'])?$_GET['i']:null);
+				if (!$lv) { $lv = '1'; }
+				$data = array(
+					'level' => $lv,
+					'id'    => $id,
+					'rows'  => $this->Categories_model->get_categories($lv, $id)
+				);
 				$this->load->view('backend/sidebar', array('com' => 'category'));
-				$this->load->view('backend/category');
+				$this->load->view('backend/category', $data);
 				$this->load_footer($fparams, true);
 			} else {
 				$this->not_authorized();

@@ -8,6 +8,7 @@
 <script src="public/backend/vendors/js/vendors.min.js"></script>
 <script src="public/backend/js/core/app-menu.js"></script>
 <script src="public/backend/js/core/app.js"></script>
+<script src="public/backend/vendors/js/extensions/sweetalert.min.js"></script>
 
 <?php
 if (isset($name))
