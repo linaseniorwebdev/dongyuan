@@ -101,8 +101,8 @@ class Base extends CI_Controller {
 	 */
 	public function privilege($field) {
 		if ($this->login) {
-			$value = (int)$this->Permissions_model->get_value($this->user->getPermission(), $field);
-			return $value === 1;
+			$value = $this->Permissions_model->get_value($this->user->getPermission(), $field);
+			return (int)$value === 1;
 		}
 		return false;
 	}

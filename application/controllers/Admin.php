@@ -70,14 +70,18 @@ class Admin extends Base {
 	 */
 	public function role() {
 		if ($this->login) {
-			$hparams = array('title' => '控制台', 'lineawesome' => true);
-			$fparams = array();
-			$user = $this->user->getUsername();
-			$this->load_header($hparams, true);
-			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar', array('com' => 'role'));
-			$this->load->view('backend/role');
-			$this->load_footer($fparams, true);
+			if ($this->privilege('permission')) {
+				$hparams = array('title' => '角色管理', 'lineawesome' => true);
+				$fparams = array();
+				$user = $this->user->getUsername();
+				$this->load_header($hparams, true);
+				$this->load->view('backend/topbar', array('username' => $user));
+				$this->load->view('backend/sidebar', array('com' => 'role'));
+				$this->load->view('backend/role');
+				$this->load_footer($fparams, true);
+			} else {
+				$this->not_authorized();
+			}
 		} else {
 			redirect('admin/signin');
 		}
@@ -88,14 +92,18 @@ class Admin extends Base {
 	 */
 	public function user() {
 		if ($this->login) {
-			$hparams = array('title' => '控制台', 'lineawesome' => true);
-			$fparams = array();
-			$user = $this->user->getUsername();
-			$this->load_header($hparams, true);
-			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar', array('com' => 'user'));
-			$this->load->view('backend/user');
-			$this->load_footer($fparams, true);
+			if ($this->privilege('user')) {
+				$hparams = array('title' => '用户管理', 'lineawesome' => true);
+				$fparams = array();
+				$user = $this->user->getUsername();
+				$this->load_header($hparams, true);
+				$this->load->view('backend/topbar', array('username' => $user));
+				$this->load->view('backend/sidebar', array('com' => 'user'));
+				$this->load->view('backend/user');
+				$this->load_footer($fparams, true);
+			} else {
+				$this->not_authorized();
+			}
 		} else {
 			redirect('admin/signin');
 		}
@@ -106,14 +114,30 @@ class Admin extends Base {
 	 */
 	public function category() {
 		if ($this->login) {
-			$hparams = array('title' => '控制台', 'lineawesome' => true);
-			$fparams = array();
-			$user = $this->user->getUsername();
-			$this->load_header($hparams, true);
-			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar', array('com' => 'category'));
-			$this->load->view('backend/category');
-			$this->load_footer($fparams, true);
+			if ($this->privilege('category')) {
+				$hparams = array('title' => '分类管理', 'lineawesome' => true);
+				$fparams = array();
+				$user = $this->user->getUsername();
+				$this->load_header($hparams, true);
+				$this->load->view('backend/topbar', array('username' => $user));
+
+				$lv = $_GET['t'];
+				$me = $_GET['m'];
+				$id = $_GET['i'];
+				if (!isset($lv)) {
+					$lv = '1';
+				}
+				if (!isset($me)) {
+					$me = 'list';
+				}
+				$data = array();
+
+				$this->load->view('backend/sidebar', array('com' => 'category'));
+				$this->load->view('backend/category');
+				$this->load_footer($fparams, true);
+			} else {
+				$this->not_authorized();
+			}
 		} else {
 			redirect('admin/signin');
 		}
@@ -124,14 +148,18 @@ class Admin extends Base {
 	 */
 	public function address() {
 		if ($this->login) {
-			$hparams = array('title' => '控制台', 'lineawesome' => true);
-			$fparams = array();
-			$user = $this->user->getUsername();
-			$this->load_header($hparams, true);
-			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar', array('com' => 'address'));
-			$this->load->view('backend/address');
-			$this->load_footer($fparams, true);
+			if ($this->privilege('address')) {
+				$hparams = array('title' => '地址管理', 'lineawesome' => true);
+				$fparams = array();
+				$user = $this->user->getUsername();
+				$this->load_header($hparams, true);
+				$this->load->view('backend/topbar', array('username' => $user));
+				$this->load->view('backend/sidebar', array('com' => 'address'));
+				$this->load->view('backend/address');
+				$this->load_footer($fparams, true);
+			} else {
+				$this->not_authorized();
+			}
 		} else {
 			redirect('admin/signin');
 		}
@@ -142,14 +170,18 @@ class Admin extends Base {
 	 */
 	public function inventory() {
 		if ($this->login) {
-			$hparams = array('title' => '控制台', 'lineawesome' => true);
-			$fparams = array();
-			$user = $this->user->getUsername();
-			$this->load_header($hparams, true);
-			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar', array('com' => 'inventory'));
-			$this->load->view('backend/inventory');
-			$this->load_footer($fparams, true);
+			if ($this->privilege('inventory')) {
+				$hparams = array('title' => '库存管理', 'lineawesome' => true);
+				$fparams = array();
+				$user = $this->user->getUsername();
+				$this->load_header($hparams, true);
+				$this->load->view('backend/topbar', array('username' => $user));
+				$this->load->view('backend/sidebar', array('com' => 'inventory'));
+				$this->load->view('backend/inventory');
+				$this->load_footer($fparams, true);
+			} else {
+				$this->not_authorized();
+			}
 		} else {
 			redirect('admin/signin');
 		}
@@ -160,14 +192,18 @@ class Admin extends Base {
 	 */
 	public function order() {
 		if ($this->login) {
-			$hparams = array('title' => '控制台', 'lineawesome' => true);
-			$fparams = array();
-			$user = $this->user->getUsername();
-			$this->load_header($hparams, true);
-			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar', array('com' => 'order'));
-			$this->load->view('backend/order');
-			$this->load_footer($fparams, true);
+			if ($this->privilege('order')) {
+				$hparams = array('title' => '订单管理', 'lineawesome' => true);
+				$fparams = array();
+				$user = $this->user->getUsername();
+				$this->load_header($hparams, true);
+				$this->load->view('backend/topbar', array('username' => $user));
+				$this->load->view('backend/sidebar', array('com' => 'order'));
+				$this->load->view('backend/order');
+				$this->load_footer($fparams, true);
+			} else {
+				$this->not_authorized();
+			}
 		} else {
 			redirect('admin/signin');
 		}
@@ -178,7 +214,7 @@ class Admin extends Base {
 	 */
 	public function profile() {
 		if ($this->login) {
-			$hparams = array('title' => '控制台', 'lineawesome' => true);
+			$hparams = array('title' => '我的账户', 'lineawesome' => true);
 			$fparams = array();
 			$user = $this->user->getUsername();
 			$this->load_header($hparams, true);
