@@ -6,6 +6,10 @@
 	.table td, .table th {
 		vertical-align: middle;
 	}
+
+	.switchery {
+		margin-bottom: 4px;
+	}
 </style>
 <div class="app-content content">
 	<div class="content-wrapper">
@@ -69,7 +73,7 @@
 											echo '<td><a href="' . base_url('admin/category?l=' . (1 + (int)$level) . '&i=' . $row['id']) . '">' . $row['name'] . '</a></td>';
 										}
 										echo '<td class="text-center">' . (((int)$row['status'] === 1)?'<i class="la la-check text-success"></i>':'<i class="la la-times text-danger"></i>') . '</td>';
-										echo '<td class="text-center"><input type="hidden" value="' . $row['id'] . '" /><a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="editItem(this)"><i class="la la-pencil"></i></a> <a href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="la la-times"></i></a></td>';
+										echo '<td class="text-center"><input type="hidden" value="' . $row['id'] . '" /><input type="hidden" value="' . $row['name'] . '" /><input type="hidden" value="' . $row['status'] . '" /><a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="editItem(this)"><i class="la la-pencil"></i></a> <a href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="la la-trash"></i></a></td>';
 										echo '</tr>';
 									}
 								} else {
@@ -123,18 +127,21 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					<input type="hidden" name="redirect_uri" value="<?=$this->uri->uri_string() . '?l=' . $level . '&i=' . $id?>" />
+					<input type="hidden" name="item_id_edit" />
+					<input type="hidden" name="item_status_edit" />
 					<div class="form-group">
 						<label for="item_name_edit">分类名称</label>
-						<input class="form-control" id="item_name_edit" placeholder="请输入分类名称" />
+						<input class="form-control" id="item_name_edit" name="item_name_edit" placeholder="请输入分类名称" />
 					</div>
-					<div class="form-group">
-						<input type="checkbox" id="switchery" class="switchery" checked/>
+					<div class="form-group switchery-container">
+						<input type="checkbox" id="switchery" class="switchery" data-size="sm"/>
 						<label for="switchery" class="font-medium-2 text-bold-600 ml-1">Switchery Default</label>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">取消</button>
-					<button type="submit" class="btn btn-outline-primary" onclick="addItemConfirm()">确认</button>
+					<button type="submit" class="btn btn-outline-primary">确认</button>
 				</div>
 			</form>
 		</div>

@@ -12,7 +12,15 @@ class Api extends Base {
 		if ($com === 'list') {
 
 		} elseif ($com === 'update') {
+			$id     = $this->input->post('item_id_edit');
+			$params = array(
+				'name'   => $this->input->post('item_name_edit'),
+				'status' => $this->input->post('item_status_edit')
+			);
 
+			$this->Categories_model->update_category($id, $params);
+
+			redirect($this->input->post('redirect_uri'));
 		} elseif ($com === 'create') {
 			$result = array('status' => 'fail');
 

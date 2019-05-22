@@ -1,7 +1,11 @@
-let curLevel, curID, switchery;
+let curLevel, curID, switchery, changeCheckbox;
 
 $(document).ready(function() {
-	switchery = new Switchery($('#switchery').get(0), {className: "switchery", color: "#37BC9B"});
+	changeCheckbox = document.querySelector('.switchery');
+	changeCheckbox.onchange = function() {
+		$("label[for='switchery']").html((changeCheckbox.checked === true)?"可用":"未用");
+		$('input[name="item_status_edit"]').val((changeCheckbox.checked === true)?1:0);
+	};
 });
 
 function addItem(obj) {
@@ -46,9 +50,12 @@ function addItemConfirm() {
 }
 
 function editItem(obj) {
-	// curLevel = obj.previousElementSibling.previousElementSibling.value;
-	// curID    = obj.previousElementSibling.value;
+	$('.switchery-container > span').remove();
+	$('input[name="item_id_edit"]').val(obj.previousElementSibling.previousElementSibling.previousElementSibling.value);
+	$('input[name="item_name_edit"]').val(obj.previousElementSibling.previousElementSibling.value);
+	$('input[name="item_status_edit"]').val(obj.previousElementSibling.value);
+	changeCheckbox.checked = (parseInt(obj.previousElementSibling.value) === 1);
+	switchery = new Switchery($('#switchery').get(0), {color: "#37BC9B"});
+	changeCheckbox.onchange();
 	$('#editModal').modal('toggle');
-	// console.log(curLevel);
-	// console.log(curID);
 }
