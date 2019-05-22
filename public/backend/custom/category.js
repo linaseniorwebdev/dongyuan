@@ -1,7 +1,7 @@
-let curLevel, curID;
+let curLevel, curID, switchery;
 
 $(document).ready(function() {
-
+	switchery = new Switchery($('#switchery').get(0), {className: "switchery", color: "#37BC9B"});
 });
 
 function addItem(obj) {
@@ -43,4 +43,12 @@ function addItemConfirm() {
 			location.reload();
 		}
 	);
+}
+
+function editItem(obj) {
+	// curLevel = obj.previousElementSibling.previousElementSibling.value;
+	// curID    = obj.previousElementSibling.value;
+	$('#editModal').modal('toggle');
+	// console.log(curLevel);
+	// console.log(curID);
 }

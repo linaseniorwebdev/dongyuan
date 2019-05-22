@@ -117,8 +117,15 @@ class Admin extends Base {
 			if ($this->privilege('category')) {
 				$this->load->model('Categories_model');
 
-				$hparams = array('title' => '分类管理', 'lineawesome' => true);
-				$fparams = array('name' => 'category');
+				$hparams = array(
+					'title' => '分类管理',
+					'lineawesome' => true,
+					'switchery' => true
+				);
+				$fparams = array(
+					'name' => 'category',
+					'switchery' => true
+				);
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
@@ -126,7 +133,27 @@ class Admin extends Base {
 				$lv = (isset($_GET['l'])?$_GET['l']:null);
 				$id = (isset($_GET['i'])?$_GET['i']:null);
 				if (!$lv) { $lv = '1'; }
+				$crumb = array();
+				$title = array();
+				if ((int)$lv > 1) {
+					$tlv = (int)$lv;
+					$tid = (int)$id;
+					$name = '【主类别】';
+					for (;;) {
+						$crumb[$tlv] = base_url('admin/category?l=' . $tlv . '&i=' . $tid);
+						$title[((int)$lv===$tlv)?1:($tlv + 1)] = $name;
+						$tlv--;
+						if ($tlv === 0) {
+							break;
+						}
+						$row = $this->Categories_model->get_by_id($tid);
+						$tid = $row['parent'];
+						$name = $row['name'];
+					}
+				}
 				$data = array(
+					'crumb' => $crumb,
+					'title' => $title,
 					'level' => $lv,
 					'id'    => $id,
 					'rows'  => $this->Categories_model->get_categories($lv, $id)

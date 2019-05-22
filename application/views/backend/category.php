@@ -2,6 +2,11 @@
 <?php
 
 ?>
+<style>
+	.table td, .table th {
+		vertical-align: middle;
+	}
+</style>
 <div class="app-content content">
 	<div class="content-wrapper">
 		<div class="content-header row">
@@ -10,12 +15,20 @@
 				<div class="row breadcrumbs-top d-inline-block">
 					<div class="breadcrumb-wrapper col-12">
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">Home</a>
-							</li>
-							<li class="breadcrumb-item"><a href="#">Components</a>
-							</li>
-							<li class="breadcrumb-item active">Callout
-							</li>
+							<?php
+							$len =count($title) + 1;
+							if ($len === 1) {
+								echo '<li class="breadcrumb-item active">【主类别】</li>';
+							} else {
+								for ($idx = 1; $idx < $len; $idx++) {
+									if ($len === $idx + 1) {
+										echo '<li class="breadcrumb-item active">' . $title[$idx] . '</li>';
+									} else {
+										echo '<li class="breadcrumb-item"><a href="' . $crumb[$idx] . '">' . $title[$idx] . '</a></li>';
+									}
+								}
+							}
+							?>
 						</ol>
 					</div>
 				</div>
@@ -50,9 +63,13 @@
 										$idx++;
 										echo '<tr>';
 										echo '<td>' . $idx . '</td>';
-										echo '<td>' . $row['name'] . '</td>';
+										if ((int)$level === 3) {
+											echo '<td>' . $row['name'] . '</td>';
+										} else {
+											echo '<td><a href="' . base_url('admin/category?l=' . (1 + (int)$level) . '&i=' . $row['id']) . '">' . $row['name'] . '</a></td>';
+										}
 										echo '<td class="text-center">' . (((int)$row['status'] === 1)?'<i class="la la-check text-success"></i>':'<i class="la la-times text-danger"></i>') . '</td>';
-										echo '<td class="text-center"><input type="hidden" value="' . $row['id'] . '" /><a href="javascript:void(0)" class="btn btn-sm btn-success"><i class="la la-pencil"></i></a></td>';
+										echo '<td class="text-center"><input type="hidden" value="' . $row['id'] . '" /><a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="editItem(this)"><i class="la la-pencil"></i></a> <a href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="la la-times"></i></a></td>';
 										echo '</tr>';
 									}
 								} else {
@@ -92,4 +109,37 @@
 		</div>
 	</div>
 </div>
+<!-- END::Modal -->
+
+<!-- Model for Edit Category -->
+<div class="modal fade text-left" id="editModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form action="<?=base_url('api/category/update')?>" method="post">
+				<div class="modal-header">
+					<h4 class="modal-title">项目编辑</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="item_name_edit">分类名称</label>
+						<input class="form-control" id="item_name_edit" placeholder="请输入分类名称" />
+					</div>
+					<div class="form-group">
+						<input type="checkbox" id="switchery" class="switchery" checked/>
+						<label for="switchery" class="font-medium-2 text-bold-600 ml-1">Switchery Default</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">取消</button>
+					<button type="submit" class="btn btn-outline-primary" onclick="addItemConfirm()">确认</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- END::Modal -->
+
 <!-- END::Body -->

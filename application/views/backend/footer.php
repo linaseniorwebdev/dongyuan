@@ -10,9 +10,17 @@
 <script src="public/backend/js/core/app.js"></script>
 <script src="public/backend/vendors/js/extensions/sweetalert.min.js"></script>
 
+<!-- Switchery -->
 <?php
-if (isset($name))
+if (isset($switchery)) {
+	echo '<script src="public/backend/vendors/js/forms/toggle/switchery.min.js"></script>';
+}
+?>
+
+<?php
+if (isset($name)) {
 	echo '<script src="public/backend/custom/' . $name . '.js"></script>';
+}
 ?>
 
 </body>

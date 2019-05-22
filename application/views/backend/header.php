@@ -24,8 +24,16 @@
 
 	<!-- Font Icons -->
 	<?php
-	if (isset($lineawesome))
+	if (isset($lineawesome)) {
 		echo '<link rel="stylesheet" href="public/backend/fonts/line-awesome/css/line-awesome.min.css">';
+	}
+	?>
+
+	<!-- Switchery -->
+	<?php
+	if (isset($switchery)) {
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/forms/toggle/switchery.min.css">';
+	}
 	?>
 
 	<style>
