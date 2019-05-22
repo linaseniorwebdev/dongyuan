@@ -16,7 +16,7 @@ class Cities_model extends CI_Model {
 	 * @return array
 	 */
 	public function get_all_cities($province_id) {
-		$this->db->order_by('id', 'desc');
+		$this->db->order_by('id', 'asc');
 		return $this->db->get_where('cities', array('province' => $province_id))->result_array();
 	}
 

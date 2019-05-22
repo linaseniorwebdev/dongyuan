@@ -1,7 +1,4 @@
 <!-- BEGIN::Body -->
-<?php
-
-?>
 <style>
 	.table td, .table th {
 		vertical-align: middle;
@@ -73,7 +70,7 @@
 											echo '<td><a href="' . base_url('admin/category?l=' . (1 + (int)$level) . '&i=' . $row['id']) . '">' . $row['name'] . '</a></td>';
 										}
 										echo '<td class="text-center">' . (((int)$row['status'] === 1)?'<i class="la la-check text-success"></i>':'<i class="la la-times text-danger"></i>') . '</td>';
-										echo '<td class="text-center"><input type="hidden" value="' . $row['id'] . '" /><input type="hidden" value="' . $row['name'] . '" /><input type="hidden" value="' . $row['status'] . '" /><a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="editItem(this)"><i class="la la-pencil"></i></a> <a href="javascript:void(0)" class="btn btn-sm btn-danger"><i class="la la-trash"></i></a></td>';
+										echo '<td class="text-center"><input type="hidden" value="' . $row['id'] . '" /><input type="hidden" value="' . $row['name'] . '" /><input type="hidden" value="' . $row['status'] . '" /><a href="javascript:void(0)" class="btn btn-sm btn-success" onclick="editItem(this)"><i class="la la-pencil"></i></a> <a href="javascript:void(0)" class="btn btn-sm btn-danger"  onclick="deleteItem(this)"><i class="la la-trash"></i></a></td>';
 										echo '</tr>';
 									}
 								} else {

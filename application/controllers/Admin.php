@@ -126,6 +126,7 @@ class Admin extends Base {
 					'name' => 'category',
 					'switchery' => true
 				);
+
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
@@ -175,13 +176,37 @@ class Admin extends Base {
 	public function address() {
 		if ($this->login) {
 			if ($this->privilege('address')) {
-				$hparams = array('title' => '地址管理', 'lineawesome' => true);
-				$fparams = array();
+				$type = isset($_GET['type'])?$_GET['type']:'province';
+				$id   = null;
+				$data = array();
+
+				if ($type === 'province') {
+					$this->load->model('Provinces_model');
+					$data['rows'] = $this->Provinces_model->get_all_provinces();
+				} else {
+					$id = $_GET['data'];
+					$this->load->model('Cities_model');
+					$data['rows'] = $this->Cities_model->get_all_cities($id);
+				}
+
+				$data['type'] = $type;
+				$data['data'] = $id;
+
+				$hparams = array(
+					'title' => '地址管理',
+					'lineawesome' => true,
+					'switchery' => true
+				);
+				$fparams = array(
+					'name' => 'address',
+					'switchery' => true
+				);
+
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
 				$this->load->view('backend/sidebar', array('com' => 'address'));
-				$this->load->view('backend/address');
+				$this->load->view('backend/address', $data);
 				$this->load_footer($fparams, true);
 			} else {
 				$this->not_authorized();

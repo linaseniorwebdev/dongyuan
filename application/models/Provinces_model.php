@@ -14,7 +14,7 @@ class Provinces_model extends CI_Model {
 	 * Get all provinces
 	 */
 	public function get_all_provinces() {
-		$this->db->order_by('id', 'desc');
+		$this->db->order_by('id', 'asc');
 		return $this->db->get('provinces')->result_array();
 	}
 

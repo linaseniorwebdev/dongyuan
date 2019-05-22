@@ -1,4 +1,4 @@
-let curLevel, curID, switchery, changeCheckbox;
+let curType, curData, switchery, changeCheckbox;
 
 $(document).ready(function() {
 	changeCheckbox = document.querySelector('.switchery');
@@ -9,8 +9,8 @@ $(document).ready(function() {
 });
 
 function addItem(obj) {
-	curLevel = obj.previousElementSibling.previousElementSibling.value;
-	curID    = obj.previousElementSibling.value;
+	curType = obj.previousElementSibling.previousElementSibling.value;
+	curData = obj.previousElementSibling.value;
 	$('#addModal').modal('toggle');
 }
 
@@ -35,11 +35,11 @@ function addItemConfirm() {
 	}
 
 	$.post(
-		'../api/category/create',
+		'../api/address/create',
 		{
-			level   : curLevel,
-			parent  : curID,
-			name    : name
+			type : curType,
+			data : curData,
+			name : name
 		},
 		function(respond) {
 			location.reload();
@@ -60,6 +60,7 @@ function editItem(obj) {
 
 function deleteItem(obj) {
 	let delID = obj.parentElement.firstElementChild.value;
+	let delTP = obj.previousElementSibling.value;
 
 	swal({
 		title: "确定吗？",
@@ -83,9 +84,10 @@ function deleteItem(obj) {
 	}).then(isConfirm => {
 		if (isConfirm) {
 			$.post(
-				'../api/category/delete',
+				'../api/address/delete',
 				{
-					id  : delID
+					id  : delID,
+					type: delTP
 				},
 				function (respond) {
 					location.reload();
