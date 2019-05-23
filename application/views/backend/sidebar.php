@@ -12,11 +12,14 @@
 			<li class="nav-item<?php if ($com === 'user') echo ' active'; ?>">
 				<a href="<?=base_url('admin/user')?>"><i class="la la-users"></i> 用户管理</a>
 			</li>
+			<li class="nav-item<?php if ($com === 'address') echo ' active'; ?>">
+				<a href="<?=base_url('admin/address?type=province')?>"><i class="la la-map-marker"></i> 地址管理</a>
+			</li>
 			<li class="nav-item<?php if ($com === 'category') echo ' active'; ?>">
 				<a href="<?=base_url('admin/category')?>"><i class="la la-tag"></i> 分类管理</a>
 			</li>
-			<li class="nav-item<?php if ($com === 'address') echo ' active'; ?>">
-				<a href="<?=base_url('admin/address?type=province')?>"><i class="la la-map-marker"></i> 地址管理</a>
+			<li class="nav-item<?php if ($com === 'brand') echo ' active'; ?>">
+				<a href="<?=base_url('admin/brand')?>"><i class="la la-tags"></i> 品牌管理</a>
 			</li>
 			<li class="nav-item<?php if ($com === 'inventory') echo ' active'; ?>">
 				<a href="<?=base_url('admin/inventory')?>"><i class="la la-automobile"></i> 库存管理</a>

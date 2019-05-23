@@ -14,7 +14,7 @@ class Brands_model extends CI_Model {
 	 * Get all brands
 	 */
 	public function get_all_brands() {
-		$this->db->order_by('id', 'desc');
+		$this->db->order_by('id', 'asc');
 		return $this->db->get('brands')->result_array();
 	}
 

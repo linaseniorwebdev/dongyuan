@@ -217,6 +217,71 @@ class Admin extends Base {
 	}
 
 	/**
+	 * 品牌管理
+	 */
+	public function brand($com = null, $sub = null) {
+		if ($this->login) {
+			if ($this->privilege('brand')) {
+				if ($com === 'create') {
+					$hparams = array(
+						'title' => '品牌管理',
+						'lineawesome' => true
+					);
+					$fparams = array();
+
+					$user = $this->user->getUsername();
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', array('com' => 'brand'));
+					$this->load->view('backend/brand/create');
+					$this->load_footer($fparams, true);
+				} elseif ($com === 'edit') {
+					$hparams = array(
+						'title' => '品牌管理',
+						'lineawesome' => true,
+						'switchery' => true
+					);
+					$fparams = array(
+						'switchery' => true
+					);
+
+					$this->load->model('Brands_model');
+					$data = $this->Brands_model->get_by_id($sub);
+
+					$user = $this->user->getUsername();
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', array('com' => 'brand'));
+					$this->load->view('backend/brand/edit', array('row' => $data));
+					$this->load_footer($fparams, true);
+				} else {
+					$hparams = array(
+						'title' => '品牌管理',
+						'lineawesome' => true
+					);
+					$fparams = array(
+						'name' => 'brand'
+					);
+
+					$this->load->model('Brands_model');
+					$data = $this->Brands_model->get_all_brands();
+
+					$user = $this->user->getUsername();
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', array('com' => 'brand'));
+					$this->load->view('backend/brand', array('rows' => $data));
+					$this->load_footer($fparams, true);
+				}
+			} else {
+				$this->not_authorized();
+			}
+		} else {
+			redirect('admin/signin');
+		}
+	}
+
+	/**
 	 * 库存管理
 	 */
 	public function inventory() {
