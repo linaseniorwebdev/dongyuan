@@ -188,6 +188,10 @@ class Api extends Base {
 	public function inventory($com = 'list') {
 		$this->load->model('Inventories_model');
 		if ($com === 'list') {
+			$this->load->model('Api_model');
+			$this->Api_model->setTable('inventories');
+			$this->Api_model->setColumnSearch(array('name', 'brief', 'serial_no'));
+
 			$data = array();
 
 			$inventories = $this->Inventories_model->getRows($_POST);
