@@ -29,12 +29,6 @@ if (isset($cropper)) {
 <?php
 if (isset($datatable)) {
 	echo '<script src="public/backend/vendors/js/tables/datatable/datatables.min.js"></script>';
-	echo '<script src="public/backend/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>';
-	echo '<script src="public/backend/vendors/js/tables/buttons.colVis.min.js"></script>';
-	echo '<script src="public/backend/vendors/js/tables/datatable/dataTables.colReorder.min.js"></script>';
-	echo '<script src="public/backend/vendors/js/tables/datatable/dataTables.buttons.min.js"></script>';
-	echo '<script src="public/backend/vendors/js/tables/datatable/buttons.bootstrap4.min.js"></script>';
-	echo '<script src="public/backend/vendors/js/tables/datatable/dataTables.fixedHeader.min.js"></script>';
 }
 ?>
 

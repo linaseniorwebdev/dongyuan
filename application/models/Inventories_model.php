@@ -68,6 +68,20 @@ class Inventories_model extends CI_Model {
 	 * @return array
 	 */
 	public function get_by_id($inventory_id) {
-		return $this->db->get_where('inventories', array('id' => $inventory_id))->row_array();
+		$row = $this->db->get_where('inventories', array('id' => $inventory_id))->row_array();
+
+		if ($row['images']) {
+			$row['images'] = unserialize($row['images']);
+		}
+
+		if ($row['brands']) {
+			$row['brands'] = unserialize($row['brands']);
+		}
+
+		if ($row['branches']) {
+			$row['branches'] = unserialize($row['branches']);
+		}
+
+		return $row;
 	}
 }

@@ -189,21 +189,53 @@ class Api extends Base {
 		$this->load->model('Inventories_model');
 		if ($com === 'list') {
 			$this->load->model('Api_model');
+
 			$this->Api_model->setTable('inventories');
 			$this->Api_model->setColumnSearch(array('name', 'brief', 'serial_no'));
 
+			$this->load->model('Categories_model');
+			$this->load->model('Brands_model');
+
 			$data = array();
 
-			$inventories = $this->Inventories_model->getRows($_POST);
-
+			$inventories = $this->Api_model->getRows($_POST);
+			// #, 分类, 名称, 描述, 图片, 品牌, 型号, 更新日期, 状态, 操作
+			$idx = 0;
 			foreach ($inventories as $inventory) {
-				$data[] = array($type->id, $type->value, $status, null);
+				$idx++;
+
+				// Category Processing...
+				$level1 = $this->Categories_model->get_by_id($inventory->level_one);
+				$level2 = $this->Categories_model->get_by_id($inventory->level_two);
+				$level3 = $this->Categories_model->get_by_id($inventory->level_three);
+				$category = $level1['name'] . ' → ' . $level2['name'] . ' → ' . $level3['name'];
+
+				// Image Processing...
+				$image = '';
+				$rows_image = array();
+				if ($inventory->images) {
+					$rows_image = unserialize($inventory->images);
+					$image = '<img src="' . $rows_image[0] . '" style="width: 40px;" alt="Image" />';
+				}
+
+				// Brand Processing...
+				$brand = '';
+				$rows_brand = array();
+				if ($inventory->brands) {
+					$rows_brand = unserialize($inventory->brands);
+					$brand_row = $this->Brands_model->get_by_id($rows_brand[0]);
+					$brand = '<img src="' . $brand_row['image'] . '" style="width: 40px;" alt="Image" />';
+				}
+
+				$updated = date( 'Y年m月d日', strtotime($inventory->updated_at));
+
+				$data[] = array($idx, $category, $inventory->name, $inventory->brief, $image, $brand, $inventory->serial_no, $updated, $inventory->status, null, json_encode($rows_image), json_encode($rows_brand));
 			}
 
 			$output = array(
 				'draw' => $_POST['draw'],
-				'recordsTotal' => $this->Inventories_model->countAll(),
-				'recordsFiltered' => $this->Inventories_model->countFiltered($_POST),
+				'recordsTotal' => $this->Api_model->countAll(),
+				'recordsFiltered' => $this->Api_model->countFiltered($_POST),
 				'data' => $data,
 			);
 

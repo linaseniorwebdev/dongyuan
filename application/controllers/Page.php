@@ -102,6 +102,10 @@ class Page extends CI_Controller {
 		$productId = $this->input->get('productId');
 
 		$product_data = $this->Inventories_model->get_by_id($productId);
+
+//		var_dump($product_data['images']);
+//		exit();
+
 		$data['product_info'] = $product_data;
 
 //		foreach ($product_data['related'] as $row){
@@ -135,12 +139,23 @@ class Page extends CI_Controller {
 			$data['more_goods'] = $products;
 		}
 
-		$brand_data = $this->Brands_model->get_by_id($product_data['brands']);
+		$brand_data = $this->Brands_model->get_by_id($product_data['brands'][0]);
 		$data['brand'] = $brand_data;
 
-		$this->load->view('front/header', $data);
-		$this->load->view('front/goodsInfo', $data);
-		$this->load->view('front/footer');
+//		var_dump($product_data['branches']);
+//		exit();
+
+        $userInfo = $this->getUserInfo();
+        if (!$userInfo){
+            $this->load->view('front/header', $data);
+            $this->load->view('front/goodsInfo', $data);
+            $this->load->view('front/footer', $data);
+        }else {
+            $data['userdata'] = $userInfo;
+            $this->load->view('front/header', $data);
+            $this->load->view('front/goodsInfo', $data);
+            $this->load->view('front/footer', $data);
+        }
 	}
 
 	public function cartList() {
@@ -204,19 +219,20 @@ class Page extends CI_Controller {
             'title' => '商品详情',
             'userdata' => '',
         );
+        $this->load->view('front/searchList', $data);
         $categoryId = $this->input->get('categoryId');
 
-        $userInfo = $this->getUserInfo();
-        if (!$userInfo){
-            $this->load->view('front/header', $data);
-            $this->load->view('front/searchList', $data);
-            $this->load->view('front/footer');
-        }else {
-            $data['userdata'] = $userInfo;
-            $this->load->view('front/header', $data);
-            $this->load->view('front/searchList', $data);
-            $this->load->view('front/footer', $data);
-        }
+//        $userInfo = $this->getUserInfo();
+//        if (!$userInfo){
+//            $this->load->view('front/header', $data);
+//            $this->load->view('front/searchList', $data);
+//            $this->load->view('front/footer');
+//        }else {
+//            $data['userdata'] = $userInfo;
+//            $this->load->view('front/header', $data);
+//            $this->load->view('front/searchList', $data);
+//            $this->load->view('front/footer', $data);
+//        }
     }
 
 }

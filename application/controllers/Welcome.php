@@ -19,8 +19,8 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index() {
-		$this->load->model('Permissions_model');
-		$data = $this->Permissions_model->get_table_fields();
+		$this->load->model('Inventories_model');
+		$data = $this->Inventories_model->get_by_id(1);
 		var_dump($data);
 	}
 }

@@ -301,12 +301,10 @@ class Admin extends Base {
 				if ($com === 'create') {
 					$hparams = array(
 						'title' => '添加新库存',
-						'lineawesome' => true,
-						'cropper' => true
+						'lineawesome' => true
 					);
 					$fparams = array(
-						'name' => 'brand/create',
-						'cropper' => true
+						'name' => 'inventory/create'
 					);
 
 					$user = $this->user->getUsername();
@@ -319,13 +317,11 @@ class Admin extends Base {
 					$hparams = array(
 						'title' => '编辑库存',
 						'lineawesome' => true,
-						'switchery' => true,
-						'cropper' => true
+						'switchery' => true
 					);
 					$fparams = array(
-						'name' => 'brand/edit',
-						'switchery' => true,
-						'cropper' => true
+						'name' => 'inventory/edit',
+						'switchery' => true
 					);
 
 					$this->load->model('Brands_model');

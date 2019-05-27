@@ -17,16 +17,11 @@ $(document).ready(function() {
 		columnDefs: [
 			{
 				targets: [0],
-				width: '20px',
 				className: 'text-center',
 				orderable: false
 			},
 			{
 				targets: [1],
-				width: '32px',
-				render: function ( data, type, row ) {
-					return '<img src="../../' + data + '" style="width: 80px;" />';
-				},
 				orderable: false
 			},
 			{
@@ -35,7 +30,6 @@ $(document).ready(function() {
 			},
 			{
 				targets: [3],
-				className: 'text-center',
 				orderable: false
 			},
 			{
@@ -48,29 +42,30 @@ $(document).ready(function() {
 			},
 			{
 				targets: [6],
-				className: 'text-center',
 				orderable: false
 			},
 			{
 				targets: [7],
-				className: 'text-center',
 				orderable: false
 			},
 			{
 				targets: [8],
-				width: '32px',
 				className: 'text-center',
-				render: function ( data, type, row ) {
-					return data;
+				render: function(data, type, row) {
+					if (parseInt(data) === 1) {
+						return '<i class="la la-check text-success"></i>';
+					}
+					return '<i class="la la-times text-danger"></i>';
 				},
 				orderable: false
 			},
 			{
 				targets: [9],
-				width: '80px',
-				render: function ( data, type, row ) {
-					let buffer = '<button type="button" class="btn btn-info round box-shadow-1" onclick="linkto(this)">链接通道</button>';
-					buffer += ('<input type="hidden" value="' + row[0] + '" />');
+				render: function(data, type, row) {
+					let buffer = '<input type="hidden" value="' + row[0] + '" />';
+					buffer += ('<input type="hidden" value="' + row[10] + '" />');
+					buffer += ('<button type="button" class="btn btn-info round box-shadow-1" onclick="modifyItem(this)">编辑</button>');
+					buffer += ('<button type="button" class="btn btn-danger round box-shadow-1" onclick="deleteItem(this)">编辑</button>');
 					return buffer;
 				},
 				orderable: false
@@ -102,6 +97,10 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function modifyItem(obj) {
+	console.log(obj.previousElementSibling.value);
+}
 
 function deleteItem(obj) {
 	let delID = obj.previousElementSibling.value;

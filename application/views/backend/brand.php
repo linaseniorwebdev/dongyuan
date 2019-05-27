@@ -25,20 +25,23 @@
 								<thead>
 								<tr>
 									<th>#</th>
-									<th>名称</th>
+									<th>分类</th>
+									<th>图片 / 名称</th>
 									<th class="text-center">状态</th>
 									<th class="text-center">操作</th>
 								</tr>
 								</thead>
 								<tbody>
 								<?php
+								$types = array(1 => '厂家品牌', 2 => '车型品牌', 3 => '机型品牌');
 								if ($rows) {
 									$idx = 0;
 									foreach ($rows as $row) {
 										$idx++;
 										echo '<tr>';
 										echo '<td>' . $idx . '</td>';
-										echo '<td>' . $row['name'] . '</td>';
+										echo '<td>' . $types[$row['type']] . '</td>';
+										echo '<td><img src="' . ($row['image'] ?:base_url('public/uploads/brands/no_image.png')) . '" style="width: 40px; margin-right: 15px;" alt="Brand Image" />' . $row['name'] . '</td>';
 										echo '<td class="text-center">' . (((int)$row['status'] === 1)?'<i class="la la-check text-success"></i>':'<i class="la la-times text-danger"></i>') . '</td>';
 										echo '<td class="text-center"><a href="' . base_url('admin/brand/edit/' . $row['id']) . '" class="btn btn-sm btn-success""><i class="la la-pencil"></i></a> <input type="hidden" value="' . $row['id'] . '" /> <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="deleteItem(this)"><i class="la la-trash"></i></a></td>';
 										echo '</tr>';
