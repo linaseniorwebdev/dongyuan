@@ -49,7 +49,7 @@
                     <div class="thumbnail-box goods-info text-center">
                         <div class="main-pic-box">
                             <img id="main-pic" class="main-pic"
-                                 src="<?php echo "public/uploads/goods/".$product_info['thumbnail'];?>" alt="">
+                                 src="<?php echo $product_info['images'][0] ;?>" alt="">
                         </div>
                         <div class="goods-gallery">
                             <ul class="production-ul">
@@ -62,12 +62,11 @@
                                     <div class="swiper-container">
                                         <div class="swiper-wrapper">
                                             <?php
-                                            foreach ($gallery as $item) {
-                                                $gallery_img = "public/uploads/gallery/".$item['image'];
+                                            foreach ($product_info['images'] as $item) {
                                                 ?>
                                                 <div class="swiper-slide">
                                                     <div class="text-center product-item">
-                                                        <img class="product-img" src="<?php echo $gallery_img;?>">
+                                                        <img class="product-img" src="<?php echo $item;?>">
                                                     </div>
                                                 </div>
                                                 <?php
@@ -88,13 +87,13 @@
                     <div class="goods-intruduction-box goods-info">
                         <div class="goods-info-header goods-info-div-9">
                             <p class="title"><?php echo $product_info['name'];?></p>
-                            <p class="remarks">1、Cr-V材质，热处理，表面电镀 2：双色手柄，握持舒适。 2：双色手柄</p>
+                            <p class="remarks"><?php echo $product_info['brief'];?></p>
                         </div>
                         <div class="goods-info-price goods-info-div-10">
                             <ul>
                                 <li class="tag-name-li"><span class="tag-name-first">价</span>格：</li>
                                 <li class="tag-content-li price-li"><span class="small">￥</span><span
-                                        class="price"><?php echo $product_info['price'];?></span></li>
+                                        class="price"><?php echo $product_info['branches']['price'];?></span></li>
                             </ul>
                         </div>
                         <div class="goods-info-config goods-info-div-9">
@@ -105,16 +104,20 @@
                                         <li class="tag-content-li"><span class="tag-name-last"><?php echo $brand['name'];?></span></li>
                                     </ul>
                                 </li>
-                                <li class="goods-info-config-li">
-                                    <ul>
-                                        <li class="tag-name-li"><span class="tag-name-first">配</span>送：</li>
-                                        <li class="tag-content-li"><span class="tag-name-last">东风斯达康</span></li>
-                                    </ul>
-                                </li>
+<!--                                <li class="goods-info-config-li">-->
+<!--                                    <ul>-->
+<!--                                        <li class="tag-name-li"><span class="tag-name-first">配</span>送：</li>-->
+<!--                                        <li class="tag-content-li"><span class="tag-name-last">东风斯达康</span></li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
                                 <li class="goods-info-config-li">
                                     <ul>
                                         <li class="tag-name-li"><span class="tag-name-first">型</span>号：</li>
-                                        <li class="tag-content-li"><span class="tag-name-last"><?=(isset($product_info['serial_no']) ? $product_info['serial_no'] : '默认')?></span></li>
+                                        <li class="tag-content-li">
+                                            <span class="tag-name-last">
+                                                <?=(isset($product_info['serial_no']) ? $product_info['serial_no'] : '默认')?>
+                                            </span>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="goods-info-config-li">
@@ -146,10 +149,10 @@
                                         <li class="tag-name-li" style="color: #737373;"><span
                                                 class="tag-name-first">规</span>格：</li>
                                         <li class="tag-content-li">
-                                            <span class="goods-specification active">7米</span>
-                                            <span class="goods-specification">8米</span>
-                                            <span class="goods-specification">9米</span>
-                                            <span class="goods-specification">9米</span>
+                                            <?php
+                                            foreach ($product_info['branches'] as $item){
+                                            ?>
+                                            <span class="goods-specification active"><?php echo $item['model'];?></span>
                                         </li>
                                     </ul>
                                 </li>
@@ -214,11 +217,14 @@
                 <table class="table table-striped table-hover table-responsive table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-center">订货号</th>
+                        <th class="text-center">商品列表</th>
+                        <th class="text-center">品牌</th>
                         <th class="text-center">型号</th>
                         <th class="text-center">规格</th>
                         <th class="text-center">价格</th>
-                        <th class="text-center">数量</th>
+                        <th class="text-center">产地</th>
+                        <th class="text-center">订购数量</th>
+                        <th class="text-center">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -226,31 +232,35 @@
                         <?php
                         foreach ($more_goods as $item) {
                             ?>
-                            <td class="text-center"><?php echo $item['order_num']?></td>
-                            <td class="text-center"><?php echo $item['serial_no']?></td>
-                            <td class="text-center"><?php echo $item['alternative']?></td>
-                            <td class="text-center"><?php echo $item['price']?></td>
-                            <td class="text-center opration">
-                                <div class="opration-item">
-                                    <div class="input-group text-right">
+                        <td class="text-center">2929282</td>
+                        <td class="text-center">02728A</td>
+                        <td class="text-center">02728A</td>
+                        <td class="text-center">5*2721+38</td>
+                        <td class="text-center">5*2721+38</td>
+                        <td class="text-center">¥198.00</td>
+                        <td class="text-center">¥198.00</td>
+                        <td class="text-center opration">
+                            <div class="opration-item">
+                                <div class="input-group text-right">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default btn-cut" type="button"><i
                                                             class="fa fa-minus"></i></button>
                                             </span>
-                                        <input type="text" data-price="169" data-max='999' data-min="15"
-                                               class="form-control input-numbox" oninput="countAmount(this)"
-                                               placeholder="0" value="15">
-                                        <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
-                                    </div>
+                                    <input type="text" data-price="169" data-max='999' data-min="15"
+                                           class="form-control input-numbox" oninput="countAmount(this)"
+                                           placeholder="0" value="15">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-add" type="button">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </span>
                                 </div>
-                                <div class="opration-item">
-                                    <button type="button" class="btn btn-primary btn-xs"><i
-                                                class="fa fa-fw fa-shopping-cart"></i></button>
-                                </div>
-                            </td>
+                            </div>
+                            <div class="opration-item">
+                                <button type="button" class="btn btn-primary btn-xs"><i
+                                            class="fa fa-fw fa-shopping-cart"></i></button>
+                            </div>
+                        </td>
 
                     </tr>
                     <?php

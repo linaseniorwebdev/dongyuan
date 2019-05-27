@@ -218,16 +218,22 @@ class Admin extends Base {
 
 	/**
 	 * 品牌管理
+	 * @param null $com
+	 * @param null $sub
 	 */
 	public function brand($com = null, $sub = null) {
 		if ($this->login) {
 			if ($this->privilege('brand')) {
 				if ($com === 'create') {
 					$hparams = array(
-						'title' => '品牌管理',
-						'lineawesome' => true
+						'title' => '添加新品牌',
+						'lineawesome' => true,
+						'cropper' => true
 					);
-					$fparams = array();
+					$fparams = array(
+						'name' => 'brand/create',
+						'cropper' => true
+					);
 
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
@@ -237,12 +243,15 @@ class Admin extends Base {
 					$this->load_footer($fparams, true);
 				} elseif ($com === 'edit') {
 					$hparams = array(
-						'title' => '品牌管理',
+						'title' => '编辑品牌',
 						'lineawesome' => true,
-						'switchery' => true
+						'switchery' => true,
+						'cropper' => true
 					);
 					$fparams = array(
-						'switchery' => true
+						'name' => 'brand/edit',
+						'switchery' => true,
+						'cropper' => true
 					);
 
 					$this->load->model('Brands_model');
@@ -256,7 +265,7 @@ class Admin extends Base {
 					$this->load_footer($fparams, true);
 				} else {
 					$hparams = array(
-						'title' => '品牌管理',
+						'title' => '所有品牌',
 						'lineawesome' => true
 					);
 					$fparams = array(
@@ -283,18 +292,68 @@ class Admin extends Base {
 
 	/**
 	 * 库存管理
+	 * @param null $com
+	 * @param null $sub
 	 */
-	public function inventory() {
+	public function inventory($com = null, $sub = null) {
 		if ($this->login) {
 			if ($this->privilege('inventory')) {
-				$hparams = array('title' => '库存管理', 'lineawesome' => true);
-				$fparams = array();
-				$user = $this->user->getUsername();
-				$this->load_header($hparams, true);
-				$this->load->view('backend/topbar', array('username' => $user));
-				$this->load->view('backend/sidebar', array('com' => 'inventory'));
-				$this->load->view('backend/inventory');
-				$this->load_footer($fparams, true);
+				if ($com === 'create') {
+					$hparams = array(
+						'title' => '添加新库存',
+						'lineawesome' => true,
+						'cropper' => true
+					);
+					$fparams = array(
+						'name' => 'brand/create',
+						'cropper' => true
+					);
+
+					$user = $this->user->getUsername();
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', array('com' => 'brand'));
+					$this->load->view('backend/brand/create');
+					$this->load_footer($fparams, true);
+				} elseif ($com === 'edit') {
+					$hparams = array(
+						'title' => '编辑库存',
+						'lineawesome' => true,
+						'switchery' => true,
+						'cropper' => true
+					);
+					$fparams = array(
+						'name' => 'brand/edit',
+						'switchery' => true,
+						'cropper' => true
+					);
+
+					$this->load->model('Brands_model');
+					$data = $this->Brands_model->get_by_id($sub);
+
+					$user = $this->user->getUsername();
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', array('com' => 'brand'));
+					$this->load->view('backend/brand/edit', array('row' => $data));
+					$this->load_footer($fparams, true);
+				} else {
+					$hparams = array(
+						'title' => '所有库存',
+						'lineawesome' => true,
+						'datatable' => true
+					);
+					$fparams = array(
+						'name' => 'inventory',
+						'datatable' => true
+					);
+					$user = $this->user->getUsername();
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', array('com' => 'inventory'));
+					$this->load->view('backend/inventory');
+					$this->load_footer($fparams, true);
+				}
 			} else {
 				$this->not_authorized();
 			}

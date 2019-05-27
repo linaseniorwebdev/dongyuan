@@ -19,7 +19,7 @@ class Brands_model extends CI_Model {
 		$this->db->order_by('id', 'asc');
 
 		if ($status){
-			return $this->db->get('brands', array('status' => $status))->result_array();
+			return $this->db->get_where('brands', array('status' => $status))->result_array();
         }
 
 		return $this->db->get('brands')->result_array();

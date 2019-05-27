@@ -6,22 +6,6 @@ class Inventories_model extends CI_Model {
 	 * Get all fields of table
 	 * @return mixed
 	 */
-    protected $dbtable;
-    protected $cate_table;
-
-
-    protected $primaryKey  = 'id';
-    protected $inventory_name  = 'name';
-    protected $created_at  = 'created_at';
-    protected $updated_at  = 'updated_at';
-
-    public function __construct()
-    {
-        $this->load->database();
-        $this->dbtable     = $this->db->dbprefix('inventories');
-        $this->cate_table     = $this->db->dbprefix('categories');
-    }
-
 	public function get_table_fields() {
 		return $this->db->list_fields('inventories');
 	}
@@ -34,32 +18,15 @@ class Inventories_model extends CI_Model {
 		return $this->db->get('inventories')->result_array();
 	}
 
-	public function get_inventories($one_lv = null) {
-
-        $this->db->select($this->dbtable.".*");
-        $this->db->from($this->dbtable);
-        if($one_lv != null) $this->db->where('one_level = '.$one_lv);
-
-        $this->db->order_by($this->primaryKey, 'asc');
-        $query = $this->db->get();
-
-        return $result = $query->result_array();
-    }
-
-    public function get_by_level($one_lv = 0, $two_lv = 0, $three_lv = 0) {
-	    $cond = array(
-	        'one_level' => $one_lv,
-	        'two_level' => $two_lv,
-            'three_level' => $three_lv
-        );
-        $this->db->select($this->dbtable.".*");
-        $this->db->from($this->dbtable);
-        $this->db->where($cond);
-
-        $this->db->order_by($this->primaryKey, 'asc');
-        $query = $this->db->get();
-
-        return $result = $query->result_array();
+	/**
+	 * Get inventories by level
+	 * @param $level
+	 * @param $level_id
+	 * @return mixed
+	 */
+    public function get_by_level($level, $level_id) {
+	    $this->db->order_by('id', 'asc');
+	    return $this->db->get_where('inventories', array('level_' . $level, $level_id))->result_array();
     }
 
 	/**

@@ -36,6 +36,26 @@
 	}
 	?>
 
+	<!-- Image Cropper -->
+	<?php
+	if (isset($cropper)) {
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/jasny-bootstrap/jasny-bootstrap.css" />';
+		echo '<link rel="stylesheet" href="public/backend/css/plugins/images/cropper/cropper.css">';
+	}
+	?>
+
+	<!-- Datatable -->
+	<?php
+	if (isset($datatable)) {
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/tables/datatable/buttons.bootstrap4.min.css" />';
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/tables/datatable/datatables.min.css" />';
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/tables/extensions/buttons.dataTables.min.css" />';
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/tables/extensions/colReorder.dataTables.min.css" />';
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/tables/extensions/fixedHeader.dataTables.min.css" />';
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/tables/extensions/responsive.dataTables.min.css" />';
+	}
+	?>
+
 	<style>
 		.header-navbar .navbar-container ul.nav li a.nav-link-search, .header-navbar .navbar-container ul.nav li a.nav-link-expand {
 			padding: 1.6rem 1rem 1.7rem 1rem;

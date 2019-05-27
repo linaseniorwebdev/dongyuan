@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<div class="content-body">
-			<div class="card">
+			<div class="card mb-0">
 				<div class="card-content">
 					<div class="card-body">
 						<div class="row">
@@ -49,6 +49,9 @@
 								?>
 								</tbody>
 							</table>
+						</div>
+						<div class="w-100">
+
 						</div>
 					</div>
 				</div>

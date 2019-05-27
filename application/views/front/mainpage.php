@@ -192,12 +192,11 @@
             <ul class="hot-brands-ul">
                 <?php
                 foreach ($brand as $item){
-                $brand_img = "public/uploads/brands/".$item['image'];
                 ?>
                 <li class="text-center">
 
                     <div class="v-center">
-                        <img class="brand-img" src="<?php echo $brand_img;?>">
+                        <img class="brand-img" src="<?php echo $item['image'];?>">
                     </div>
 
                     <!-- <p>{{ brand.title }}</p> -->
@@ -238,13 +237,12 @@
                                 <div class="swiper-wrapper" id="products<?php echo $key;?>">
                                     <?php
                                     foreach ($item['goods_data'] as $item2s) {
-                                    $goods_img = "public/uploads/goods/".$item2s['thumbnail'];
                                     ?>
                                     <div class="swiper-slide">
 
                                             <a class="sk_item_lk " href="#" onclick="goods_detail(this, <?php echo $item2s['id'];?>)">
                                                 <div class="text-center products-item">
-                                                    <img class="product-img" src="<?php echo $goods_img;?>">
+                                                    <img class="product-img" src="<?php echo $item2s['images'][0];?>">
                                                 </div>
                                                 <p><?php echo $item2s['name']?></p>
                                             </a>
