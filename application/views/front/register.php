@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="page-content">
+<div class="page-content" style="background-color: #FFF">
     <div class="logo-box">
         <div class="container">
             <img class="logo" src="public/front/img/res/logo.png" alt="">

@@ -1,11 +1,10 @@
-
 <div class="main-menu-box">
     <div class="container">
         <div class="row">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs center-nav-tabs" role="tablist">
                 <li role="presentation" class="active col-sm-2" style="padding: 0;width: 18%;">
-                    <a href="" aria-controls="home" role="tab" data-toggle="tab">全部商品分类</a>
+                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab">全部商品分类</a>
                 </li>
                 <li role="presentation" class="text-center col-sm-2">
                     <a href="<?php echo base_url()?>" aria-controls="profile" role="tab" data-toggle="tab">东元商城</a>
@@ -26,61 +25,62 @@
 <input type="hidden" value="<?php echo sizeof($categories);?>" id="array_length">
 <div class="tab-content-box">
     <div class="container">
+        <!-- Tab panes -->
         <div class="tab-content">
             <div class="row">
                 <div class="col-sm-2" style="width: 18%;padding-left: 0;padding-right: 0">
-                    <div class="side-bar" style="z-index: 100;">
+                    <div class="side-bar">
                         <div class="nav-box hnavq" id="nav">
                             <div class="wrapper clf relative">
                                 <div class="menu relative fl">
-
                                     <div class="submenu">
                                         <?php
-                                            foreach ($categories as $rows) {
-                                                ?>
-                                                <div class="submenu-item">
-                                                    <div class="submenu-title">
-                                                        <div class="category_item">
-                                                            <a href="#" target="_blank"><?php echo $rows['name'];?></a>
-                                                        </div>
-                                                        <i class="fa fa-fw fa-angle-right"></i>
+                                        foreach ($categories as $rows) {
+                                            ?>
+                                            <div class="submenu-item">
+                                                <div class="submenu-title">
+                                                    <div class="category_item">
+                                                        <a href="#" target="_blank" onclick="searchList(this, <?php echo $rows['id'];?>)">
+                                                            <?php echo $rows['name'];?>
+                                                        </a>
                                                     </div>
-                                                    <div class="catetwo">
-                                                        <div class="category_row">
-                                                            <?php
-                                                            foreach ($rows['children'] as $row2s) {
-                                                                ?>
-                                                                <div class="category_column">
-                                                                    <div class="category_column_head">
-                                                                        <a href="#" target="_blank">
-                                                                            <?php echo $row2s['name'];?>
-                                                                            <i class="fa fa-fw fa-angle-right"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="cateory_item_list">
-                                                                        <?php
-                                                                        foreach ($row2s['children'] as $row3s) {
-                                                                            ?>
-                                                                            <span>
-                                                                                <span style="padding: 0 3%;">|</span>
-                                                                                <a href="#" target="_blank">
-                                                                                    <?php echo $row3s['name'];?>
-                                                                                </a>
-                                                                            </span>
-                                                                            <?php
-                                                                        }
-                                                                        ?>
-                                                                    </div>
-
-                                                                </div>
-                                                                <?php
-                                                            }
+                                                    <i class="fa fa-fw fa-angle-right"></i>
+                                                </div>
+                                                <div class="catetwo">
+                                                    <div class="category_row">
+                                                        <?php
+                                                        foreach ($rows['children'] as $row2s) {
                                                             ?>
-                                                        </div>
+                                                            <div class="category_column">
+                                                                <div class="category_column_head">
+                                                                    <a href="#" target="_blank" onclick="searchList(this, <?php echo $row2s['id'];?>)">
+                                                                        <?php echo $row2s['name'];?>
+                                                                        <i class="fa fa-fw fa-angle-right"></i>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="cateory_item_list">
+                                                                    <?php
+                                                                    foreach ($row2s['children'] as $row3s) {
+                                                                        ?>
+                                                                        <span>
+                                                                            <span style="padding: 0 3%;">|</span>
+                                                                            <a href="#" target="_blank" onclick="searchList(this, <?php echo $row3s['id'];?>)">
+                                                                                <?php echo $row3s['name'];?>
+                                                                            </a>
+                                                                        </span>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                     </div>
                                                 </div>
-                                                <?php
-                                            }
+                                            </div>
+                                            <?php
+                                        }
                                         ?>
 
                                         <div class="submenu-item last"></div>
@@ -91,34 +91,36 @@
                     </div>
                 </div>
 
-                <div class="col-sm-7" style="padding-left:0;background:rgba(255,255,255,0.86);width: 63%;">
+                <div class="col-sm-7" style="padding-left:0;width: 63%;">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
                             <?php
-                                foreach ($ads as $key=>$item) {
-                                    ?>
-                                    <li data-target="#carousel-example-generic"
-                                        class="<?php if ($key == 0) echo 'active';?>" data-slide-to="<?php echo $key;?>"></li>
-                                    <?php
-                                }
+                            foreach ($ads as $key=>$item) {
+                                ?>
+                                <li data-target="#carousel-example-generic"
+                                    class="<?php if ($key == 0) echo 'active'; ?>" data-slide-to="<?php echo $key; ?>">
+
+                                </li>
+                                <?php
+                            }
                             ?>
                         </ol>
 
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <?php
-                                foreach ($ads as $key=>$item) {
-                                    $ads_url = './public/uploads/ads/'.$item['image'];
-                                    ?>
-                                    <div class="item <?php if ($key == 0) echo 'active';?>">
-                                        <img class="carousel-img" src="<?php echo $ads_url;?>">
-                                        <div class="carousel-caption">
-<!--                                            --><?php //echo $item['title'];?>
-                                        </div>
+                            foreach ($ads as $key=>$item) {
+                                $ads_url = './public/uploads/ads/' . $item['image'];
+                                ?>
+                                <div class="item <?php if ($key == 0) echo 'active';?>">
+                                    <img class="carousel-img" src="<?php echo $ads_url;?>">
+                                    <div class="carousel-caption">
+
                                     </div>
-                                    <?php
-                                }
+                                </div>
+                                <?php
+                            }
                             ?>
                         </div>
 
@@ -192,15 +194,14 @@
             <ul class="hot-brands-ul">
                 <?php
                 foreach ($brand as $item){
-                ?>
-                <li class="text-center">
+                    ?>
+                    <li class="text-center">
 
-                    <div class="v-center">
-                        <img class="brand-img" src="<?php echo $item['image'];?>">
-                    </div>
+                        <div class="v-center">
+                            <img class="brand-img" src="<?php echo $item['image'];?>">
+                        </div>
 
-                    <!-- <p>{{ brand.title }}</p> -->
-                </li>
+                    </li>
                     <?php
                 }
                 ?>
@@ -216,38 +217,32 @@
                 <?php
                 foreach ($categories as $key=>$item) {
                     $idx = 1;
-                ?>
-                <div id="div-length">
+                    ?>
                     <div class="production-header">
-                        <a href="#">
-                            <span class="floor-num"><?php echo $idx++;?>F</span>
-                            <?php echo $item['name'];?>
-                        </a>
-                        <a href="./searchList.html" class="view-more">查看更多<i
+                        <a href="#"><span class="floor-num"><?php echo ($key++) + 1;?>F</span><?php echo $item['name'];?></a>
+                        <a href="#" class="view-more" onclick="searchList(this, <?php echo $item['id']?>)">查看更多<i
                                     class="fa-fw fa-2x fa fa-angle-right"></i> </a>
                     </div>
-                    <ul class="production-ul">
+                    <ul class="production-ul" style="height: 270px;">
                         <li class="product-slider-parent">
-                            <div class="product-slider<?php echo $key;?> homepage product-slider prev">
+                            <div class="product-slider<?php echo $key;?> product-slider prev homepage">
                                 <i class="fa-fw fa-3x fa fa-angle-left left"></i>
                             </div>
                         </li>
-                        <li style="width:calc(100% - 80px);">
+                        <li style="width:calc(100% - 86px);">
                             <div class="swiper-container swiper-container<?php echo $key;?>">
                                 <div class="swiper-wrapper" id="products<?php echo $key;?>">
                                     <?php
                                     foreach ($item['goods_data'] as $item2s) {
-                                    ?>
-                                    <div class="swiper-slide">
-
+                                        ?>
+                                        <div class="swiper-slide">
                                             <a class="sk_item_lk " href="#" onclick="goods_detail(this, <?php echo $item2s['id'];?>)">
                                                 <div class="text-center products-item">
-                                                    <img class="product-img" src="<?php echo $item2s['images'][0];?>">
+                                                    <img class="product-img" src="<?php echo $item2s['images']; ?>">
                                                 </div>
                                                 <p><?php echo $item2s['name']?></p>
                                             </a>
-
-                                    </div>
+                                        </div>
                                         <?php
                                     }
                                     ?>
@@ -263,8 +258,7 @@
                             </div>
                         </li>
                     </ul>
-                </div>
-                <?php
+                    <?php
                 }
                 ?>
             </div>
@@ -272,8 +266,14 @@
     </div>
 </div>
 
+<!--<div class="domination"></div>-->
+
 <script type="text/javascript">
     function goods_detail(obj, idx) {
         location.href =_server_url + 'page/productinfo?productId=' + idx;
+    }
+
+    function searchList(obj, idx) {
+        location.href =_server_url + 'page/searchList?categoryId=' + idx;
     }
 </script>

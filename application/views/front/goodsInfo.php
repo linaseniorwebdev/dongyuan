@@ -1,3 +1,10 @@
+<style>
+    table thead {
+        background: #F7F7F7;
+        border: 1px solid #E3E3E3;
+    }
+</style>
+
 <div class="main-menu-box">
     <div class="container">
         <div class="row">
@@ -29,17 +36,8 @@
             <div class="col-sm-12">
                 <ol class="breadcrumb">
                     <li>首页</li>
-                    <li><?php echo $category_one['name'];?></li>
-                    <?php
-                    if (isset($category_two)) {
-                        echo '<li>'.$category_two['name'].'</li>';
-                    }
-                    if (isset($category_three)) {
-                        echo '<li>'.$category_three['name'].'</li>';
-                    }
-                    ?>
-                    <li class="active"><?php echo $product_info['name'];?></li>
-
+                    <li>发动机系统</li>
+                    <li class="active">气缸</li>
                 </ol>
             </div>
         </div>
@@ -48,36 +46,30 @@
                 <div class="goods-info-box" onselectstart="return false;">
                     <div class="thumbnail-box goods-info text-center">
                         <div class="main-pic-box">
-                            <img id="main-pic" class="main-pic"
-                                 src="<?php echo $product_info['images'][0] ;?>" alt="">
+                            <img id="main-pic" class="main-pic" src="public/front/img/product/product_4.png"
+                                 alt="">
                         </div>
                         <div class="goods-gallery">
                             <ul class="production-ul">
                                 <li class="product-slider-parent">
-                                    <div class="goods product-slider prev">
+                                    <div class="product-slider prev">
                                         <i class="fa-fw fa fa-angle-left left"></i>
                                     </div>
                                 </li>
                                 <li style="width:calc(100% - 46px);">
                                     <div class="swiper-container">
                                         <div class="swiper-wrapper">
-                                            <?php
-                                            foreach ($product_info['images'] as $item) {
-                                                ?>
-                                                <div class="swiper-slide">
-                                                    <div class="text-center product-item">
-                                                        <img class="product-img" src="<?php echo $item;?>">
-                                                    </div>
+                                            <div class="swiper-slide" v-for="p in thumbnails">
+                                                <div class="text-center product-item">
+                                                    <img class="product-img" :src="p.img" :alt="p.img">
                                                 </div>
-                                                <?php
-                                            }
-                                            ?>
+                                            </div>
                                         </div>
                                         <div class="swiper-scrollbar"></div>
                                     </div>
                                 </li>
                                 <li class="product-slider-parent">
-                                    <div class="next product-slider goods">
+                                    <div class="next product-slider">
                                         <i class="fa-fw fa fa-angle-right right"></i>
                                     </div>
                                 </li>
@@ -86,14 +78,14 @@
                     </div>
                     <div class="goods-intruduction-box goods-info">
                         <div class="goods-info-header goods-info-div-9">
-                            <p class="title"><?php echo $product_info['name'];?></p>
-                            <p class="remarks"><?php echo $product_info['brief'];?></p>
+                            <p class="title">4937728东风康明斯CUMMINS天龙/375马力汽缸密封垫（商用车包装）/4937728</p>
+                            <p class="remarks">1、Cr-V材质，热处理，表面电镀 2：双色手柄，握持舒适。 2：双色手柄</p>
                         </div>
                         <div class="goods-info-price goods-info-div-10">
                             <ul>
                                 <li class="tag-name-li"><span class="tag-name-first">价</span>格：</li>
                                 <li class="tag-content-li price-li"><span class="small">￥</span><span
-                                        class="price"><?php echo $product_info['branches']['price'];?></span></li>
+                                        class="price">169.5</span></li>
                             </ul>
                         </div>
                         <div class="goods-info-config goods-info-div-9">
@@ -101,23 +93,19 @@
                                 <li class="goods-info-config-li">
                                     <ul>
                                         <li class="tag-name-li"><span class="tag-name-first">品</span>牌：</li>
-                                        <li class="tag-content-li"><span class="tag-name-last"><?php echo $brand['name'];?></span></li>
+                                        <li class="tag-content-li"><span class="tag-name-last">东风斯达康</span></li>
                                     </ul>
                                 </li>
-<!--                                <li class="goods-info-config-li">-->
-<!--                                    <ul>-->
-<!--                                        <li class="tag-name-li"><span class="tag-name-first">配</span>送：</li>-->
-<!--                                        <li class="tag-content-li"><span class="tag-name-last">东风斯达康</span></li>-->
-<!--                                    </ul>-->
-<!--                                </li>-->
+                                <li class="goods-info-config-li">
+                                    <ul>
+                                        <li class="tag-name-li"><span class="tag-name-first">配</span>送：</li>
+                                        <li class="tag-content-li"><span class="tag-name-last">东风斯达康</span></li>
+                                    </ul>
+                                </li>
                                 <li class="goods-info-config-li">
                                     <ul>
                                         <li class="tag-name-li"><span class="tag-name-first">型</span>号：</li>
-                                        <li class="tag-content-li">
-                                            <span class="tag-name-last">
-                                                <?=(isset($product_info['serial_no']) ? $product_info['serial_no'] : '默认')?>
-                                            </span>
-                                        </li>
+                                        <li class="tag-content-li"><span class="tag-name-last">W9105</span></li>
                                     </ul>
                                 </li>
                                 <li class="goods-info-config-li">
@@ -126,18 +114,23 @@
                                         <li class="tag-content-li goods-info-count">
                                                     <span class="tag-name-last">
                                                         ≥15
-                                                        <div class="input-group text-right">
-                                                            <span class="input-group-btn">
-                                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                                        class="fa fa-minus"></i></button>
-                                                            </span>
-                                                            <input type="text" data-price="169" data-max='999'
-                                                                   data-min="15" class="form-control input-numbox"
-                                                                   oninput="countAmount(this)" placeholder="0" value="15">
-                                                            <span class="input-group-btn">
-                                                                <button class="btn btn-default btn-add" type="button"><i
-                                                                        class="fa fa-plus"></i></button>
-                                                            </span>
+                                                        <div class="opration-item">
+                                                            <div class="input-group text-right">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default btn-cut"
+                                                                            type="button"><i
+                                                                            class="fa fa-minus"></i></button>
+                                                                </span>
+                                                                <input type="text" data-price="169" data-max='999'
+                                                                       data-min="15" class="form-control input-numbox"
+                                                                       oninput="countAmount(this)" placeholder="0"
+                                                                       value="15">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-default btn-add"
+                                                                            type="button"><i
+                                                                            class="fa fa-plus"></i></button>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                         (库存有货，下单后立即发货)
                                                     </span>
@@ -149,18 +142,18 @@
                                         <li class="tag-name-li" style="color: #737373;"><span
                                                 class="tag-name-first">规</span>格：</li>
                                         <li class="tag-content-li">
-                                            <?php
-                                            foreach ($product_info['branches'] as $item){
-                                            ?>
-                                            <span class="goods-specification active"><?php echo $item['model'];?></span>
+                                            <span class="goods-specification active">7米</span>
+                                            <span class="goods-specification">8米</span>
+                                            <span class="goods-specification">9米</span>
+                                            <span class="goods-specification">9米</span>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="goods-info-footer goods-info-div-9">
-                            <button type="button" class="btn btn-default" onclick="add_order();">立即购买</button>
-                            <button type="button" class="btn btn-primary" onclick="add_cart();"><i
+                            <button type="button" class="btn btn-default">立即购买</button>
+                            <button type="button" class="btn btn-primary" onclick="addToCart()"><i
                                     class="fa fa-fw fa-shopping-cart"></i>加入购物车</button>
                         </div>
 
@@ -198,8 +191,8 @@
 </div>
 </div>
 
-<div class="domination"></div>
-<div class="domination"></div>
+<div class="domination" style="background-color: #FFF"></div>
+<div class="domination" style="background-color: #FFF"></div>
 <div class="more-goods-box">
     <div class="container">
         <div class="more-goods-header">
@@ -214,64 +207,50 @@
         </div>
         <div class="more-goods-body tab-content">
             <div role="tabpanel" class="tab-pane active" id="table-1">
-                <table class="table table-striped table-hover table-responsive table-bordered">
+                <table class="table table-responsive table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-center">商品列表</th>
-                        <th class="text-center">品牌</th>
+                        <th class="text-center">订货号</th>
                         <th class="text-center">型号</th>
                         <th class="text-center">规格</th>
                         <th class="text-center">价格</th>
-                        <th class="text-center">产地</th>
-                        <th class="text-center">订购数量</th>
-                        <th class="text-center">操作</th>
+                        <th class="text-center">数量</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <?php
-                        foreach ($more_goods as $item) {
-                            ?>
                         <td class="text-center">2929282</td>
                         <td class="text-center">02728A</td>
-                        <td class="text-center">02728A</td>
                         <td class="text-center">5*2721+38</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
                         <td class="text-center">¥198.00</td>
                         <td class="text-center opration">
                             <div class="opration-item">
                                 <div class="input-group text-right">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
+                                                        class="fa fa-minus"></i></button>
                                             </span>
                                     <input type="text" data-price="169" data-max='999' data-min="15"
                                            class="form-control input-numbox" oninput="countAmount(this)"
                                            placeholder="0" value="15">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default btn-add" type="button">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </span>
+                                                <button class="btn btn-default btn-add" type="button"><i
+                                                        class="fa fa-plus"></i></button>
+                                            </span>
                                 </div>
                             </div>
                             <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
+                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
+                                        class="fa fa-fw fa-shopping-cart"></i></button>
                             </div>
                         </td>
-
                     </tr>
-                    <?php
-                    }
-                    ?>
                     </tbody>
                 </table>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="table-2">
-                <table class="table table-striped table-hover table-responsive table-bordered">
+                <table class="table table-responsive table-bordered">
                     <thead>
                     <tr>
                         <th class="text-center">生产厂家</th>
@@ -328,27 +307,5 @@
     </div>
 </div>
 
-<div class="domination"></div>
-
-<script type="text/javascript">
-
-    function add_order() {
-        $.post(_server_url + 'Data/addOrder',
-            {},
-            function (data) {
-                var val = JSON.parse(data);
-                if(val.status == 'SUCCESS'){
-                    location.href = url_admin_path + 'Main_Controller';
-                }else if(val.status == 'BLOCKED'){
-                    $('p.msg-blocked').show();
-                }else{
-                    $('p.msg-wrong').show();
-                }
-            }
-        );
-    }
-    
-    function add_cart() {
-        
-    }
-</script>
+<div class="domination" style="background-color: #FFF"></div>
+<div class="domination" style="background-color: #FFF"></div>

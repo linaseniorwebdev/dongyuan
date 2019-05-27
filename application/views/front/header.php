@@ -84,13 +84,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-sm-8">
                                 <ul class="shortcut-search">
-                                    <li><a href="#">发动机</a></li>
+                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#">发动机</a></li>
+                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#">发动机</a></li>
+                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#">发动机</a></li>
+                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
                                 </ul>
                             </div>
                         </div>

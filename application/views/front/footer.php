@@ -1,4 +1,5 @@
 <div class="footer-domination"></div>
+<div class="footer-domination"></div>
 <div class="footer">
     <div class="footer-header">
         <div class="container">
@@ -130,6 +131,7 @@
 <script type="text/javascript" src="public/front/js/area_data.js"></script>
 <script type="text/javascript" src="public/front/js/file-upload.js"></script>
 <script type="text/javascript" src="public/front/js/common-min.js"></script>
+<script src="public/front/js/common.js"></script>
 <script src="public/front/bootstrap/js/bootstrap.min.js"></script>
 <script src="public/front/js/vue.min.js"></script>
 <script src="public/front/js/sweetalert.min.js"></script>
@@ -147,7 +149,11 @@
     if (getBrowser()) {
         layer.msg("请在Chrome谷歌内核浏览器中查看效果更佳，双核浏览器可切换Chrome内核")
     }
-    
+
+    function goodsList(obj, idx) {
+        location.href =_server_url + 'page/goodsList';
+    }
+
     function logout() {
         swal({
             title: "警告!",
@@ -162,42 +168,245 @@
                 }
             });
     }
+
+    function judgeInt(text, maxNum, minNum) {
+        var retFlag;
+        var intReg = /^[1-9]\d*|[0]$/;
+        if (intReg.test(text)) {
+            if (text > parseInt(maxNum)) {
+                retFlag = 1;
+            } else if (text < parseInt(minNum)) {
+                retFlag = -1;
+            } else {
+                retFlag = 0;
+            }
+        } else {
+            retFlag = -2;
+        }
+        return retFlag;
+    }
+
+    function countAmount(_this) {
+        var maxNum = $(_this).attr("data-max");
+        var minNum = $(_this).attr("data-min");
+        var thisVal = $(_this).val();
+        var judge = judgeInt(thisVal, maxNum, minNum);
+
+        if (thisVal == '') {
+            thisVal = minNum;
+            $(_this).val(minNum);
+        }
+
+        if (judge == 0) {
+        } else if (judge == 1) {
+            $(_this).val(thisVal.substring(0, thisVal.length - 1));
+        } else {
+            $(_this).val(minNum);
+        }
+
+        // var totalNum = 0;
+        var totalAmount = 0.00;
+        var numbox = $(".input-numbox");
+        $.each(numbox, function (index, val) {
+            var thisNum = $(val).val();
+            if (thisNum == '') {
+                thisNum = minNum;
+            }
+            var thisPrice = $(val).attr("data-price");
+            var thisAmount = accMul(parseFloat(thisNum), thisPrice);
+            totalAmount = accAdd(thisAmount, totalAmount);
+        })
+        layer.msg(totalAmount);
+        $("#sumb-price").html(totalAmount);
+    }
+
     var vm = new Vue({
         el: '#app',
         data: {
-            thumbnails: [
+            products: [
                 {
-                    id: '001',
-                    name: '东风08厂9809发动机',
-                    img: 'public/front/img/moto/01.jpg'
+                    title: '发动机系统',
+                    productions: [
+                        {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }
+                    ]
                 }, {
-                    id: '002',
-                    name: '东风08厂9809发动机',
-                    img: 'public/front/img/moto/02.jpg'
+                    title: '发动机系统',
+                    productions: [
+                        {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }
+                    ]
                 }, {
-                    id: '003',
-                    name: '东风08厂9809发动机',
-                    img: 'public/front/img/moto/03.jpg'
+                    title: '发动机系统',
+                    productions: [
+                        {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }
+                    ]
                 }, {
-                    id: '004',
-                    name: '东风08厂9809发动机',
-                    img: 'public/front/img/moto/04.jpg'
-                }, {
-                    id: '005',
-                    name: '东风08厂9809发动机',
-                    img: 'public/front/img/moto/05.jpg'
-                }, {
-                    id: '006',
-                    name: '东风08厂9809发动机市公司的个人梵蒂冈阿尔股份东风的的颁发的是吃饭',
-                    img: 'public/front/img/moto/07.jpg'
-                },
-                {
-                    id: '007',
-                    name: '',
-                    img: 'public/front/img/product/product_4.png'
+                    title: '发动机系统',
+                    productions: [
+                        {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }, {
+                            name: '东风08厂9809发动机',
+                            img: 'public/front/img/res/shangpin.png'
+                        }
+                    ]
                 }
-            ]
+            ],
+            province: '',
+            city: '',
+            ps: Area,
+            cs: []
         },
+        components: {
+            'pageHelper': {
+                template: "#page-helper",
+                data() {
+                    return {
+                        currentPage: this.pageNumber,
+                        currentSize: 20,
+                        jumpPageNumber: 1,
+                        showPrevMore: false,
+                        showNextMore: false
+                    }
+                },
+                props: {
+                    pageNumber: {   //当前页面
+                        type: Number,
+                        default: 1
+                    },
+                    totalCount: {   //总条数
+                        type: Number,
+                        default: 500
+                    },
+                    pageGroup: {   //连续页码个数
+                        type: Number,
+                        default: 5
+                    }
+                },
+                computed: {
+                    showPageHelper() {
+                        return this.totalCount > 0
+                    },
+                    totalPage() {   //总页数
+                        return Math.ceil(this.totalCount / this.currentSize);
+                    },
+                    groupList() {  //获取分页码
+                        const groupArray = []
+                        const totalPage = this.totalPage
+                        const pageGroup = this.pageGroup
+                        const _offset = (pageGroup - 1) / 2
+                        let current = this.currentPage
+                        const offset = {
+                            start: current - _offset,
+                            end: current + _offset
+                        }
+                        if (offset.start < 1) {
+                            offset.end = offset.end + (1 - offset.start)
+                            offset.start = 1
+                        }
+                        if (offset.end > totalPage) {
+                            offset.start = offset.start - (offset.end - totalPage)
+                            offset.end = totalPage
+                        }
+                        if (offset.start < 1) offset.start = 1
+                        this.showPrevMore = (offset.start > 1)
+                        this.showNextMore = (offset.end < totalPage)
+                        for (let i = offset.start; i <= offset.end; i++) {
+                            groupArray.push(i)
+                        }
+                        return groupArray
+                    }
+                },
         methods: {
             loadAreas(initFlag, rank, val) {
                 if (initFlag) {
@@ -378,7 +587,7 @@
                 })
             }
         }
-    })
+    });
 </script>
 </body>
 

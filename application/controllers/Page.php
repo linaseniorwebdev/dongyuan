@@ -63,11 +63,15 @@ class Page extends CI_Controller {
 		$brand_rows = $this->Brands_model->get_all_brands(1);
 
 		$data['categories'] = $category_rows;
+
+//		var_dump($category_rows);
+//		exit();
+
 		$data['ads'] = $ads_rows;
 		$data['brand'] = $brand_rows;
 
 		$userInfo = $this->getUserInfo();
-		if (!$userInfo['username']){
+		if (!$userInfo){
 			$this->load->view('front/header', $data);
 			$this->load->view('front/mainpage', $data);
 			$this->load->view('front/footer');
@@ -104,8 +108,6 @@ class Page extends CI_Controller {
 //		    $related_goods = $this->Inventories_model->get_by_id($row);
 //        }
 
-
-
 		$one_category_info = $this->Categories_model->get_by_id($product_data['level_one']);
 		$data['category_one'] = $one_category_info;
 
@@ -140,5 +142,81 @@ class Page extends CI_Controller {
 		$this->load->view('front/goodsInfo', $data);
 		$this->load->view('front/footer');
 	}
+
+	public function cartList() {
+        $data = array(
+            'title' => '订购清单',
+            'userdata' => '',
+        );
+
+        $userInfo = $this->getUserInfo();
+        if (!$userInfo){
+            $this->load->view('front/header', $data);
+            $this->load->view('front/shoppingCart', $data);
+            $this->load->view('front/footer');
+        }else {
+            $data['userdata'] = $userInfo;
+            $this->load->view('front/header', $data);
+            $this->load->view('front/shoppingCart', $data);
+            $this->load->view('front/footer', $data);
+        }
+
+    }
+
+    public function orderList() {
+        $data = array(
+            'title' => '我的订单',
+            'userdata' => '',
+        );
+
+        $userInfo = $this->getUserInfo();
+        if (!$userInfo){
+            $this->load->view('front/header', $data);
+            $this->load->view('front/myOrder', $data);
+            $this->load->view('front/footer');
+        }else {
+            $this->checkLogin();
+        }
+
+    }
+
+    public function goodsList() {
+        $data = array(
+            'title' => '商品列表',
+            'userdata' => '',
+        );
+
+        $userInfo = $this->getUserInfo();
+        if (!$userInfo){
+            $this->load->view('front/header', $data);
+            $this->load->view('front/goodsList', $data);
+            $this->load->view('front/footer');
+        }else {
+            $data['userdata'] = $userInfo;
+            $this->load->view('front/header', $data);
+            $this->load->view('front/goodsList', $data);
+            $this->load->view('front/footer', $data);
+        }
+    }
+
+    public function searchList() {
+        $data = array(
+            'title' => '商品详情',
+            'userdata' => '',
+        );
+        $categoryId = $this->input->get('categoryId');
+
+        $userInfo = $this->getUserInfo();
+        if (!$userInfo){
+            $this->load->view('front/header', $data);
+            $this->load->view('front/searchList', $data);
+            $this->load->view('front/footer');
+        }else {
+            $data['userdata'] = $userInfo;
+            $this->load->view('front/header', $data);
+            $this->load->view('front/searchList', $data);
+            $this->load->view('front/footer', $data);
+        }
+    }
 
 }
