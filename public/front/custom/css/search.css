@@ -1,0 +1,219 @@
+.breadcrumb {
+    background-color: #ffffff;
+    font-size: 14px;
+    color: #333333;
+    letter-spacing: 0;
+    margin: 10px 0;
+}
+
+.tags-box {
+    margin-bottom: 10px;
+}
+
+.tags-box .tag-span {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #333333;
+    letter-spacing: 0;
+    padding: 6px 12px;
+    border: 1px solid #EEEEEE;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.tags-box .tag-span.active, .tags-box .tag-span:hover {
+    border: 1px solid #055EBF;
+    background: #055EBF;
+    color: #ffffff;
+}
+
+.ul-h-flex {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    width: 100%;
+}
+
+.search-filter-box .search-filter-item {
+    width: 100%;
+    padding: 0 15px;
+    border-radius: 0;
+}
+
+.search-filter-box .well {
+    background: #ffffff;
+    border: 0;
+    margin: 0;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.search-filter-box .search-filter-ul .search-filter-li {
+    line-height: 40px;
+}
+
+.search-filter-ul .search-filter-li.first {
+    max-width: 10%;
+}
+
+.search-filter-ul .search-filter-li.second {
+    min-width: 80%;
+}
+
+.search-filter-ul .search-filter-li.third {
+    min-width: 10%;
+    text-align: right;
+}
+
+.search-filter-box .search-filter-ul .search-filter-li .search-more-btn {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #888888;
+}
+
+.search-filter-ul .search-filter-li .search-filter-name {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #888888;
+}
+
+.search-filter-box .search-filter-ul .search-filter-li .search-more-btn:hover {
+    text-decoration: none;
+}
+
+.search-filter-opt-box .search-filter-opt {
+    display: inline-block;
+    padding: 0px 6px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.search-filter-opt-box .search-filter-opt.active, .search-filter-opt-box .search-filter-opt:hover {
+    color: #055EBF;
+}
+
+.search-sort-box {
+    background: #f2f2f2;
+    padding: 0 15px;
+    margin-bottom: 24px;
+}
+
+.search-sort-box .search-sort-ul .search-sort-li {
+    line-height: 44px;
+}
+
+.search-sort-box .sort-by-ul {
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    line-height: 34px;
+}
+
+.search-sort-box .search-result-preview {
+    text-align: right;
+    line-height: 44px;
+}
+
+.search-sort-box .search-result-preview .total-count {
+    color: #055EBF;
+    padding: 0 4px;
+}
+
+.search-sort-box .search-result-preview .count-info, .search-sort-box .search-result-preview .page-info {
+    margin-right: 12px;
+}
+
+.search-sort-box .search-result-preview .current-count {
+    color: #055EBF;
+    padding: 0 0px 0 4px;
+}
+
+.search-sort-box .search-result-preview .total-page {
+    margin-right: 10px;
+}
+
+.search-result-preview .page-item:first-child {
+    margin-left: 1em;
+}
+
+.search-sort-box .search-result-preview .page-item {
+    padding: 2px;
+    background: #fafafa;
+    cursor: pointer;
+}
+
+.search-result-preview .page-item:hover {
+    background: #cccccc;
+    color: #ffffff;
+}
+
+.sort-by-ul .sort-by-li {
+    line-height: 24px;
+    background: #ffffff;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #000000;
+    letter-spacing: 0;
+    text-align: center;
+    min-width: 6em;
+    padding: 2px 12px;
+    cursor: pointer;
+}
+
+.sort-by-ul .sort-by-li.active {
+    background: #055EBF;
+    color: #ffffff;
+}
+
+.search-result-box .search-result-ul {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    list-style: none;
+}
+
+.search-result-box .search-result-ul .search-result-li {
+    float: left;
+    width: 20%;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.search-result-ul .search-result-li .pro-item {
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-result-ul .search-result-li .pro-item:hover {
+    box-shadow: 1px 5px 20px #CCCCCC;
+    transition-duration: .4s;
+}
+
+.search-result-ul .search-result-li img {
+    margin: 0 auto;
+    max-width: 80%;
+    max-height: 160px;
+}
+
+.search-result-ul .search-result-li p {
+    margin: 15px 10px 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.search-result-box .pager {
+    margin: 30px auto 70px;
+}

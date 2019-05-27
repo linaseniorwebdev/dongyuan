@@ -93,4 +93,17 @@ class CI_Controller {
 		return self::$instance;
 	}
 
+    protected function setUserInfo($info = array())
+    {
+        $_SESSION['user'] = json_encode($info,true);
+    }
+
+    protected function getUserInfo()
+    {
+        $userInfo = array();
+        if(isset($_SESSION['user']))
+            $userInfo = json_decode($_SESSION['user'],true);
+        return $userInfo;
+    }
+
 }

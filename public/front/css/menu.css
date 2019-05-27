@@ -1,0 +1,95 @@
+/*
+Template Name: 闆跺害WEB鍔炲叕鏂囧叿鍟嗗煄妯℃澘
+Template URI: http://www.ld-web.com/
+Description: 涔版ā鏉胯璁ゅ噯闆跺害WEB(ld-web.com)
+Version: 2.0
+Author: 杩涢浂搴EB鎸戦€夋洿澶欵CSHOP妯℃澘
+Author URI: http://www.ld-web.com/
+Logo filename: logo.gif
+Template Type: type_0
+*/
+
+.nav-box{padding-top: 5px;}
+
+.submenu-item {height: 26px;line-height: 26px;padding:0 14px;background: #fff;}
+.submenu-item:hover {background-color:#d1d1d1;}
+.submenu .last {height: 10px;line-height: 10px;}
+
+.submenu-title {position: relative;display: flex;justify-content: space-between}
+.submenu-item .submenu-title:before {content: '';width: 16px;height: 26px;display: block;position: absolute;top: 6px;left: 0;}
+.submenu-title i.fa{
+    font-size: 24px;
+    position: relative;
+    margin-top: 1px;
+}
+.category_item {font-size: 14px;line-height: 26px;margin-left: 24px;}
+.category_item a {color: #030000;font-size: 14px;}
+.submenu-title .arrow {display: block;position: absolute;top: 10px;right: 0;color:#030000;width: 20px;height: 20px;text-align: center;font-size: 16px;font-weight: bold;font-family: 瀹嬩綋;line-height: 20px;}
+
+.submenu-detail {padding:10px;width:270px;position:absolute;left:220px;top:0;z-index:2;min-height:428px;background:#fff;border:none;border-left:none;}
+.submenu-detail-title {width:248px;font-size:14px;line-height:35px;margin-left:10px;border-bottom:1px solid #e5e5e5;font-weight:bold;color:#000;}
+.submenu-detail-title a {font-size:14px;font-weight:bold;color:#000;}
+.submenu-detail-title .fr {font-size:12px;font-weight:normal;color:#666;}
+.menu-column {padding:6px 0 14px 0}
+.submenu .submenu-item .catetwo {position:absolute;top: 0;display: none;width: 350%;background-color: rgba(255, 255, 255, 0.85);padding: 3px 25px;overflow: hidden;border: 1px solid #CFCFCF;height:360px; left:100%; z-index:42; -webkit-transition:-webkit-transform 0.5s; transition:transform 0.5s;}
+.category_row {width: 100%;height:100%;padding-bottom: 13px;overflow: hidden;}
+.category_column {width: 100%;overflow: hidden;float: left;padding: 7px 0;}
+.category_column_head {
+    position: relative;
+    float: left;
+    min-width: 6em;
+    overflow: hidden;
+    padding: 0 12px;
+    display: list-item;
+    justify-content: space-between;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.category_column_head a {
+    font-family: PingFangSC-Medium;
+    font-size: 12px;
+    color: #4C4C4C;
+    text-align: right;
+}
+
+.category_column_head i{
+    color: #959393;
+    font-size: 1em;
+}
+.category_column_head a:hover {
+    text-decoration: none;
+    color: red;
+}
+.cateory_item_list {
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #4C4C4C;
+    position: relative;
+    float: left;
+    width: 80%;
+    overflow: hidden;
+}
+
+.cateory_item_list span{
+    line-break: normal
+}
+
+.cateory_item_list a {
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #4C4C4C;
+    text-align: right;
+    display: inline-block;
+}
+.cateory_item_list a:hover {
+    text-decoration: none;
+    color: #1869BC
+}
+
+.nav-tabs>li.menus:hover{
+    background-color:#d43f3a;
+    filter: alpha(opacity:100);
+    opacity: 1;
+}
+/*澶撮儴 end*/

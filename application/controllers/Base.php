@@ -28,9 +28,6 @@ class Base extends CI_Controller {
 			$this->user = new User();
 			$this->login = false;
 		}
-
-//		$this->load->model('System_model');
-//		$this->vars = $this->System_model->get_all_system_variables();
 	}
 
 	/**
@@ -42,7 +39,7 @@ class Base extends CI_Controller {
 		if ($admin) {
 			$this->load->view('backend/header', $params);
 		} else {
-			$this->load->view('frontend/header', $params);
+			$this->load->view('front/header', $params);
 		}
 	}
 
@@ -55,7 +52,7 @@ class Base extends CI_Controller {
 		if ($admin) {
 			$this->load->view('backend/footer', $params);
 		} else {
-			$this->load->view('frontend/footer', $params);
+			$this->load->view('front/footer', $params);
 		}
 	}
 
