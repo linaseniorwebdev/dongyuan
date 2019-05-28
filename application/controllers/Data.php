@@ -5,8 +5,7 @@ require_once APPPATH . 'controllers/Base.php';
 
 class Data extends  Base {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->load->model('Global_model');
         $this->load->model('Users_model');
@@ -56,7 +55,7 @@ class Data extends  Base {
 
     }
 
-    public function register(){
+    public function register() {
         $file_element_name = 'image';
         $image_url ="";
         $status = "";
