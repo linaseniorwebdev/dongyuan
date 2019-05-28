@@ -278,8 +278,4 @@
     function goods_detail(obj, idx) {
         location.href =_server_url + 'page/productinfo?productId=' + idx;
     }
-
-    function searchList(obj, idx) {
-        location.href =_server_url + 'page/searchList?categoryId=' + idx;
-    }
 </script>

@@ -170,6 +170,10 @@
         location.href =_server_url + 'page/goodsList';
     }
 
+    function searchList(obj, idx) {
+        location.href =_server_url + 'page/searchList?keyword='+ '&categoryId=' + idx + '&pageNum=1' + '&pageSize=40';
+    }
+
     function logout() {
         swal({
             title: "警告!",
@@ -234,6 +238,7 @@
         })
         $("#sumb-price").html(totalAmount);
     }
+
 
     var vm = new Vue({
         el: '#app',
@@ -537,8 +542,7 @@
                 }
             },
             search(params) {
-                // 执行搜索方法
-                console.log(params)
+
             },
             goodsInfo(id) {
                 window.location.href = "./goodsInfo.html?id=" + id
@@ -547,7 +551,7 @@
         created() {
             // 进入页面时数据操作
             this.loadAreas(true, '', '');
-            this.search('123');
+            // this.search('123');
 
         },
         mounted: function () {

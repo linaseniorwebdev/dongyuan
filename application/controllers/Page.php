@@ -104,50 +104,32 @@ class Page extends Base {
 		$this->load->view('front/forgetPass');
 	}
 
-	public function get_products($id) {
+	public function get_products($category_id) {
 
-        $categoryInfo = $this->Categories_model->get_by_id($id);
+        $categoryInfo = $this->Categories_model->get_by_id($category_id);
 
         if ($categoryInfo['level'] == 1){
+            $results = $this->Inventories_model->get_by_level('one', $category_id);
+            $child2_categories = $this->Categories_model->get_categories(2, $category_id);
+            foreach ($child2_categories as &$row){
+                $child3_categories = $this->Categories_model->get_categories(3, $row['id']);
+                $row['children'] = $child3_categories;
 
-            $category_rows = $this->Categories_model->get_categories(1, $id);
-
-            if ($category_rows){
-                foreach ($category_rows as &$row) {
-                    $row2s = $this->Categories_model->get_categories(2, $row['id']);
-                    $goods_rows = $this->Inventories_model->get_by_level('one', $row['id']);
-                    if ($row2s){
-                        foreach ($row2s as &$row2) {
-                            $row3s = $this->Categories_model->get_categories(3, $row2['id']);
-                            $row2['children'] = $row3s;
-                        }
-                    }
-                    $row['children'] = $row2s;
-                    $row['goods_data'] = $goods_rows;
-                }
             }
-            return array('parent' => '', 'products' => $category_rows);
 
         }elseif ($categoryInfo['level'] == 2) {
-            $category_rows = $this->Categories_model->get_categories(1, $id);
-            $parent_one = $this->Categories_model->get_category(1, $id);
+            $results = $this->Inventories_model->get_by_level('two', $category_id);
+            $child_categories = $this->Categories_model->get_categories(3, $category_id);
+            $parent_category = $this->Categories_model->get_by_id($categoryInfo['parent']);
 
-            foreach ($category_rows as &$row) {
-                $row2s = $this->Categories_model->get_categories(3, $row['id']);
-                $goods_rows = $this->Inventories_model->get_by_level('tow', $row['id']);
 
-                $row['children'] = $row2s;
-                $row['goods_data'] = $goods_rows;
-
-            }
-            return array('products' =>$category_rows, 'parent_one' => $parent_one);
 
         }else {
-            $products = $this->Inventories_model->get_by_level('three', $id);
-            $parent_two = $this->Categories_model->get_category(2, $id);
-            $parent_one = $this->Categories_model->get_category(1, $parent_two['id']);
+            $results = $this->Inventories_model->get_by_level('three', $category_id);
+            $category_two = $this->Categories_model->get_by_id($categoryInfo['parent']);
+            $category_one = $this->Categories_model->get_by_id($category_two['parent']);
 
-            return array('products' => $products, 'parent_one' => $parent_one, 'parent_two' => $parent_two);
+
         }
 
     }
@@ -239,7 +221,6 @@ class Page extends Base {
         $userid = $this->user->getId();
         $cart_results = $this->Carts_model->get_all_carts_by_user_id($userid);
 
-        $r = array();
         foreach ($cart_results as &$item){
             $s = explode("-", $item['detail']['place_of']);
             $province = $this->Provinces_model->get_by_id($s[0]);
@@ -264,14 +245,11 @@ class Page extends Base {
         $userid = $this->user->getId();
 	    $order_results = $this->Orders_model->get_all_orders_by_user_id($userid);
 
-	    var_dump($order_results[0]);
-	    exit();
         $data = array(
             'title' => '我的订单',
             'userdata' => $userInfo,
             'orders' => $order_results
         );
-
         $this->load->view('front/header', $data);
         $this->load->view('front/myOrder', $data);
         $this->load->view('front/footer', $data);
@@ -302,8 +280,56 @@ class Page extends Base {
             'title' => '商品详情',
             'userdata' => '',
         );
-        $this->load->view('front/searchList', $data);
         $categoryId = $this->input->get('categoryId');
+        $pageSize = $this->input->get('pageSize');
+        $pageNum = $this->input->get('pageNum');
+        $keyword = $this->input->get('keyword');
+
+        $categoryInfo = $this->Categories_model->get_by_id($categoryId);
+
+        if ($categoryInfo['level'] == 1){
+            $results = $this->Inventories_model->get_by_level('one', $categoryId);
+            $child2_categories = $this->Categories_model->get_categories(2, $categoryId);
+            foreach ($child2_categories as &$row){
+                $child3_categories = $this->Categories_model->get_categories(3, $row['id']);
+                $row['children'] = $child3_categories;
+
+            }
+            $data['category_info'] = $categoryInfo;
+            $data['category_two'] = $child2_categories;
+            $data['products'] = $results;
+
+        }elseif ($categoryInfo['level'] == 2) {
+
+            $results = $this->Inventories_model->get_by_level('two', $categoryId);
+            $child_categories = $this->Categories_model->get_categories(3, $categoryId);
+            $category_one = $this->Categories_model->get_by_id($categoryInfo['parent']);
+
+            $data['category_info'] = $categoryInfo;
+            $data['products'] = $results;
+            $data['category_one'] = $category_one;
+            $data['category_three'] = $child_categories;
+
+        }else {
+            $results = $this->Inventories_model->get_by_level('three', $categoryId);
+            $category_two = $this->Categories_model->get_by_id($categoryInfo['parent']);
+            $category_one = $this->Categories_model->get_by_id($category_two['parent']);
+
+            $data['category_info'] = $categoryInfo;
+            $data['products'] = $results;
+            $data['category_one'] = $category_one;
+            $data['category_two'] = $category_two;
+
+        }
+
+        $userInfo = $this->user->getUsername();
+        if (!$userInfo){
+            $this->load->view('front/searchList', $data);
+        }else {
+            $data['userdata'] = $userInfo;
+            $this->load->view('front/searchList', $data);
+
+        }
 
     }
 

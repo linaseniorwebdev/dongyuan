@@ -9,17 +9,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
-    <title>东元商城</title>
+    <title><?php echo $title?> | <?php echo APPNAME;?></title>
     <link rel="shortcut icon" href="public/front/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="public/front/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="public/front/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="public/front/layer/skin/layer.css">
     <link rel="stylesheet" href="public/front/Swiper/css/swiper.min.css">
     <link rel="stylesheet" href="public/front/css/style.css">
-    <link rel="stylesheet" href="public/front/css/menu.css"  type="text/css" />
     <link rel="stylesheet" href="public/front/css/goods.css">
-    <link rel="stylesheet" href="public/front/css/pagenation.css">
     <link rel="stylesheet" href="public/front/css/goodsStyle.css">
+    <link rel="stylesheet" href="public/front/css/pagenation.css">
+    <link rel="stylesheet" href="public/front/css/search.css">
+    <link href="public/front/css/menu.css" rel="stylesheet" type="text/css" />
 
     <!--[if lt IE 9]>
     <script src="public/front/js/respond.min.js"></script>
@@ -33,14 +34,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="container">
             <div class="page-header">
                 <h3>
-                    <small></small>
+                    <small>您好，欢迎光临东元商城！</small>
                     <small>
-                        <a type="button" class="btn btn-link" href="./login.html">请登录</a>|
-                        <a type="button" class="btn btn-link" href="./register.html">免费注册</a>|
-                        <a type="button" class="btn btn-link" href="./index.html">商城首页</a>|
-                        <!-- <a type="button" class="btn btn-link" href="./shoppingCart.html">购物车</a>| -->
-                        <a type="button" class="btn btn-link" href="./orderList.html">订购清单</a>|
-                        <a type="button" class="btn btn-link" href="./myOrder.html">我的订单</a>|
+                        <? if ($userdata != null): ?>
+                            <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
+                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/profile">
+                                <?php echo $userdata;?>
+                            </a>|
+                            <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
+
+                        <? else: ?>
+                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/login">请登录</a>|
+                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/register">免费注册</a>|
+                        <? endif; ?>
+                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
+                        <!--                        <a type="button" class="btn btn-link" href="--><?php //echo base_url()?><!--Page/cart">购物车</a>|-->
+                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/cartList">订购清单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/orderList">我的订单</a>|
                         <a type="button" class="btn btn-link" href="#">网站服务</a>|
                         <a type="button" class="btn btn-link" href="#">国际站</a>
                     </small>
@@ -74,13 +84,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-sm-8">
                                 <ul class="shortcut-search">
-                                    <li><a href="#">发动机</a></li>
+                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#">发动机</a></li>
+                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#">发动机</a></li>
+                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#">发动机</a></li>
+                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -127,8 +137,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-sm-12">
                     <ol class="breadcrumb">
                         <li>首页</li>
-                        <li>发动机系统</li>
-                        <li class="active">气缸</li>
+                        <?php
+                        if ($category_info['level'] == 1) {
+                            ?>
+                            <li class="active" onclick="searchList(this, <?php $category_info['id'];?>)">
+                                <?php echo $category_info['name']; ?>
+                            </li>
+                            <?php
+                        }elseif ($category_info['level'] == 2) {
+                            ?>
+                            <li onclick="searchList(this, <?php $category_one['id']; ?>)">
+                                <?php echo $category_one['name']; ?>
+                            </li>
+                            <li class="active" onclick="searchList(this, <?php $category_info['id']; ?>)">
+                                <?php echo $category_info['name']; ?>
+                            </li>
+                            <?php
+                        }else {
+                            ?>
+                            <li onclick="searchList(this, <?php $category_one['id']; ?>)">
+                                <?php echo $category_one['name']; ?>
+                            </li>
+                            <li onclick="searchList(this, <?php $category_two['id']; ?>)">
+                                <?php echo $category_two['name']; ?>
+                            </li>
+                            <li class="active" onclick="searchList(this, <?php $category_info['id']; ?>)">
+                                <?php echo $category_info['name']; ?>
+                            </li>
+                            <?php
+                        }
+                        ?>
                     </ol>
                 </div>
 
@@ -136,60 +174,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <!-- 搜索条件过滤box开始 -->
                     <div class="search-filter-box">
                         <div class="tags-box" onselectstart="return false;">
-                                <span class="tag-span active" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
-                            <span class="tag-span" filter="tag" value="气缸垫">
-                                    气缸垫
-                                </span>
+                            <?php
+                                if ($category_info['level'] == 1) {
+                                    foreach ($category_two as $item) {
+
+                                        ?>
+                                        <span class="tag-span active" filter="tag" value="<?php echo $item['name'];?>">
+                                            <?php echo $item['name'];?>
+                                        </span>
+                                        <?php
+                                    }
+                                }elseif ($category_info['level'] == 2) {
+                                    foreach ($category_three as $item) {
+                                        ?>
+                                        <span class="tag-span active" filter="tag" value="<?php echo $item['name']; ?>">
+                                            <?php echo $item['name']; ?>
+                                        </span>
+                                        <?php
+                                    }
+                                }
+                            ?>
                         </div>
 
                         <ul class="list-group">
@@ -201,7 +205,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <li class="search-filter-li second" onselectstart="return false;">
                                         <div class="search-filter-opt-box">
                                                 <span class="search-filter-opt active" filter="factory"
-                                                      value="博士">博士</span>
+                                                      value="tyd">博士</span>
                                             <span class="search-filter-opt" filter="factory" value="骆驼">骆驼</span>
                                             <span class="search-filter-opt" filter="factory" value="东风">东风</span>
                                         </div>
@@ -521,6 +525,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     if (getBrowser()) {
         layer.msg("请在Chrome谷歌内核浏览器中查看效果更佳，双核浏览器可切换Chrome内核")
+    }
+
+    function searchList(obj, idx) {
+        location.href =_server_url + 'page/searchList?keyword='+ '&categoryId=' + idx + '&pageNum=1' + '&pageSize=40';
     }
 </script>
 <script src="public/front/bootstrap/js/bootstrap.min.js"></script>

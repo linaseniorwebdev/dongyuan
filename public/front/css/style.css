@@ -1197,7 +1197,7 @@ li.v-center {
     height: 34px;
     line-height: 34px;
     display: flex;
-
+    padding-top: 5px;
     justify-content: center;
 }
 
