@@ -141,7 +141,7 @@
                         <p class="login-slogen">
                             Hi, 欢迎登录到东元商城</p>
                         <div class="login-btn-box">
-                            <? if ($userdata == null){
+                            <?php if ($userdata == null){
                                 ?>
                                 <a href="<?php echo base_url('Page/signin') ?>" class="btn btn-primary">商户登录</a>
                                 <a href="<?php echo base_url('Page/register') ?>" class="btn btn-default">免费注册</a>
