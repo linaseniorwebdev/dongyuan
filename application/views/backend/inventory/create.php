@@ -198,7 +198,10 @@
 								</div>
 								<div class="col-10">
 									<div class="form-group row no-gutters">
-										<div class="col-10">
+										<div class="col-4 pr-1">
+											<input type="text" name="i_names[]" class="form-control" placeholder="名称" />
+										</div>
+										<div class="col-6 pl-1">
 											<input type="url" name="i_links[]" class="form-control" onkeypress="keyPressed(this)" placeholder="网址" />
 										</div>
 										<div class="col-2" style="padding-top: 0.8rem; padding-left: 0.8rem;">

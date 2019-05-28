@@ -186,7 +186,7 @@
                         </div>
                         <div class="goods-info-footer goods-info-div-9">
                             <button type="button" class="btn btn-default" >立即购买</button>
-                            <button type="button" class="btn btn-primary" onclick="addToCart()"><i
+                            <button type="button" class="btn btn-primary" onclick="addToCart(this)"><i
                                         class="fa fa-fw fa-shopping-cart"></i>加入购物车</button>
                         </div>
 
@@ -250,28 +250,29 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php
-                    foreach ($more_goods as $item){
-                        ?>
                     <tr>
-                        <td class="text-center"><?php echo $item['name']; ?></td>
-                        <td class="text-center"><?php echo $item['serial_no']; ?></td>
-                        <td class="text-center"><?php echo $item['branches'][0]['model']; ?></td>
-                        <td class="text-center"><?php echo $item['branches'][0]['price']; ?></td>
+                        <?php
+                        foreach ($more_goods as $item){
+                        ?>
+                        <td class="text-center" id="more_name"><?php echo $item['name']; ?></td>
+                        <td class="text-center" id="more_type"><?php echo $item['serial_no']; ?></td>
+                        <td class="text-center" id="more-scale"><?php echo $item['branches'][0]['model']; ?></td>
+                        <td class="text-center" id="more_price"><?php echo $item['branches'][0]['price']; ?></td>
                         <td class="text-center opration">
                             <div class="opration-item">
                                 <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
                                     <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
+                                        <button class="btn btn-default btn-cut" type="button"><i
+                                                    class="fa fa-minus"></i></button>
+                                    </span>
+                                    <input type="text" data-price="<?php echo $item['branches'][0]['price']; ?>" data-max='99999' data-min="15"
+                                           class="form-control input-numbox" oninput="countAmount(this)"
+                                           placeholder="0" id="more_amount" value="15">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-add" type="button">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                             <div class="opration-item">
@@ -297,47 +298,18 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
+                        <?php
+                        foreach ($product_info['links'] as $item){
+                        ?>
+                        <td class="text-center company"><?php echo $item['name'];?></td>
                         <td class="text-center ">
                             <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
+                               href="<?php echo $item['link'];?>"><?php echo $item['link'];?></a>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
+                    <?php
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -348,51 +320,82 @@
 <div class="domination" style="background-color: #FFF"></div>
 
 <script type="text/javascript">
-    function addToCart() {
-        layer.msg("加入购物车");
-        var goods_name = $("#goods_name").text();
-        var goods_price = $("#goods_price").text();
-        var goods_brand = $("#goods_brand").text();
-        var e = document.getElementById("goods_ship");
-        var goods_place = e.options[e.selectedIndex].value;
-        var goods_type = $("#goods_type").text();
-        var goods_amount = $("#goods_amount").val();
-        var goods_scale = $("#goods_scale.active").text();
+    function addToCart( idx = null) {
+        if (idx == null){
+            var more_goods_name = $("#more_name").text();
+            var more_goods_price = $("#more_price").text();
+            var more_goods_brand = $("#more_brand").text();
+            var more_goods_type = $("#more_type").text();
+            var more_goods_amount = $("#more_amount").val();
+            var more_goods_scale = $("#more_scale").text();
 
-        $.post(_server_url + 'api/cart/create',
-            {
-                'inventory_name': goods_name,
-                'brand_name': goods_brand,
-                'serial_no': goods_type,
-                'place_of': goods_place,
-                'price': goods_price,
-                'amount': goods_amount
-            },
-            function (data) {
-            alert(data);
-                var result = JSON.parse(data);
+            $.post(_server_url + 'api/cart/create',
+                {
+                    'inventory_name': more_goods_name,
+                    'brand_name': more_goods_brand,
+                    'serial_no': more_goods_type,
+                    // 'place_of': goods_place,
+                    'price': more_goods_price,
+                    'amount': more_goods_amount,
+                    'specs': more_goods_scale
 
-                if (result['status'] == "success") {
-                    swal({
-                        title: "成功！",
-                        text: "您已在购物车中成功添加商品。.",
-                        icon: "success",
-                    })
-                        .then((isok) => {
-                            if (isok) {
-                                location.href = _server_url + 'page/cartList';
-                            }
-                        });
-                }
-                else {
-                    swal("警告!", "你失败了。 请再试一次或稍后。", "warning");
+                },
+                function (data) {
+                    var result = JSON.parse(data);
 
-                }
+                    if (result['status'] == "success") {
+                        swal({
+                            title: "成功！",
+                            text: "您已在购物车中成功添加商品。.",
+                            icon: "success",
+                        })
+                    }
+                });
 
-            });
+        } else {
+            var goods_name = $("#goods_name").text();
+            var goods_price = $("#goods_price").text();
+            var goods_brand = $("#goods_brand").text();
+            var e = document.getElementById("goods_ship");
+            var goods_place = e.options[e.selectedIndex].value;
+            var goods_type = $("#goods_type").text();
+            var goods_amount = $("#goods_amount").val();
+            var goods_scale = $("#goods_scale.active").text();
 
+            $.post(_server_url + 'api/cart/create',
+                {
+                    'inventory_name': goods_name,
+                    'brand_name': goods_brand,
+                    'serial_no': goods_type,
+                    'place_of': goods_place,
+                    'price': goods_price,
+                    'amount': goods_amount,
+                    'specs': goods_scale
 
+                },
+                function (data) {
+                    var result = JSON.parse(data);
 
+                    if (result['status'] == "success") {
+                        swal({
+                            title: "成功！",
+                            text: "您已在购物车中成功添加商品。.",
+                            icon: "success",
+                        })
+                            .then((isok) => {
+                                if (isok) {
+                                    location.href = _server_url + 'page/cartList';
+                                }
+                            });
+                    } else {
+                        swal("警告!", "你失败了。 请再试一次或稍后。", "warning");
+
+                    }
+
+                });
+        }
 
     }
-</script>
+
+
+</script></script>

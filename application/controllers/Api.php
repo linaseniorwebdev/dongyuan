@@ -304,11 +304,15 @@ class Api extends Base {
 					$places = array();
 				}
 
+				$names = $this->input->post('i_names');
 				$links = $this->input->post('i_links');
-				foreach ($links as &$link) {
-					$link = urlencode($link);
+				$ldata = array();
+				for ($i = 0, $len = count($links) - 1; $i < $len; $i++) {
+					$ldata[] = array(
+						'name' => $names[$i],
+						'link' => urlencode($links[$i])
+					);
 				}
-				array_pop($links);
 
 				$params = array(
 					'level_one' => $this->input->post('level1'),
@@ -322,7 +326,7 @@ class Api extends Base {
 					'serial_no' => $this->input->post('i_serial_no'),
 					'place_of' => serialize($places),
 					'related' => $this->input->post('i_related'),
-					'links' => serialize($links)
+					'links' => serialize($ldata)
 				);
 
 				$this->Inventories_model->add_inventory($params);
@@ -373,17 +377,27 @@ class Api extends Base {
 		$this->load->model('Orders_model');
 		if ($com === 'create') {
 			if ($this->post_exist()) {
-				$detail = array(
-					'receipt_name'     => $this->input->post('receipt_name'),
-					'receipt_phone'    => $this->input->post('receipt_phone'),
-					'shipping_address' => $this->input->post('shipping_address'),
-					'inventory_name'   => $this->input->post('inventory_name'),
-					'brand_name'       => $this->input->post('brand_name'),
-					'serial_no'        => $this->input->post('serial_no'),
-					'place_of'         => $this->input->post('place_of'),
-					'price'            => $this->input->post('price'),
-					'amount'           => $this->input->post('amount')
-				);
+				$invs = $this->input->post('inventory_name');
+				$bras = $this->input->post('brand_name');
+				$sers = $this->input->post('serial_no');
+				$plas = $this->input->post('place_of');
+				$pris = $this->input->post('price');
+				$amos = $this->input->post('amount');
+
+				$detail = array();
+				for ($i = 0, $len = count($invs); $i < $len; $i++) {
+					$detail[] = array(
+						'receipt_name'     => $this->input->post('receipt_name'),
+						'receipt_phone'    => $this->input->post('receipt_phone'),
+						'shipping_address' => $this->input->post('shipping_address'),
+						'inventory_name'   => $invs[$i],
+						'brand_name'       => $bras[$i],
+						'serial_no'        => $sers[$i],
+						'place_of'         => $plas[$i],
+						'price'            => $pris[$i],
+						'amount'           => $amos[$i]
+					);
+				}
 
 				$params = array(
 					'user'  => $this->session->user,

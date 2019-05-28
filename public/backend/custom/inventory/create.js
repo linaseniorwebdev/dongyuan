@@ -162,7 +162,10 @@ function keyPressed(obj) {
 		let $root = $(obj).parent().parent().parent();
 
 		let buffer = '<div class="form-group row no-gutters">';
-		buffer += '<div class="col-10">';
+		buffer += '<div class="col-4 pr-1">';
+		buffer += '<input type="text" name="i_names[]" class="form-control" placeholder="名称" />';
+		buffer += '</div>';
+		buffer += '<div class="col-6 pl-1">';
 		buffer += '<input type="url" name="i_links[]" class="form-control" onkeypress="keyPressed(this)" placeholder="网址" />';
 		buffer += '</div>';
 		buffer += '<div class="col-2" style="padding-top: 0.8rem; padding-left: 0.8rem;">';
@@ -173,6 +176,7 @@ function keyPressed(obj) {
 		$root.append(buffer);
 
 		$(obj).prop('required',true);
+		$(obj).parent().prev().children().eq(0).prop('required',true);
 	}
 }
 
@@ -227,6 +231,7 @@ function keyClicked(obj) {
 		$root.append(buffer);
 
 		$(obj).prop('required',true);
+		$(obj).parent().next().children().eq(0).prop('required',true);
 	}
 }
 

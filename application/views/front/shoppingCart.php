@@ -31,7 +31,6 @@
                 <tr>
                     <?php
                     foreach ($carts_rel as $item){
-
                     ?>
                     <td class="text-center"><?php echo $item['detail']['inventory_name'];?></td>
                     <td class="text-center"><?php echo $item['detail']['brand_name'];?></td>
@@ -98,9 +97,49 @@
                         总金额： ￥
                         <span id="sumb-price">0.00</span>
                     </span>
-            <button type="submit" class="btn btn-primary">提交订单</button>
+            <button type="submit" onclick="makeOrder()" class="btn btn-primary">提交订单</button>
         </div>
     </div>
 </div>
 
 <!--<div class="domination"></div>-->
+
+<script type="text/javascript">
+    function makeOrder() {
+        var name;
+        var phone;
+        var address;
+        var goods_name;
+        var brand_name;
+        var goods_type;
+        var place_of;
+        var price;
+        var amount;
+
+        $.post(_server_url + 'api/order/create',
+            {
+                'receipt_name': name,
+                'receipt_phone': phone,
+                'shipping_address': address,
+                'inventory_name': goods_name,
+                'brand_name': brand_name,
+                'serial_no': goods_type,
+                'place_of': place_of,
+                'price' : price,
+                'amount' : amount
+
+            },
+            function (data) {
+                var result = JSON.parse(data);
+
+                if (result['status'] == "success") {
+                    swal({
+                        title: "成功！",
+                        text: "您已在购物车中成功添加商品。.",
+                        icon: "success",
+                    })
+                }
+            });
+
+    }
+</script>

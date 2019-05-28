@@ -33,7 +33,7 @@ class Inventories_model extends CI_Model {
 	 */
     public function get_by_level($level, $level_id) {
 	    $this->db->order_by('id', 'asc');
-	    $rows = $this->db->get_where('inventories', array('level_' . $level, $level_id))->result_array();
+	    $rows = $this->db->get_where('inventories', array('level_' . $level => $level_id))->result_array();
 	    foreach ($rows as &$row) {
 		    if ($row['images']) {
 			    $row['images'] = unserialize($row['images']);
@@ -50,6 +50,9 @@ class Inventories_model extends CI_Model {
 		    if ($row['place_of']) {
 			    $row['place_of'] = unserialize($row['place_of']);
 		    }
+            if ($row['links']) {
+                $row['links'] = unserialize($row['links']);
+            }
 	    }
 	    return $rows;
     }
@@ -110,6 +113,9 @@ class Inventories_model extends CI_Model {
 		if ($row['place_of']) {
 			$row['place_of'] = unserialize($row['place_of']);
 		}
+        if ($row['links']) {
+            $row['links'] = unserialize($row['links']);
+        }
 
 		return $row;
 	}

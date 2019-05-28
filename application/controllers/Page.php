@@ -167,37 +167,37 @@ class Page extends Base {
 
 		$one_category_info = $this->Categories_model->get_by_id($product_data['level_one']);
 		$data['category_one'] = $one_category_info;
-        $products = $this->Inventories_model->get_by_level('one',$product_data['level_one']);
-		if ($product_data['level_two'] != 0){
+
+		if ($product_data['level_two'] != null){
 
 			$two_category_info = $this->Categories_model->get_by_id($product_data['level_two']);
 			$data['category_two'] = $two_category_info;
 
-			if ($product_data['level_three'] == 0) {
+			if ($product_data['level_three'] == null) {
 
 				$products = $this->Inventories_model->get_by_level('two',$product_data['level_two']);
-				$data['more_goods'] = $products;
+
 			}
 
 		}else {
 			$products = $this->Inventories_model->get_by_level('one', $product_data['level_one']);
-			$data['more_goods'] = $products;
-		}
-//
-//		if ($product_data['level_three'] != 0){
-//
-//			$three_category_info = $this->Categories_model->get_by_id($product_data['level_three']);
-//			$data['category_three'] = $three_category_info;
-//
-//			$products = $this->Inventories_model->get_by_level('three', $product_data['level_three']);
-//			$data['more_goods'] = $products;
-//		}
 
-		var_dump($products);
-		exit();
+		}
+
+		if ($product_data['level_three'] != null){
+
+			$three_category_info = $this->Categories_model->get_by_id($product_data['level_three']);
+			$data['category_three'] = $three_category_info;
+
+			$products = $this->Inventories_model->get_by_level('three', $product_data['level_three']);
+
+		}
+
+		$data['more_goods'] = $products;
 
 		$brand_data = $this->Brands_model->get_by_id($product_data['brands'][0]);
 		$data['brand'] = $brand_data;
+
 
 		$r = array();
         $places = array();
@@ -264,7 +264,7 @@ class Page extends Base {
         $userid = $this->user->getId();
 	    $order_results = $this->Orders_model->get_all_orders_by_user_id($userid);
 
-	    var_dump($order_results[0]['detail']);
+	    var_dump($order_results[0]);
 	    exit();
         $data = array(
             'title' => '我的订单',
