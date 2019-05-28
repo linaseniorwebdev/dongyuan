@@ -1,14 +1,14 @@
 let table;
 
 $(document).ready(function() {
-	table = $('#inventories').DataTable({
+	table = $('#users').DataTable({
 		responsive: true,
 		processing: true,
 		serverSide: true,
 		autoWidth: false,
 		order: [],
 		ajax: {
-			url : "../api/inventory/list",
+			url : "../api/order/list",
 			type: "POST",
 			error: function (xhr, ajaxOptions, thrownError) {
 				console.log(xhr);
@@ -22,34 +22,21 @@ $(document).ready(function() {
 			},
 			{
 				targets: [1],
+				className: 'text-center',
 				orderable: false
 			},
 			{
 				targets: [2],
+				className: 'text-center',
 				orderable: false
 			},
 			{
 				targets: [3],
+				className: 'text-center',
 				orderable: false
 			},
 			{
 				targets: [4],
-				orderable: false
-			},
-			{
-				targets: [5],
-				orderable: false
-			},
-			{
-				targets: [6],
-				orderable: false
-			},
-			{
-				targets: [7],
-				orderable: false
-			},
-			{
-				targets: [8],
 				className: 'text-center',
 				render: function(data, type, row) {
 					if (parseInt(data) === 1) {
@@ -60,11 +47,12 @@ $(document).ready(function() {
 				orderable: false
 			},
 			{
-				targets: [9],
+				targets: [5],
+				className: 'text-center',
 				render: function(data, type, row) {
-					let buffer = '<input type="hidden" value="' + row[10] + '" />';
-					buffer += ('<button type="button" class="btn btn-info round box-shadow-1" onclick="modifyItem(this)">编辑</button>');
-					buffer += ('<button type="button" class="btn btn-danger round box-shadow-1" onclick="deleteItem(this)">删除</button>');
+					let buffer = '<input type="hidden" value="' + row[4] + '" />';
+					buffer += '<input type="hidden" value="' + row[6] + '" />';
+					buffer += ('<button type="button" class="btn btn-success round box-shadow-1 mr-1" onclick="modifyOrder(this)">允用</button>');
 					return buffer;
 				},
 				orderable: false
@@ -97,12 +85,9 @@ $(document).ready(function() {
 	});
 });
 
-function modifyItem(obj) {
-	location.href = "inventory/edit/" + obj.previousElementSibling.value;
-}
-
-function deleteItem(obj) {
-	let delID = obj.previousElementSibling.previousElementSibling.value;
+function modifyOrder(obj) {
+	let userID = obj.previousElementSibling.value;
+	let status = 1 - parseInt(obj.previousElementSibling.previousElementSibling.value);
 
 	swal({
 		title: "确定吗？",
@@ -125,15 +110,17 @@ function deleteItem(obj) {
 		}
 	}).then(isConfirm => {
 		if (isConfirm) {
-			// $.post(
-			// 	'../api/brand/delete',
-			// 	{
-			// 		id  : delID
-			// 	},
-			// 	function (respond) {
-			// 		location.reload();
-			// 	}
-			// );
+			$.post(
+				'../api/order/update',
+				{
+					id    : userID,
+					status: status
+				},
+				function (respond) {
+					table.ajax.reload( null, false );
+					swal("更改成功!", "", "success");
+				}
+			);
 		}
 	});
 }

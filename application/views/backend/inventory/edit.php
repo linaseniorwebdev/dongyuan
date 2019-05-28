@@ -1,23 +1,16 @@
 <!-- BEGIN::Body -->
 <style>
-	.file-container {
-		width: 0.1px;
-		height: 0.1px;
-		opacity: 0;
-		overflow: hidden;
-		position: absolute;
-		z-index: -1;
-	}
-
-	.switchery {
-		margin-bottom: 4px;
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
 	}
 </style>
 <div class="app-content content">
 	<div class="content-wrapper">
 		<div class="content-header row">
 			<div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-				<h3 class="content-header-title mb-0 d-inline-block">编辑库存信息</h3>
+				<h3 class="content-header-title mb-0 d-inline-block">添加新库存</h3>
 			</div>
 			<div class="content-header-right col-md-6 col-12">
 				<div class="btn-group float-md-right">
@@ -29,74 +22,197 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="card-body">
-						<form action="<?php echo base_url('api/brand/update'); ?>" method="post" enctype="multipart/form-data">
-							<input type="hidden" name="brand_id" value="<?php echo $row['id']; ?>" />
+						<form action="<?php echo base_url('api/inventory/update'); ?>" method="post" enctype="multipart/form-data">
 							<div class="form-group row no-gutters">
 								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
-									<span style="font-size: 16px;">品牌名称</span>
+									<span style="font-size: 16px;">选择类型</span>
 								</div>
-								<div class="col-10">
-									<input type="tel" class="form-control" name="brand_name" value="<?php echo $row['name']; ?>" required />
+								<div class="col-9">
+									<div class="row">
+										<div class="col-4">
+											<input type="hidden" name="level1" value="<?php echo $levels[0]['id']; ?>" />
+											<select class="select2 form-control" id="level1">
+												<?php
+												foreach ($levels as $level) {
+													echo '<option value="' . $level['id'] . '">' . $level['name'] . '</option>';
+												}
+												?>
+											</select>
+										</div>
+										<div class="col-4">
+											<input type="hidden" name="level2" />
+											<select class="select2 form-control" id="level2"></select>
+										</div>
+										<div class="col-4">
+											<input type="hidden" name="level3" />
+											<select class="select2 form-control" id="level3"></select>
+										</div>
+									</div>
 								</div>
 							</div>
+
 							<div class="form-group row no-gutters">
 								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
-									<span style="font-size: 16px;">品牌分类</span>
+									<span style="font-size: 16px;">库存名称</span>
+								</div>
+								<div class="col-9">
+									<input type="text" class="form-control" name="i_name" required />
+								</div>
+							</div>
+
+							<div class="form-group row no-gutters">
+								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
+									<span style="font-size: 16px;">库存描述</span>
+								</div>
+								<div class="col-9">
+									<input type="text" class="form-control" name="i_brief" required />
+								</div>
+							</div>
+
+							<div class="form-group row no-gutters">
+								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
+									<span style="font-size: 16px;">库存图片</span>
 								</div>
 								<div class="col-10">
-									<select class="form-control" name="brand_type">
-										<option value="1"<?php if ((int)$row['type'] === 1) echo ' selected'; ?>>厂家品牌</option>
-										<option value="2"<?php if ((int)$row['type'] === 2) echo ' selected'; ?>>车型品牌</option>
-										<option value="3"<?php if ((int)$row['type'] === 3) echo ' selected'; ?>>机型品牌</option>
+									<input type="file" id="images" name="images[]" onchange="preview_image();" accept="image/*" multiple/>
+									<div class="row mt-3" id="image_preview"></div>
+								</div>
+							</div>
+
+							<input type="hidden" name="brand1" value="<?php echo $brands1[0]['id']; ?>" />
+							<input type="hidden" name="brand2" value="<?php echo $brands2[0]['id']; ?>" />
+							<input type="hidden" name="brand3" value="<?php echo $brands3[0]['id']; ?>" />
+							<div class="form-group row no-gutters">
+								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
+									<span style="font-size: 16px;">选择品牌</span>
+								</div>
+								<div class="col-9">
+									<div class="row">
+										<div class="col-4">
+											<select class="select2 form-control" id="brand1">
+												<?php
+												foreach ($brands1 as $level) {
+													echo '<option value="' . $level['id'] . '">' . $level['name'] . '</option>';
+												}
+												?>
+											</select>
+										</div>
+										<div class="col-4">
+											<input type="hidden" name="level2" />
+											<select class="select2 form-control" id="brand2">
+												<?php
+												foreach ($brands2 as $level) {
+													echo '<option value="' . $level['id'] . '">' . $level['name'] . '</option>';
+												}
+												?>
+											</select>
+										</div>
+										<div class="col-4">
+											<input type="hidden" name="level3" />
+											<select class="select2 form-control" id="brand3">
+												<?php
+												foreach ($brands3 as $level) {
+													echo '<option value="' . $level['id'] . '">' . $level['name'] . '</option>';
+												}
+												?>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Branches -->
+							<div class="form-group row no-gutters">
+								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
+									<span style="font-size: 16px;">规格/价格</span>
+								</div>
+								<div class="col-10">
+									<div class="form-group row no-gutters">
+										<div class="col-5 pr-1">
+											<input type="text" name="i_models[]" class="form-control" onkeypress="keyClicked(this)" placeholder="规格" />
+										</div>
+										<div class="col-5 pl-1">
+											<input type="number" name="i_prices[]" class="form-control" step="any" placeholder="价格" />
+										</div>
+										<div class="col-2" style="padding-top: 0.8rem; padding-left: 0.8rem;">
+											<a href="javascript:void(0)" onclick="clickedMe(this)" style="display: none;"><i class="la la-times text-danger"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group row no-gutters" style="margin-top: -1.5rem;">
+								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
+									<span style="font-size: 16px;">库存型号</span>
+								</div>
+								<div class="col-9">
+									<input type="text" class="form-control" name="i_serial_no" required />
+								</div>
+							</div>
+
+							<div class="form-group row no-gutters">
+								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
+									<span style="font-size: 16px;">选择区域</span>
+								</div>
+								<div class="col-9">
+									<input type="hidden" name="i_place_of" />
+									<select class="select2 form-control" id="cities" multiple>
+										<?php
+										$first = true;
+										foreach ($cities as $city) {
+											if (strpos($city['id'], '-') === false) {
+												if ($first === false) {
+													echo '</optgroup>';
+												} else {
+													$first = false;
+												}
+												echo '<optgroup label="' . $city['name'] . '">';
+											} else {
+												echo '<option value="' . $city['id'] . '">' . $city['name'] . '</option>';
+											}
+										}
+										echo '</optgroup>';
+										?>
 									</select>
 								</div>
 							</div>
+
 							<div class="form-group row no-gutters">
 								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
-									<span style="font-size: 16px;">品牌形象</span>
+									<span style="font-size: 16px;">相关推荐</span>
 								</div>
-								<div class="col-10">
-									<div class="w-100 text-center" id="original">
-										<img class="box-shadow-1" src="<?php if ($row['image']) echo $row['image']; else echo base_url('public/uploads/brands/no_image.png') ?>" style="max-width: 300px;" alt="Image" /><br>
-										<div class="mt-1">
-											<button type="button" class="btn btn-primary btn-glow box-shadow-1" onclick="changeImage()">更换</button>
-											<?php
-											if ($row['image']) {
-												echo '<button type="button" class="btn btn-danger btn-glow box-shadow-1 ml-1" onclick="deleteImage()">删除</button>';
-											}
-											?>
-										</div>
-									</div>
-									<div class="w-100" id="newly" style="display: none;">
-										<div class="img-container overflow-hidden image-preview mb-2">
-											<img src="" alt="图片" style="display: none;" />
-										</div>
-										<div class="text-center file-chooser">
-											<input type="file" accept="image/*" class="file-container" />
-											<button type="button" class="btn btn-primary btn-glow box-shadow-1">选择图片</button>
-										</div>
-										<div class="text-center file-confirm" style="display: none;">
-											<button type="button" class="btn btn-primary btn-glow box-shadow-1">确认</button>
-										</div>
-									</div>
-									<input type="hidden" name="image_changed" value="no" />
-									<input type="hidden" name="brand_image" />
+								<div class="col-9">
+									<input type="hidden" name="i_related" />
+									<select class="select2 form-control" id="inventories" multiple>
+										<?php
+										foreach ($inventories as $inventory) {
+											echo '<option value="' . $inventory['id'] . '">' . $inventory['name'] . '</option>';
+										}
+										?>
+									</select>
 								</div>
 							</div>
+
 							<div class="form-group row no-gutters">
-								<div class="col-2 text-right pr-1" style="padding-top: 4px;">
-									<span style="font-size: 16px;">品牌状态</span>
+								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
+									<span style="font-size: 16px;">相关推荐</span>
 								</div>
 								<div class="col-10">
-									<div class="switchery-container">
-										<input type="checkbox" id="switchery" class="switchery" data-size="sm"/>
-										<label for="switchery" class="font-medium-2 text-bold-600 ml-1">Switchery Default</label>
+									<div class="form-group row no-gutters">
+										<div class="col-4 pr-1">
+											<input type="text" name="i_names[]" class="form-control" placeholder="名称" />
+										</div>
+										<div class="col-6 pl-1">
+											<input type="url" name="i_links[]" class="form-control" onkeypress="keyPressed(this)" placeholder="网址" />
+										</div>
+										<div class="col-2" style="padding-top: 0.8rem; padding-left: 0.8rem;">
+											<a href="javascript:void(0)" onclick="clickedMe(this)" style="display: none;"><i class="la la-times text-danger"></i></a>
+										</div>
 									</div>
 								</div>
-								<input type="hidden" name="brand_status" value="<?php echo $row['status']; ?>" />
 							</div>
+
 							<div class="form-group text-center mb-0">
-								<button type="submit" class="btn btn-success btn-glow box-shadow-1 font-medium-3">提 交</button>
+								<button type="submit" class="btn btn-success btn-glow box-shadow-1 font-medium-3" onclick="return beforeSubmit()">提 交</button>
 							</div>
 						</form>
 					</div>

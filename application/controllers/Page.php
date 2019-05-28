@@ -96,6 +96,35 @@ class Page extends Base {
         }
     }
 
+    public function get_places($goods_data, $cond = null){
+        $r = array();
+        $places = array();
+
+        if ($cond == null) {
+            foreach ($goods_data['place_of'] as $item){
+                $s = explode('-', $item);
+                $r[] = $s;
+            }
+
+            foreach ($r as $item){
+                $province = $this->Provinces_model->get_by_id($item[0]);
+                $city = $this->Cities_model->get_by_id($item[1]);
+                $e = array(
+                    'prov' => $province,
+                    'city' => $city,
+                    'id' => $goods_data['place_of']
+                );
+                $places[] = $e;
+            }
+        }else{
+            foreach ($goods_data as &$item){
+
+            }
+        }
+
+        return$places;
+    }
+
 	public function productinfo() {
 		$this->load->model('Brands_model');
 		$this->load->model('Categories_model');
@@ -136,23 +165,7 @@ class Page extends Base {
 		$brand_data = $this->Brands_model->get_by_id($product_data['brands'][0]);
 		$data['brand'] = $brand_data;
 
-		$r = array();
-        $places = array();
-		foreach ($product_data['place_of'] as $item){
-		    $s = explode('-', $item);
-		    $r[] = $s;
-        }
-
-		foreach ($r as $item){
-		    $province = $this->Provinces_model->get_by_id($item[0]);
-		    $city = $this->Cities_model->get_by_id($item[1]);
-            $e = array(
-                'prov' => $province,
-                'city' => $city,
-                'id' => $product_data['place_of']
-            );
-            $places[] = $e;
-        }
+        $places = $this->get_places($product_data);
 		$data['place'] = $places;
 
         if ($this->login){
@@ -177,14 +190,19 @@ class Page extends Base {
 			$userid = $this->user->getId();
 			$cart_results = $this->Carts_model->get_all_carts_by_user_id($userid);
 
-			foreach ($cart_results as &$item){
-				if ($item['detail']['place_of']){
-					$s = explode('-', $item['detail']['place_of']);
+			if ($cart_results){
+                foreach ($cart_results as &$item){
+
+                    $s = explode('-', $item['detail']['place_of']);
 					$province = $this->Provinces_model->get_by_id($s[0]);
 					$city = $this->Cities_model->get_by_id($s[1]);
 					$item['place_real'] = $province['name'] .  $city['name'];
-				}
-			}
+                }
+            }
+
+
+			var_dump($cart_results);
+			exit();
 
 			$data = array(
 				'title' => '订购清单',

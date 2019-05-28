@@ -837,7 +837,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 data() {
                     return {
                         currentPage: this.pageNumber,
-                        currentSize: 20,
+                        currentSize: 20, //pagesize
                         jumpPageNumber: 1,
                         showPrevMore: false,
                         showNextMore: false
@@ -846,15 +846,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 props: {
                     pageNumber: {   //当前页面
                         type: Number,
-                        default: 25
+                        default: 1  // current page
                     },
                     totalCount: {   //总条数
                         type: Number,
-                        default: 50
+                        default: 500  //total images
                     },
                     pageGroup: {   //连续页码个数
                         type: Number,
-                        default: 10
+                        default: 5 //showing page number counts
                     }
                 },
                 computed: {

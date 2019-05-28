@@ -40,7 +40,7 @@
                                             <div class="submenu-item">
                                                 <div class="submenu-title">
                                                     <div class="category_item">
-                                                        <a href="#" target="_blank" onclick="searchList(this, <?php echo $rows['id'];?>)">
+                                                        <a href="#" onclick="searchList(this, <?php echo $rows['id'];?>)">
                                                             <?php echo $rows['name'];?>
                                                         </a>
                                                     </div>
@@ -53,7 +53,7 @@
                                                             ?>
                                                             <div class="category_column">
                                                                 <div class="category_column_head">
-                                                                    <a href="#" target="_blank" onclick="searchList(this, <?php echo $row2s['id'];?>)">
+                                                                    <a href="#" onclick="searchList(this, <?php echo $row2s['id'];?>)">
                                                                         <?php echo $row2s['name'];?>
                                                                         <i class="fa fa-fw fa-angle-right"></i>
                                                                     </a>
@@ -64,7 +64,7 @@
                                                                         ?>
                                                                         <span>
                                                                             <span style="padding: 0 3%;">|</span>
-                                                                            <a href="#" target="_blank" onclick="searchList(this, <?php echo $row3s['id'];?>)">
+                                                                            <a href="#" onclick="searchList(this, <?php echo $row3s['id'];?>)">
                                                                                 <?php echo $row3s['name'];?>
                                                                             </a>
                                                                         </span>

@@ -242,7 +242,7 @@ class Api extends Base {
 
 				$updated = date( 'Y年m月d日', strtotime($inventory->updated_at));
 
-				$data[] = array($idx, $category, $inventory->name, $inventory->brief, $image, $brand, $inventory->serial_no, $updated, $inventory->status, null);
+				$data[] = array($idx, $category, $inventory->name, $inventory->brief, $image, $brand, $inventory->serial_no, $updated, $inventory->status, null, $inventory->id);
 			}
 
 			$output = array(
@@ -415,6 +415,134 @@ class Api extends Base {
 				}
 
 				redirect('page/orderList');
+			} else {
+				$this->bad_request();
+			}
+		} elseif ($com === 'list') {
+			$this->load->model('Api_model');
+
+			$this->Api_model->setTable('orders');
+			$this->Api_model->setColumnSearch(array('number'));
+
+			$data = array();
+
+			$users = $this->Api_model->getRows($_POST);
+			// # 头像 用户名 注册日期 状态 操作
+			$idx = 0;
+			foreach ($users as $user) {
+				$idx++;
+
+				// Image Processing...
+				$image = '<img src="public/uploads/users/' . $user->photo . '" style="width: 40px;" alt="Avatar" />';
+
+				$created = date( 'Y年m月d日', strtotime($user->created_at));
+
+				$data[] = array($idx, $image, $user->username, $created, $user->status, null, $user->id);
+			}
+
+			$output = array(
+				'draw' => $_POST['draw'],
+				'recordsTotal' => $this->Api_model->countAll(),
+				'recordsFiltered' => $this->Api_model->countFiltered($_POST),
+				'data' => $data,
+			);
+
+			echo json_encode($output);
+		} elseif ($com === 'update') {
+
+		}
+	}
+
+	/**
+	 * `Inventory` Processing API
+	 * @param string $com
+	 */
+	public function user($com = 'list') {
+		$this->load->model('Users_model');
+		if ($com === 'list') {
+			$this->load->model('Api_model');
+
+			$this->Api_model->setTable('users');
+			$this->Api_model->setColumnSearch(array('username'));
+
+			$data = array();
+
+			$_POST['filter_rows'] = array('permission');
+			$_POST['filter_data'] = array(5);
+
+			$users = $this->Api_model->getRows($_POST);
+			// # 头像 用户名 注册日期 状态 操作
+			$idx = 0;
+			foreach ($users as $user) {
+				$idx++;
+
+				// Image Processing...
+				$image = '<img src="public/uploads/users/' . $user->photo . '" style="width: 40px;" alt="Avatar" />';
+
+				$created = date( 'Y年m月d日', strtotime($user->created_at));
+
+				$data[] = array($idx, $image, $user->username, $created, $user->status, null, $user->id);
+			}
+
+			$output = array(
+				'draw' => $_POST['draw'],
+				'recordsTotal' => $this->Api_model->countAll(),
+				'recordsFiltered' => $this->Api_model->countFiltered($_POST),
+				'data' => $data,
+			);
+
+			echo json_encode($output);
+		} elseif ($com === 'update') {
+			if ($this->post_exist()) {
+				$result = array('status' => 'fail');
+
+				$params = array();
+				$messages = array();
+
+				$id = $this->input->post('id');
+				if (!$id) {
+					$id = $this->user->getId();
+				}
+
+				foreach ($_POST as $key => $value) {
+					if ($key === 'id') {
+						continue;
+					}
+
+					$params[$key] = $this->input->post($key);
+
+					if ($key === 'username') {
+						$data = $this->Users_model->get_by_name($params[$key]);
+						if ($data) {
+							$messages['username'] = 'exist';
+						}
+					}
+
+					if ($key === 'phone') {
+						$data = $this->Users_model->get_by_phone($params[$key]);
+						if ($data) {
+							$messages['phone'] = 'exist';
+						}
+					}
+				}
+
+				if (count($messages) < 1) {
+					$this->Users_model->update_user($id, $params);
+					$result['status'] = 'success';
+				} else {
+					foreach ($messages as $key => $value) {
+						$result[$key] = $value;
+					}
+				}
+
+				echo json_encode($result);
+			} else {
+				$this->bad_request();
+			}
+		} elseif ($com === 'delete') {
+			if ($this->post_exist()) {
+				$this->Users_model->delete_user($this->input->post('id'));
+				echo json_encode(array('status' => 'success'));
 			} else {
 				$this->bad_request();
 			}

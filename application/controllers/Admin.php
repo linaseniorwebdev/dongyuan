@@ -105,8 +105,15 @@ class Admin extends Base {
 				redirect('admin/logout');
 			}
 			if ($this->privilege('user')) {
-				$hparams = array('title' => '用户管理', 'lineawesome' => true);
-				$fparams = array();
+				$hparams = array(
+					'title' => '用户管理',
+					'lineawesome' => true,
+					'datatable' => true
+				);
+				$fparams = array(
+					'name' => 'user',
+					'datatable' => true
+				);
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
@@ -378,14 +385,38 @@ class Admin extends Base {
 						'select2' => true
 					);
 
+					$data = array();
+
+					$this->load->model('Categories_model');
+					$data['levels'] = $this->Categories_model->get_categories(1);
+
 					$this->load->model('Brands_model');
-					$data = $this->Brands_model->get_by_id($sub);
+					$data['brands1'] = $this->Brands_model->get_all_brands(1, 1);
+					$data['brands2'] = $this->Brands_model->get_all_brands(2, 1);
+					$data['brands3'] = $this->Brands_model->get_all_brands(3, 1);
+
+					$arr = array();
+					$this->load->model('Provinces_model');
+					$this->load->model('Cities_model');
+					$provinces = $this->Provinces_model->get_all_provinces();
+					foreach ($provinces as $province) {
+						$cities = $this->Cities_model->get_all_cities($province['id']);
+						$arr[] = array('id' => $province['id'], 'name' => $province['name']);
+						foreach ($cities as $city) {
+							$arr[] = array('id' => $province['id'] . '-' . $city['id'], 'name' => $province['name'] . $city['name']);
+						}
+					}
+					$data['cities'] = $arr;
+
+					$this->load->model('Inventories_model');
+					$data['inventories'] = $this->Inventories_model->get_all_inventories();
+					$data['row'] = $this->Inventories_model->get_by_id($sub);
 
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
 					$this->load->view('backend/sidebar', array('com' => 'inventory'));
-					$this->load->view('backend/inventory/edit', array('row' => $data));
+					$this->load->view('backend/inventory/edit', $data);
 					$this->load_footer($fparams, true);
 				} else {
 					$hparams = array(
@@ -421,8 +452,15 @@ class Admin extends Base {
 				redirect('admin/logout');
 			}
 			if ($this->privilege('order')) {
-				$hparams = array('title' => '订单管理', 'lineawesome' => true);
-				$fparams = array();
+				$hparams = array(
+					'title' => '订单管理',
+					'lineawesome' => true,
+					'datatable' => true
+				);
+				$fparams = array(
+					'name' => 'order',
+					'datatable' => true
+				);
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
