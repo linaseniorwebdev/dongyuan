@@ -65,7 +65,7 @@ $(document).ready(function() {
 					let buffer = '<input type="hidden" value="' + row[0] + '" />';
 					buffer += ('<input type="hidden" value="' + row[10] + '" />');
 					buffer += ('<button type="button" class="btn btn-info round box-shadow-1" onclick="modifyItem(this)">编辑</button>');
-					buffer += ('<button type="button" class="btn btn-danger round box-shadow-1" onclick="deleteItem(this)">编辑</button>');
+					buffer += ('<button type="button" class="btn btn-danger round box-shadow-1" onclick="deleteItem(this)">删除</button>');
 					return buffer;
 				},
 				orderable: false

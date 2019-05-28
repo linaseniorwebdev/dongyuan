@@ -400,14 +400,21 @@ class Api extends Base {
 				}
 
 				$params = array(
-					'user'  => $this->session->user,
+					'user'   => $this->session->user,
 					'number' => uniqid('DYO', false),
-					'detail' => serialize($detail)
+					'detail' => serialize($detail),
+					'total'  => $this->input->post('total')
 				);
 
 				$order_id = $this->Orders_model->add_order($params);
 
-				echo json_encode(array('status' => 'success', 'order' => $order_id));
+				$this->load->model('Carts_model');
+				$carts = $this->input->post('cartsId');
+				foreach ($carts as $cart) {
+					$this->Carts_model->delete_cart($cart);
+				}
+
+				redirect('page/orderList');
 			} else {
 				$this->bad_request();
 			}

@@ -2,13 +2,13 @@
 
 class Global_model extends CI_Model
 {
-    public function __construct()
-    {
+    public function __construct() {
+	    parent::__construct();
+
         $this->load->database();
     }
 
-    public function get_baseurl()
-    {
+    public function get_baseurl() {
         $https = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
         $origin_ip = ($https ? 'https://' : 'http://').
             (!empty($_SERVER['REMOTE_USER']) ? $_SERVER['REMOTE_USER'].'@' : '').
@@ -19,7 +19,7 @@ class Global_model extends CI_Model
         return $origin_ip;
     }
 
-    public function get_DBPrefix(){
+    public function get_DBPrefix() {
         return $this->db->dbprefix;
     }
 

@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="public/front/css/goods.css">
     <link rel="stylesheet" href="public/front/css/goodsStyle.css">
     <link rel="stylesheet" href="public/front/css/pagenation.css">
-    <link rel="stylesheet" href="public/front/css/search.css">
+<!--    <link rel="stylesheet" href="public/front/css/search.css">-->
     <link href="public/front/css/menu.css" rel="stylesheet" type="text/css" />
 
     <!--[if lt IE 9]>
@@ -176,18 +176,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="tags-box" onselectstart="return false;">
                             <?php
                                 if ($category_info['level'] == 1) {
-                                    foreach ($category_two as $item) {
+                                    foreach ($category_two as $key=>$item) {
 
                                         ?>
-                                        <span class="tag-span active" filter="tag" value="<?php echo $item['name'];?>">
+                                        <span class="tag-span <?php if ($key == 0) echo 'active';?>" filter="tag" value="<?php echo $item['name'];?>">
                                             <?php echo $item['name'];?>
                                         </span>
                                         <?php
                                     }
                                 }elseif ($category_info['level'] == 2) {
-                                    foreach ($category_three as $item) {
+                                    foreach ($category_three as $key=>$item) {
                                         ?>
-                                        <span class="tag-span active" filter="tag" value="<?php echo $item['name']; ?>">
+                                        <span class="tag-span <?php if ($key == 0) echo 'active';?>" filter="tag" value="<?php echo $item['name']; ?>">
                                             <?php echo $item['name']; ?>
                                         </span>
                                         <?php
@@ -204,10 +204,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </li>
                                     <li class="search-filter-li second" onselectstart="return false;">
                                         <div class="search-filter-opt-box">
-                                                <span class="search-filter-opt active" filter="factory"
-                                                      value="tyd">博士</span>
-                                            <span class="search-filter-opt" filter="factory" value="骆驼">骆驼</span>
-                                            <span class="search-filter-opt" filter="factory" value="东风">东风</span>
+                                            <?php
+                                            foreach ($brands1_active as $key=>$item) {
+                                                ?>
+                                                <span class="search-filter-opt <?php if ($key == 0 ) echo 'active';?>" filter="factory"
+                                                      value="<?php echo $item['id']?>"><?php echo $item['name'];?></span>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                     </li>
                                     <li class="search-filter-li third" onselectstart="return false;">
@@ -221,9 +225,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="collapse" id="more-factory">
                                     <div class="well">
                                         <div class="search-filter-opt-box" onselectstart="return false;">
-                                            <span class="search-filter-opt" filter="factory" value="博士">博士</span>
-                                            <span class="search-filter-opt" filter="factory" value="骆驼">骆驼</span>
-                                            <span class="search-filter-opt" filter="factory" value="东风">东风</span>
+                                            <?php
+                                            foreach ($brands1_inactive as $item) {
+
+                                                ?>
+                                                <span class="search-filter-opt" filter="factory" value="<?php echo $item['id']?>">
+                                                    <?php echo $item['name'];?></span>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -235,12 +245,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </li>
                                     <li class="search-filter-li second" onselectstart="return false;">
                                         <div class="search-filter-opt-box">
-                                                <span class="search-filter-opt active" filter="model"
-                                                      value="东风乘用车">东风乘用车</span>
-                                            <span class="search-filter-opt" filter="model" value="中国重汽">中国重汽</span>
-                                            <span class="search-filter-opt" filter="model" value="奥迪">奥迪</span>
-                                            <span class="search-filter-opt" filter="model" value="本田">本田</span>
-                                            <span class="search-filter-opt" filter="model" value="丰田">丰田</span>
+                                            <?php
+                                            foreach ($brands2_active as $key=>$item) {
+                                                ?>
+                                                <span class="search-filter-opt <?php if ($key == 0) echo 'active';?>" filter="model" value="<?php echo $item['id'];?>"><?php echo $item['name'];?></span>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                     </li>
                                     <li class="search-filter-li third" onselectstart="return false;">
@@ -253,12 +264,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="collapse" id="more-model">
                                     <div class="well">
                                         <div class="search-filter-opt-box" onselectstart="return false;">
-                                                <span class="search-filter-opt" filter="model"
-                                                      value="东风乘用车">东风乘用车</span>
-                                            <span class="search-filter-opt" filter="model" value="中国重汽">中国重汽</span>
-                                            <span class="search-filter-opt" filter="model" value="奥迪">奥迪</span>
-                                            <span class="search-filter-opt" filter="model" value="本田">本田</span>
-                                            <span class="search-filter-opt" filter="model" value="丰田">丰田</span>
+                                            <?php
+                                            foreach ($brands2_inactive as $item) {
+                                                ?>
+                                                <span class="search-filter-opt" filter="model" value="<?php echo $item['id'];?>">
+                                                    <?php echo $item['name'];?></span>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -270,12 +283,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     </li>
                                     <li class="search-filter-li second" onselectstart="return false;">
                                         <div class="search-filter-opt-box">
-                                            <span class="search-filter-opt" filter="moto" value="东风康明斯">东风康明斯</span>
-                                            <span class="search-filter-opt active" filter="moto"
-                                                  value="玉柴发动机">玉柴发动机</span>
-                                            <span class="search-filter-opt" filter="moto" value="云内">云内</span>
-                                            <span class="search-filter-opt" filter="moto"
-                                                  value="中国重汽发动机">中国重汽发动机</span>
+                                            <?php
+                                            foreach ($brands3_active as $key=>$item) {
+                                                ?>
+                                                <span class="search-filter-opt <?php if ($key == 0) echo 'active'?>" filter="moto"
+                                                      value="<?php echo $item['id']?>"><?php echo $item['name'];?></span>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                     </li>
                                     <li class="search-filter-li third" onselectstart="return false;">
@@ -289,11 +304,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="collapse" id="more-moto">
                                     <div class="well">
                                         <div class="search-filter-opt-box" onselectstart="return false;">
-                                            <span class="search-filter-opt" filter="moto" value="东风康明斯">东风康明斯</span>
-                                            <span class="search-filter-opt" filter="moto" value="玉柴发动机">玉柴发动机</span>
-                                            <span class="search-filter-opt" filter="moto" value="云内">云内</span>
-                                            <span class="search-filter-opt" filter="moto"
-                                                  value="中国重汽发动机">中国重汽发动机</span>
+
+                                            <?php
+                                            foreach ($brands3_inactive as $item) {
+                                                ?>
+                                                <span class="search-filter-opt" filter="moto"
+                                                      value="<?php echo $item['id']?>"><?php echo $item['name'];?></span>
+                                                <?php
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
                                 </div>

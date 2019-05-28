@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="public/front/css/goods.css">
     <link rel="stylesheet" href="public/front/css/goodsStyle.css">
     <link rel="stylesheet" href="public/front/css/pagenation.css">
-    <link rel="stylesheet" href="public/front/css/search.css">
+<!--    <link rel="stylesheet" href="public/front/css/search.css">-->
     <link href="public/front/css/menu.css" rel="stylesheet" type="text/css" />
 
     <!--[if lt IE 9]>

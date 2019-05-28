@@ -222,10 +222,12 @@ class Page extends Base {
         $cart_results = $this->Carts_model->get_all_carts_by_user_id($userid);
 
         foreach ($cart_results as &$item){
-            $s = explode("-", $item['detail']['place_of']);
-            $province = $this->Provinces_model->get_by_id($s[0]);
-            $city = $this->Cities_model->get_by_id($s[1]);
-            $item['place_real'] = $province['name'] . $city['name'];
+            if ($item['detail']['place_of']){
+                $s = explode("-", $item['detail']['place_of']);
+                $province = $this->Provinces_model->get_by_id($s[0]);
+                $city = $this->Cities_model->get_by_id($s[1]);
+                $item['place_real'] = $province['name'] .  $city['name'];
+            }
         }
 
         $data = array(
@@ -244,6 +246,7 @@ class Page extends Base {
         $userInfo = $this->user->getUsername();
         $userid = $this->user->getId();
 	    $order_results = $this->Orders_model->get_all_orders_by_user_id($userid);
+
 
         $data = array(
             'title' => '我的订单',
@@ -319,8 +322,15 @@ class Page extends Base {
             $data['products'] = $results;
             $data['category_one'] = $category_one;
             $data['category_two'] = $category_two;
-
         }
+
+        $data['brands1_active']   = $this->Brands_model->get_all_brands(1,1);
+        $data['brands1_inactive'] = $this->Brands_model->get_all_brands(1,0);
+        $data['brands2_active']   = $this->Brands_model->get_all_brands(2,1);
+        $data['brands2_inactive'] = $this->Brands_model->get_all_brands(2,0);
+        $data['brands3_active']   = $this->Brands_model->get_all_brands(3,1);
+        $data['brands3_inactive'] = $this->Brands_model->get_all_brands(3,0);
+
 
         $userInfo = $this->user->getUsername();
         if (!$userInfo){

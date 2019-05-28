@@ -154,6 +154,7 @@
             var thisAmount = accMul(parseFloat(thisNum), thisPrice);
             totalAmount = accAdd(thisAmount, totalAmount);
         })
+
         $("#sumb-price").html(totalAmount);
     })
     function getBrowser() {
@@ -237,6 +238,7 @@
             totalAmount = accAdd(thisAmount, totalAmount);
         })
         $("#sumb-price").html(totalAmount);
+        $("#hidden_amount").val($("#amount").val());
     }
 
 
