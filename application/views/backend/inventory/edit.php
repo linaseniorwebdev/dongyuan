@@ -21,7 +21,7 @@
 			</div>
 			<div class="content-header-right col-md-6 col-12">
 				<div class="btn-group float-md-right">
-					<a href="<?=base_url('admin/brand')?>" class="btn btn-info" style="font-size: 18px;">退回</a>
+					<a href="<?php echo base_url('admin/brand'); ?>" class="btn btn-info" style="font-size: 18px;">退回</a>
 				</div>
 			</div>
 		</div>
@@ -29,14 +29,14 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="card-body">
-						<form action="<?=base_url('api/brand/update')?>" method="post" enctype="multipart/form-data">
-							<input type="hidden" name="brand_id" value="<?=$row['id']?>" />
+						<form action="<?php echo base_url('api/brand/update'); ?>" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="brand_id" value="<?php echo $row['id']; ?>" />
 							<div class="form-group row no-gutters">
 								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
 									<span style="font-size: 16px;">品牌名称</span>
 								</div>
 								<div class="col-10">
-									<input type="tel" class="form-control" name="brand_name" value="<?=$row['name']?>" required />
+									<input type="tel" class="form-control" name="brand_name" value="<?php echo $row['name']; ?>" required />
 								</div>
 							</div>
 							<div class="form-group row no-gutters">
@@ -93,7 +93,7 @@
 										<label for="switchery" class="font-medium-2 text-bold-600 ml-1">Switchery Default</label>
 									</div>
 								</div>
-								<input type="hidden" name="brand_status" value="<?=$row['status']?>" />
+								<input type="hidden" name="brand_status" value="<?php echo $row['status']; ?>" />
 							</div>
 							<div class="form-group text-center mb-0">
 								<button type="submit" class="btn btn-success btn-glow box-shadow-1 font-medium-3">提 交</button>

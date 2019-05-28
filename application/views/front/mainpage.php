@@ -139,15 +139,21 @@
                 <div class="col-sm-2 side-bar right" style="width:19%;">
                     <div class="login-box text-center">
                         <p class="login-slogen">
-                            Hi,&nbsp;<?=(isset($userdata) ? $userdata : '')?>&nbsp;&nbsp;欢迎登录到东元商城</p>
+                            Hi, 欢迎登录到东元商城</p>
                         <div class="login-btn-box">
-                            <? if ($userdata == null): ?>
-                                <a href="<?php echo base_url('Page/login')?>" class="btn btn-primary">商户登录</a>
-                                <a href="<?php echo base_url('Page/register')?>" class="btn btn-default">免费注册</a>
-                            <? else: ?>
-                                <a href="<?php echo base_url('Page/mypage')?>" class="btn btn-default login_true">会员中心</a>
+                            <? if ($userdata == null){
+                                ?>
+                                <a href="<?php echo base_url('Page/login') ?>" class="btn btn-primary">商户登录</a>
+                                <a href="<?php echo base_url('Page/register') ?>" class="btn btn-default">免费注册</a>
+                                <?php
+                            }else {
+                                ?>
+                                <a href="<?php echo base_url('Page/mypage') ?>"
+                                   class="btn btn-default login_true">会员中心</a>
                                 <a href="#" onclick="logout()" class="btn btn-default login_true">退出登录</a>
-                            <? endif; ?>
+                                <?php
+                            }
+                            ?>
                         </div>
                     </div>
                     <div class="resources-box">

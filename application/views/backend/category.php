@@ -36,8 +36,8 @@
 			</div>
 			<div class="content-header-right col-md-6 col-12">
 				<div class="btn-group float-md-right">
-					<input type="hidden" value="<?=$level?>" />
-					<input type="hidden" value="<?=$id?>" />
+					<input type="hidden" value="<?php echo $level; ?>" />
+					<input type="hidden" value="<?php echo $id; ?>" />
 					<a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px;" onclick="addItem(this)"><i class="la la-plus"></i> 添加</a>
 				</div>
 			</div>
@@ -116,7 +116,7 @@
 <div class="modal fade text-left" id="editModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<form action="<?=base_url('api/category/update')?>" method="post">
+			<form action="<?php echo base_url('api/category/update'); ?>" method="post">
 				<div class="modal-header">
 					<h4 class="modal-title">项目编辑</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -124,7 +124,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" name="redirect_uri" value="<?=$this->uri->uri_string() . '?l=' . $level . '&i=' . $id?>" />
+					<input type="hidden" name="redirect_uri" value="<?php echo $this->uri->uri_string() . '?l=' . $level . '&i=' . $id; ?>" />
 					<input type="hidden" name="item_id_edit" />
 					<input type="hidden" name="item_status_edit" />
 					<div class="form-group">

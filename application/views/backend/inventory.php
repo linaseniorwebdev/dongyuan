@@ -31,7 +31,7 @@
 			</div>
 			<div class="content-header-right col-md-6 col-12">
 				<div class="btn-group float-md-right">
-					<a href="<?=base_url('admin/inventory/create')?>" class="btn btn-info" style="font-size: 18px;"><i class="la la-plus"></i> 添加</a>
+					<a href="<?php echo base_url('admin/inventory/create'); ?>" class="btn btn-info" style="font-size: 18px;"><i class="la la-plus"></i> 添加</a>
 				</div>
 			</div>
 		</div>

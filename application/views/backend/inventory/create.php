@@ -14,7 +14,7 @@
 			</div>
 			<div class="content-header-right col-md-6 col-12">
 				<div class="btn-group float-md-right">
-					<a href="<?=base_url('admin/brand')?>" class="btn btn-info" style="font-size: 18px;">退回</a>
+					<a href="<?php echo base_url('admin/brand'); ?>" class="btn btn-info" style="font-size: 18px;">退回</a>
 				</div>
 			</div>
 		</div>
@@ -22,7 +22,7 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="card-body">
-						<form action="<?=base_url('api/inventory/create')?>" method="post" enctype="multipart/form-data">
+						<form action="<?php echo base_url('api/inventory/create'); ?>" method="post" enctype="multipart/form-data">
 							<div class="form-group row no-gutters">
 								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
 									<span style="font-size: 16px;">选择类型</span>
@@ -30,7 +30,7 @@
 								<div class="col-9">
 									<div class="row">
 										<div class="col-4">
-											<input type="hidden" name="level1" value="<?=$levels[0]['id']?>" />
+											<input type="hidden" name="level1" value="<?php echo $levels[0]['id']; ?>" />
 											<select class="select2 form-control" id="level1">
 												<?php
 												foreach ($levels as $level) {
@@ -79,9 +79,9 @@
 								</div>
 							</div>
 
-							<input type="hidden" name="brand1" value="<?=$brands1[0]['id']?>" />
-							<input type="hidden" name="brand2" value="<?=$brands2[0]['id']?>" />
-							<input type="hidden" name="brand3" value="<?=$brands3[0]['id']?>" />
+							<input type="hidden" name="brand1" value="<?php echo $brands1[0]['id']; ?>" />
+							<input type="hidden" name="brand2" value="<?php echo $brands2[0]['id']; ?>" />
+							<input type="hidden" name="brand3" value="<?php echo $brands3[0]['id']; ?>" />
 							<div class="form-group row no-gutters">
 								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
 									<span style="font-size: 16px;">选择品牌</span>

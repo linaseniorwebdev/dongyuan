@@ -17,7 +17,7 @@
 			</div>
 			<div class="content-header-right col-md-6 col-12">
 				<div class="btn-group float-md-right">
-					<a href="<?=base_url('admin/brand')?>" class="btn btn-info" style="font-size: 18px;">退回</a>
+					<a href="<?php echo base_url('admin/brand'); ?>" class="btn btn-info" style="font-size: 18px;">退回</a>
 				</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 			<div class="card">
 				<div class="card-content">
 					<div class="card-body">
-						<form action="<?=base_url('api/brand/create')?>" method="post" enctype="multipart/form-data">
+						<form action="<?php echo base_url('api/brand/create'); ?>" method="post" enctype="multipart/form-data">
 							<div class="form-group row no-gutters">
 								<div class="col-2 text-right pr-1" style="padding-top: 8px;">
 									<span style="font-size: 16px;">品牌名称</span>

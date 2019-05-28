@@ -11,7 +11,7 @@
 				<li class="nav-item mr-auto">
 					<a class="navbar-brand" href="index.html">
 						<img class="brand-logo" alt="logo" src="public/backend/images/logo/logo.png">
-						<h3 class="brand-text"><?=APPNAME?></h3>
+						<h3 class="brand-text"><?php echo APPNAME; ?></h3>
 					</a>
 				</li>
 				<li class="nav-item d-none d-md-block nav-toggle">
@@ -38,7 +38,7 @@
 				<ul class="nav navbar-nav float-right">
 					<li class="dropdown dropdown-user nav-item">
 						<a class="dropdown-toggle nav-link dropdown-user-link" href="javascript:void(0)" data-toggle="dropdown">
-							<span class="mr-1"><span class="user-name text-bold-700"><?=$username?></span></span>
+							<span class="mr-1"><span class="user-name text-bold-700"><?php echo $username; ?></span></span>
 							<span class="avatar avatar-online">
 								<img src="public/uploads/users/empty.png" alt="avatar"><i></i>
 							</span>
@@ -48,7 +48,7 @@
 								<i class="ft-user"></i> 账户管理
 							</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="<?=base_url('admin/logout')?>">
+							<a class="dropdown-item" href="<?php echo base_url('admin/logout'); ?>">
 								<i class="ft-power"></i> 退出
 							</a>
 						</div>

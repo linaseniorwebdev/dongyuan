@@ -36,17 +36,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <h3>
                     <small>您好，欢迎光临东元商城！</small>
                     <small>
-                        <? if ($userdata != null): ?>
-                            <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
-                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/profile">
-                                <?php echo $userdata;?>
-                            </a>|
-                            <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
+                        <? if ($userdata != null){
 
-                        <? else: ?>
-                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/login">请登录</a>|
-                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/register">免费注册</a>|
-                        <? endif; ?>
+                        ?>
+                        <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
+                        <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/profile">
+                            <?php echo $userdata; ?>
+                        </a>|
+                        <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
+                        <?php
+                        }else {
+                            ?>
+                            <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/login">请登录</a>|
+                            <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/register">免费注册</a>|
+                            <?php
+                        }
+                        ?>
+
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
                         <!--                        <a type="button" class="btn btn-link" href="--><?php //echo base_url()?><!--Page/cart">购物车</a>|-->
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/cartList">订购清单</a>|

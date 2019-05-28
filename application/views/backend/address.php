@@ -19,7 +19,7 @@
 					<div class="row breadcrumbs-top d-inline-block">
 						<div class="breadcrumb-wrapper col-12">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="<?=base_url('admin/address?type=province')?>">退 回</a></li>
+								<li class="breadcrumb-item"><a href="<?php echo base_url('admin/address?type=province');?>">退 回</a></li>
 							</ol>
 						</div>
 					</div>
@@ -29,8 +29,8 @@
 			</div>
 			<div class="content-header-right col-md-6 col-12">
 				<div class="btn-group float-md-right">
-					<input type="hidden" value="<?=$type?>" />
-					<input type="hidden" value="<?=$data?>" />
+					<input type="hidden" value="<?php echo $type; ?>" />
+					<input type="hidden" value="<?php echo $data; ?>" />
 					<a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px;" onclick="addItem(this)"><i class="la la-plus"></i> 添加</a>
 				</div>
 			</div>
@@ -109,7 +109,7 @@
 <div class="modal fade text-left" id="editModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<form action="<?=base_url('api/address/update')?>" method="post">
+			<form action="<?php echo base_url('api/address/update'); ?>" method="post">
 				<div class="modal-header">
 					<h4 class="modal-title">项目编辑</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -117,8 +117,8 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" name="redirect_uri" value="<?=($type === 'province')?base_url('admin/address?type=province'):base_url('admin/address?type=city&data=' . $data)?>" />
-					<input type="hidden" name="type" value="<?=$type?>" />
+					<input type="hidden" name="redirect_uri" value="<?php echo (($type === 'province')?base_url('admin/address?type=province'):base_url('admin/address?type=city&data=' . $data)); ?>" />
+					<input type="hidden" name="type" value="<?php echo $type; ?>" />
 					<input type="hidden" name="item_id_edit" />
 					<input type="hidden" name="item_status_edit" />
 					<div class="form-group">

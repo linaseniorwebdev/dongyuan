@@ -8,7 +8,7 @@
 	<!--	<meta name="keywords" content="">-->
 	<meta name="author" content="Lina - Senior Web Dev">
 
-	<title>管理后台登录 | <?=APPNAME?></title>
+	<title>管理后台登录 | <?php echo APPNAME; ?></title>
 
 	<link rel="apple-touch-icon" href="public/backend/images/ico/apple-icon-120.png">
 	<link rel="shortcut icon" type="image/x-icon" href="public/backend/images/ico/favicon.ico">
@@ -34,7 +34,7 @@
 							<div class="card-header border-0">
 								<div class="card-title text-center">
 									<img src="public/backend/images/logo/logo.png" alt="logo" style="width: 40px; display: inline-block;" />
-									<h3 class="brand-text" style="display: inline-block !important; vertical-align: middle; margin-bottom: 0;"><?=APPNAME?></h3>
+									<h3 class="brand-text" style="display: inline-block !important; vertical-align: middle; margin-bottom: 0;"><?php echo APPNAME; ?></h3>
 								</div>
 							</div>
 							<div class="card-content">
@@ -44,7 +44,7 @@
 								}
 								?>
 								<div class="card-body">
-									<form class="form-horizontal" action="<?=base_url('admin/signin')?>" method="post" novalidate>
+									<form class="form-horizontal" action="<?php echo base_url('admin/signin'); ?>" method="post" novalidate>
 										<fieldset class="form-group position-relative has-icon-left">
 											<input type="text" class="form-control" name="username" placeholder="账户" <?php if (isset($username)) echo 'value="' . $username . '"'; ?> required />
 											<div class="form-control-position">

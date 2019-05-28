@@ -8,7 +8,7 @@
 	<!--	<meta name="keywords" content="">-->
 	<meta name="author" content="Lina - Senior Web Dev">
 
-	<title><?php echo $title;?> | <?=APPNAME;?></title>
+	<title><?php echo $title;?> | <?php echo  APPNAME; ?></title>
 
 	<link rel="apple-touch-icon" href="public/backend/images/ico/apple-icon-120.png">
 	<link rel="shortcut icon" type="image/x-icon" href="public/backend/images/ico/favicon.ico">
