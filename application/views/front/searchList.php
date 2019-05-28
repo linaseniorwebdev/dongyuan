@@ -536,6 +536,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript" src="public/front/js/jquery.min.js"></script>
 <script type="text/javascript" src="public/front/layer/layer.js"></script>
 <script>
+
+    var _server_url = '<?php echo base_url();?>';
     function getBrowser() {
         if (window.navigator.userAgent.indexOf("Chrome") == -1) {
             //如果浏览器为IE7
@@ -545,6 +547,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     if (getBrowser()) {
         layer.msg("请在Chrome谷歌内核浏览器中查看效果更佳，双核浏览器可切换Chrome内核")
+    }
+
+    function goodsList(obj, idx) {
+        location.href =_server_url + 'page/goodsList';
     }
 
     function searchList(obj, idx) {

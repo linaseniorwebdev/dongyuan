@@ -7,7 +7,7 @@
                     <a href="#home" aria-controls="home" role="tab" data-toggle="tab">全部商品分类</a>
                 </li>
                 <li role="presentation" class="text-center col-sm-2">
-                    <a href="<?php echo base_url()?>" aria-controls="profile" role="tab" data-toggle="tab">东元商城</a>
+                    <a href="" aria-controls="profile" role="tab" data-toggle="tab">东元商城</a>
                 </li>
                 <li role="presentation" class="text-center col-sm-2">
                     <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">线上交易</a>

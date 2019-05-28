@@ -245,6 +245,42 @@
     var vm = new Vue({
         el: '#app',
         data: {
+            brands: [
+                {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }, {
+                    name: '东风08厂9809发动机',
+                    url: 'public/front/img/res/shangpin.png'
+                }
+            ],
             products: [
                 {
                     title: '发动机系统',

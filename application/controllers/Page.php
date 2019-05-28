@@ -332,6 +332,10 @@ class Page extends Base {
         $data['brands3_inactive'] = $this->Brands_model->get_all_brands(3,0);
 
 
+
+
+//        var_dump();
+//        exit();
         $userInfo = $this->user->getUsername();
         if (!$userInfo){
             $this->load->view('front/searchList', $data);

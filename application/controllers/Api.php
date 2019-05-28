@@ -242,7 +242,7 @@ class Api extends Base {
 
 				$updated = date( 'Y年m月d日', strtotime($inventory->updated_at));
 
-				$data[] = array($idx, $category, $inventory->name, $inventory->brief, $image, $brand, $inventory->serial_no, $updated, $inventory->status, null, json_encode($rows_image), json_encode($rows_brand));
+				$data[] = array($idx, $category, $inventory->name, $inventory->brief, $image, $brand, $inventory->serial_no, $updated, $inventory->status, null);
 			}
 
 			$output = array(
