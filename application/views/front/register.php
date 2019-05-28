@@ -27,7 +27,7 @@
             <h3>
                 <small>您好，欢迎光临东元商城！</small>
                 <small>
-                    <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/login">请登录</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/signin">请登录</a>|
                     <a type="button" class="btn btn-link" href="">免费注册</a>|
                     <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
                     <!--                        <a type="button" class="btn btn-link" href="--><?php //echo base_url()?><!--Page/cart">购物车</a>|-->

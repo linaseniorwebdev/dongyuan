@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
 
                         <? else: ?>
-                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/login">请登录</a>|
+                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/signin">请登录</a>|
                             <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/register">免费注册</a>|
                         <? endif; ?>
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|

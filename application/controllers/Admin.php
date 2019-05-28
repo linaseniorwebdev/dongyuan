@@ -11,6 +11,9 @@ class Admin extends Base {
 	 */
 	public function index() {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			$hparams = array('title' => '控制台', 'lineawesome' => true);
 			$fparams = array();
 			$user = $this->user->getUsername();
@@ -29,6 +32,9 @@ class Admin extends Base {
 	 */
 	public function signin() {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			redirect('admin');
 		} else {
 			$data = array();
@@ -70,6 +76,9 @@ class Admin extends Base {
 	 */
 	public function role() {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			if ($this->privilege('permission')) {
 				$hparams = array('title' => '角色管理', 'lineawesome' => true);
 				$fparams = array();
@@ -92,6 +101,9 @@ class Admin extends Base {
 	 */
 	public function user() {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			if ($this->privilege('user')) {
 				$hparams = array('title' => '用户管理', 'lineawesome' => true);
 				$fparams = array();
@@ -114,6 +126,9 @@ class Admin extends Base {
 	 */
 	public function category() {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			if ($this->privilege('category')) {
 				$this->load->model('Categories_model');
 
@@ -175,6 +190,9 @@ class Admin extends Base {
 	 */
 	public function address() {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			if ($this->privilege('address')) {
 				$type = isset($_GET['type'])?$_GET['type']:'province';
 				$id   = null;
@@ -223,6 +241,9 @@ class Admin extends Base {
 	 */
 	public function brand($com = null, $sub = null) {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			if ($this->privilege('brand')) {
 				if ($com === 'create') {
 					$hparams = array(
@@ -297,6 +318,9 @@ class Admin extends Base {
 	 */
 	public function inventory($com = null, $sub = null) {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			if ($this->privilege('inventory')) {
 				if ($com === 'create') {
 					$hparams = array(
@@ -393,6 +417,9 @@ class Admin extends Base {
 	 */
 	public function order() {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			if ($this->privilege('order')) {
 				$hparams = array('title' => '订单管理', 'lineawesome' => true);
 				$fparams = array();
@@ -415,6 +442,9 @@ class Admin extends Base {
 	 */
 	public function profile() {
 		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
 			$hparams = array('title' => '我的账户', 'lineawesome' => true);
 			$fparams = array();
 			$user = $this->user->getUsername();

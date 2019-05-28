@@ -143,7 +143,7 @@
                         <div class="login-btn-box">
                             <? if ($userdata == null){
                                 ?>
-                                <a href="<?php echo base_url('Page/login') ?>" class="btn btn-primary">商户登录</a>
+                                <a href="<?php echo base_url('Page/signin') ?>" class="btn btn-primary">商户登录</a>
                                 <a href="<?php echo base_url('Page/register') ?>" class="btn btn-default">免费注册</a>
                                 <?php
                             }else {

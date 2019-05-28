@@ -53,7 +53,7 @@ class Page extends Base {
 		}
 	}
 
-	public function login() {
+	public function signin() {
         if ($this->login) {
             redirect('/');
         } else {
@@ -196,7 +196,7 @@ class Page extends Base {
 			$this->load->view('front/shoppingCart', $data);
 			$this->load->view('front/footer', $data);
 		} else {
-			redirect('page/login');
+			redirect('page/signin');
 		}
     }
 
@@ -217,7 +217,7 @@ class Page extends Base {
 		    $this->load->view('front/myOrder', $data);
 		    $this->load->view('front/footer', $data);
 	    } else {
-	    	redirect('page/login');
+	    	redirect('page/signin');
 	    }
     }
 

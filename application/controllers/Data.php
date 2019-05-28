@@ -26,7 +26,7 @@ class Data extends  Base {
         }
         if($sess_flag == false){
             $baseurl = $this->Global_model->get_baseurl();
-            redirect($baseurl."/page/login", 'refresh');
+            redirect($baseurl."/page/signin", 'refresh');
         }else{
             return true;
         }
@@ -122,7 +122,7 @@ class Data extends  Base {
             $this->session->unset_userdata('user');
         }
         $baseurl = $this->Global_model->get_baseurl();
-        redirect($baseurl."/page/login", 'refresh');
+        redirect($baseurl."/page/signin", 'refresh');
 
 
     }
