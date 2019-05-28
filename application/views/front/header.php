@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <h3>
                     <small>您好，欢迎光临东元商城！</small>
                     <small>
-                        <? if ($userdata != null){
+                        <?php if ($userdata != null){
 
                         ?>
                         <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </a>|
                         <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
                         <?php
-                        }else {
+                        }else{
                             ?>
                             <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/login">请登录</a>|
                             <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/register">免费注册</a>|
@@ -54,7 +54,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         ?>
 
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
-                        <!--                        <a type="button" class="btn btn-link" href="--><?php //echo base_url()?><!--Page/cart">购物车</a>|-->
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/cartList">订购清单</a>|
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/orderList">我的订单</a>|
                         <a type="button" class="btn btn-link" href="#">网站服务</a>|
