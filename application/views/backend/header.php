@@ -51,6 +51,13 @@
 	}
 	?>
 
+	<!-- Select2 -->
+	<?php
+	if (isset($select2)) {
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/forms/selects/select2.min.css" />';
+	}
+	?>
+
 	<style>
 		.header-navbar .navbar-container ul.nav li a.nav-link-search, .header-navbar .navbar-container ul.nav li a.nav-link-expand {
 			padding: 1.6rem 1rem 1.7rem 1rem;

@@ -57,6 +57,26 @@ class Orders_model extends CI_Model {
 	 * @return array
 	 */
 	public function get_by_id($order_id) {
-		return $this->db->get_where('orders', array('id' => $order_id))->row_array();
+		$row = $this->db->get_where('orders', array('id' => $order_id))->row_array();
+
+		if ($row['detail']) {
+			$row['detail'] = unserialize($row['detail']);
+		}
+
+		return $row;
+	}
+
+	/**
+	 * Get all orders by uer id
+	 */
+	public function get_all_orders_by_user_id($user_id) {
+		$this->db->order_by('id', 'desc');
+		$rows = $this->db->get_where('orders', array('user' => $user_id))->result_array();
+		foreach ($rows as &$row) {
+			if ($row['detail']) {
+				$row['detail'] = unserialize($row['detail']);
+			}
+		}
+		return $rows;
 	}
 }

@@ -14,14 +14,23 @@ class Categories_model extends CI_Model {
 	 * Get categories
 	 * @param int $lv
 	 * @param null $id
+	 * @param bool $filter
 	 * @return array
 	 */
-	public function get_categories($lv = 1, $id = null) {
+	public function get_categories($lv = 1, $id = null, $filter = true) {
 		$this->db->order_by('id', 'asc');
-		if ($id) {
-			$result = $this->db->get_where('categories', array('level' => $lv, 'parent' => $id))->result_array();
+		if ($filter) {
+			if ($id) {
+				$result = $this->db->get_where('categories', array('level' => $lv, 'parent' => $id, 'status' => 1))->result_array();
+			} else {
+				$result = $this->db->get_where('categories', array('level' => $lv, 'status' => 1))->result_array();
+			}
 		} else {
-			$result = $this->db->get_where('categories', array('level' => $lv))->result_array();
+			if ($id) {
+				$result = $this->db->get_where('categories', array('level' => $lv, 'parent' => $id))->result_array();
+			} else {
+				$result = $this->db->get_where('categories', array('level' => $lv))->result_array();
+			}
 		}
 		return $result;
 	}

@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once APPPATH . 'controllers/Base.php';
 
-class Data extends CI_Controller {
+class Data extends  Base {
 
     public function __construct()
     {
@@ -18,12 +18,12 @@ class Data extends CI_Controller {
 
     private function checkLogin() {
 
-        $userInfo = $this->getUserInfo();
+        $userInfo = $this->user->getUsername();
         $sess_flag = false;
-        if (!isset($userInfo['id'])) {
+        if (!isset($userInfo)) {
             $sess_flag = false;
         }else{
-            if($userInfo['id'] > 0) $sess_flag = true;
+            $sess_flag = true;
         }
         if($sess_flag == false){
             $baseurl = $this->Global_model->get_baseurl();
@@ -42,7 +42,7 @@ class Data extends CI_Controller {
         if ($user) {
             $password = md5(SALT . $password);
             if ($password === $user['password']) {
-                $this->setUserInfo($user);
+                $this->session->set_userdata('user', $user['id']);
                 unset($user['password']);
                 redirect('/');
             } else {
@@ -108,8 +108,7 @@ class Data extends CI_Controller {
 
         }else{
             $result = $this->Users_model->add_user($params);
-            $row = $this->Users_model->get_by_id($result);
-            $this->setUserInfo($row);
+            if ($result)
             $data = array(
                 'state' => 'success',
                 'msg' => 'success',
@@ -120,28 +119,23 @@ class Data extends CI_Controller {
 
     }
     public function logOut() {
-
-        $sessInfo = $this->getUserInfo();
-
-        foreach ($sessInfo as $keys) {
-            $this->session->unset_userdata($keys);
-            $this->session->unset_tempdata($keys);
+        if ($this->login) {
+            $this->session->unset_userdata('user');
         }
-        $this->session->sess_destroy();
-        session_destroy();
-
         $baseurl = $this->Global_model->get_baseurl();
         redirect($baseurl."/page/login", 'refresh');
+
+
     }
 
-    public function addOrder() {
-        $this->checkLogin();
 
+    public function addOrder() {
 
 
     }
 
     public function addCarts() {
+
 
     }
 }

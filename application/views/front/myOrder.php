@@ -25,69 +25,23 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="text-center">5646532125614</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">2019/05/20</td>
+                    <?php
+                    foreach ($orders as $item){
+//                        var_dump($item);
+                    foreach ($item['detail'] as $i){
+
+                    ?>
+                    <td class="text-center"><?php echo $item['number']; ?></td>
+                    <td class="text-center"><?php echo $i['amount']; ?></td>
+                    <td class="text-center"><?php echo $item['created_at']; ?></td>
                     <td class="text-center opration">
-                        <button type="button" class="btn btn-primary-block">查看</button>
+                        <button type="button" onclick="viewOrder()" class="btn btn-primary-block">查看</button>
                     </td>
                 </tr>
-                <tr>
-                    <td class="text-center">5646532125614</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">2019/05/20</td>
-                    <td class="text-center opration">
-                        <button type="button" class="btn btn-primary-block">查看</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">5646532125614</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">2019/05/20</td>
-                    <td class="text-center opration">
-                        <button type="button" class="btn btn-primary-block">查看</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">5646532125614</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">2019/05/20</td>
-                    <td class="text-center opration">
-                        <button type="button" class="btn btn-primary-block">查看</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">5646532125614</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">2019/05/20</td>
-                    <td class="text-center opration">
-                        <button type="button" class="btn btn-primary-block">查看</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">5646532125614</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">2019/05/20</td>
-                    <td class="text-center opration">
-                        <button type="button" class="btn btn-primary-block">查看</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">5646532125614</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">2019/05/20</td>
-                    <td class="text-center opration">
-                        <button type="button" class="btn btn-primary-block">查看</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">5646532125614</td>
-                    <td class="text-center">10</td>
-                    <td class="text-center">2019/05/20</td>
-                    <td class="text-center opration">
-                        <button type="button" class="btn btn-primary-block">查看</button>
-                    </td>
-                </tr>
+                <?php
+                }
+                }
+                ?>
                 </tbody>
             </table>
         </div>

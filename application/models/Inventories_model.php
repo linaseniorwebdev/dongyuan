@@ -12,10 +12,17 @@ class Inventories_model extends CI_Model {
 
 	/**
 	 * Get all inventories
+	 * @param bool $filter
+	 * @return mixed
 	 */
-	public function get_all_inventories() {
+	public function get_all_inventories($filter = true) {
 		$this->db->order_by('id', 'asc');
-		return $this->db->get('inventories')->result_array();
+		if ($filter) {
+			$result = $this->db->get_where('inventories', array('status' => 1))->result_array();
+		} else {
+			$result = $this->db->get('inventories')->result_array();
+		}
+		return $result;
 	}
 
 	/**
@@ -26,7 +33,25 @@ class Inventories_model extends CI_Model {
 	 */
     public function get_by_level($level, $level_id) {
 	    $this->db->order_by('id', 'asc');
-	    return $this->db->get_where('inventories', array('level_' . $level, $level_id))->result_array();
+	    $rows = $this->db->get_where('inventories', array('level_' . $level, $level_id))->result_array();
+	    foreach ($rows as &$row) {
+		    if ($row['images']) {
+			    $row['images'] = unserialize($row['images']);
+		    }
+
+		    if ($row['brands']) {
+			    $row['brands'] = unserialize($row['brands']);
+		    }
+
+		    if ($row['branches']) {
+			    $row['branches'] = unserialize($row['branches']);
+		    }
+
+		    if ($row['place_of']) {
+			    $row['place_of'] = unserialize($row['place_of']);
+		    }
+	    }
+	    return $rows;
     }
 
 	/**
@@ -80,6 +105,10 @@ class Inventories_model extends CI_Model {
 
 		if ($row['branches']) {
 			$row['branches'] = unserialize($row['branches']);
+		}
+
+		if ($row['place_of']) {
+			$row['place_of'] = unserialize($row['place_of']);
 		}
 
 		return $row;

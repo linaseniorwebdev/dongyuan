@@ -39,7 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <? if ($userdata != null): ?>
                             <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
                             <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/profile">
-                                <?php echo $userdata['username'];?>
+                                <?php echo $userdata;?>
                             </a>|
                             <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
 

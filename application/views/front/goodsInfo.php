@@ -67,7 +67,7 @@
                                     <div class="swiper-container">
                                         <div class="swiper-wrapper">
                                             <?php
-                                            foreach ($product_info['images'] as $key=>$item) {
+                                            foreach ($product_info['images'] as $item) {
                                                 ?>
                                                 <div class="swiper-slide">
                                                     <div class="text-center product-item">
@@ -91,14 +91,14 @@
                     </div>
                     <div class="goods-intruduction-box goods-info">
                         <div class="goods-info-header goods-info-div-9">
-                            <p class="title"><?php echo $product_info['name'];?></p>
-                            <p class="remarks"><?php echo $product_info['brief'];?></p>
+                            <p class="title" id="goods_name"><?php echo $product_info['name'];?></p>
+                            <p class="remarks" id="goods_brief"><?php echo $product_info['brief'];?></p>
                         </div>
                         <div class="goods-info-price goods-info-div-10">
                             <ul>
                                 <li class="tag-name-li"><span class="tag-name-first">价</span>格：</li>
-                                <li class="tag-content-li price-li"><span class="small">￥</span><span
-                                            class="price"><?php echo $product_info['branches'][0]['price']; ?></span></li>
+                                <li class="tag-content-li price-li"><span class="small">￥</span>
+                                    <span class="price" id="goods_price"><?php echo $product_info['branches'][0]['price']; ?></span></li>
                             </ul>
                         </div>
                         <div class="goods-info-config goods-info-div-9">
@@ -106,20 +106,33 @@
                                 <li class="goods-info-config-li">
                                     <ul>
                                         <li class="tag-name-li"><span class="tag-name-first">品</span>牌：</li>
-                                        <li class="tag-content-li"><span class="tag-name-last"><?php echo $brand['name'];?></span></li>
+                                        <li class="tag-content-li">
+                                            <span class="tag-name-last" id="goods_brand"><?php echo $brand['name'];?></span>
+                                        </li>
                                     </ul>
                                 </li>
-<!--                                <li class="goods-info-config-li">-->
-<!--                                    <ul>-->
-<!--                                        <li class="tag-name-li"><span class="tag-name-first">配</span>送：</li>-->
-<!--                                        <li class="tag-content-li"><span class="tag-name-last">东风斯达康</span></li>-->
-<!--                                    </ul>-->
-<!--                                </li>-->
+                                <li class="goods-info-config-li">
+                                    <ul>
+                                        <li class="tag-name-li"><span class="tag-name-first">配</span>送：</li>
+                                        <li class="tag-content-li">
+                                            <select style="width: 200px;" id="goods_ship">
+                                                <?php
+                                                foreach ($place as $key=>$item) {
+
+                                                    ?>
+                                                    <option value="<?php echo $item['id'][$key]?>"><?php echo $item['prov']['name'];?>&nbsp;&nbsp;<?php echo $item['city']['name'];?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="goods-info-config-li">
                                     <ul>
                                         <li class="tag-name-li"><span class="tag-name-first">型</span>号：</li>
                                         <li class="tag-content-li">
-                                            <span class="tag-name-last">
+                                            <span class="tag-name-last" id="goods_type">
                                                 <?php echo $product_info['serial_no']; ?>
                                             </span>
                                         </li>
@@ -138,7 +151,7 @@
                                                                             type="button"><i
                                                                                 class="fa fa-minus"></i></button>
                                                                 </span>
-                                                                <input type="text" data-price="169" data-max='999'
+                                                                <input type="text" id="goods_amount" data-price="169" data-max='999'
                                                                        data-min="15" class="form-control input-numbox"
                                                                        oninput="countAmount(this)" placeholder="0"
                                                                        value="15">
@@ -162,7 +175,7 @@
                                             <?php
                                             foreach ($product_info['branches'] as $key=>$item) {
                                                 ?>
-                                                <span class="goods-specification <?php if ($key == 0) echo 'active';?>"><?php echo $item['model'];?></span>
+                                                <span id="goods_scale" class="goods-specification <?php if ($key == 0) echo 'active';?>"><?php echo $item['model'];?></span>
                                                 <?php
                                             }
                                             ?>
@@ -172,7 +185,7 @@
                             </ul>
                         </div>
                         <div class="goods-info-footer goods-info-div-9">
-                            <button type="button" class="btn btn-default">立即购买</button>
+                            <button type="button" class="btn btn-default" >立即购买</button>
                             <button type="button" class="btn btn-primary" onclick="addToCart()"><i
                                         class="fa fa-fw fa-shopping-cart"></i>加入购物车</button>
                         </div>
@@ -185,13 +198,13 @@
                                 <ul>
                                     <li>
                                         <a href="#">
-                                            <img src="./asserts/img/product/product_4.png" alt="">
+                                            <img src="public/front/img/moto/01.jpg" alt="">
                                             <p class="text-center extra-goods-name">气缸</p>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <img src="./asserts/img/product/product_4.png" alt="">
+                                            <img src="public/front/img/moto/02.jpg" alt="">
                                             <p class="text-center extra-goods-name">气缸</p>
                                         </a>
                                     </li>
@@ -229,25 +242,22 @@
                 <table class="table table-responsive table-bordered">
                     <thead>
                     <tr>
-                        <?php
-                        foreach ($more_goods as $item){
-                        ?>
-                        <th class="text-center">订货号</th>
+                        <th class="text-center">商品列表</th>
                         <th class="text-center">型号</th>
                         <th class="text-center">规格</th>
                         <th class="text-center">价格</th>
                         <th class="text-center">数量</th>
                     </tr>
-                    <?php
-                    }
-                    ?>
                     </thead>
                     <tbody>
+                    <?php
+                    foreach ($more_goods as $item){
+                        ?>
                     <tr>
+                        <td class="text-center"><?php echo $item['name']; ?></td>
                         <td class="text-center"><?php echo $item['serial_no']; ?></td>
-                        <td class="text-center"><?php echo $item['serial_no']; ?></td>
-                        <td class="text-center"><?php echo $item['serial_no']; ?></td>
-                        <td class="text-center"><?php echo $item['serial_no']; ?></td>
+                        <td class="text-center"><?php echo $item['branches'][0]['model']; ?></td>
+                        <td class="text-center"><?php echo $item['branches'][0]['price']; ?></td>
                         <td class="text-center opration">
                             <div class="opration-item">
                                 <div class="input-group text-right">
@@ -270,6 +280,9 @@
                             </div>
                         </td>
                     </tr>
+                    <?php
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -333,11 +346,52 @@
 </div>
 
 <div class="domination" style="background-color: #FFF"></div>
-<div class="domination" style="background-color: #FFF"></div>
 
 <script type="text/javascript">
     function addToCart() {
         layer.msg("加入购物车");
+        var goods_name = $("#goods_name").text();
+        var goods_price = $("#goods_price").text();
+        var goods_brand = $("#goods_brand").text();
+        var e = document.getElementById("goods_ship");
+        var goods_place = e.options[e.selectedIndex].value;
+        var goods_type = $("#goods_type").text();
+        var goods_amount = $("#goods_amount").val();
+        var goods_scale = $("#goods_scale.active").text();
+
+        $.post(_server_url + 'api/cart/create',
+            {
+                'inventory_name': goods_name,
+                'brand_name': goods_brand,
+                'serial_no': goods_type,
+                'place_of': goods_place,
+                'price': goods_price,
+                'amount': goods_amount
+            },
+            function (data) {
+            alert(data);
+                var result = JSON.parse(data);
+
+                if (result['status'] == "success") {
+                    swal({
+                        title: "成功！",
+                        text: "您已在购物车中成功添加商品。.",
+                        icon: "success",
+                    })
+                        .then((isok) => {
+                            if (isok) {
+                                location.href = _server_url + 'page/cartList';
+                            }
+                        });
+                }
+                else {
+                    swal("警告!", "你失败了。 请再试一次或稍后。", "warning");
+
+                }
+
+            });
+
+
 
 
     }

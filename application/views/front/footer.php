@@ -141,6 +141,21 @@
 
     var _server_url = '<?php echo base_url();?>';
 
+    $(document).ready(function () {
+        // var totalNum = 0;
+        var totalAmount = 0.00;
+        var numbox = $(".input-numbox");
+        $.each(numbox, function (index, val) {
+            var thisNum = $(val).val();
+            if (thisNum == '') {
+                thisNum = 0.00;
+            }
+            var thisPrice = $(val).attr("data-price");
+            var thisAmount = accMul(parseFloat(thisNum), thisPrice);
+            totalAmount = accAdd(thisAmount, totalAmount);
+        })
+        $("#sumb-price").html(totalAmount);
+    })
     function getBrowser() {
         if (window.navigator.userAgent.indexOf("Chrome") == -1) {
             //如果浏览器为IE7
@@ -165,7 +180,7 @@
         })
             .then((isok) => {
                 if (isok) {
-                    location.href =_server_url + 'page/login';
+                    location.href = _server_url + 'data/logout';
                 }
             });
     }
@@ -217,7 +232,6 @@
             var thisAmount = accMul(parseFloat(thisNum), thisPrice);
             totalAmount = accAdd(thisAmount, totalAmount);
         })
-        layer.msg(totalAmount);
         $("#sumb-price").html(totalAmount);
     }
 

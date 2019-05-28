@@ -12,10 +12,16 @@ class Provinces_model extends CI_Model {
 
 	/**
 	 * Get all provinces
+	 * @param bool $filter
+	 * @return mixed
 	 */
-	public function get_all_provinces() {
+	public function get_all_provinces($filter = true) {
 		$this->db->order_by('id', 'asc');
-		return $this->db->get('provinces')->result_array();
+		$result = $this->db->get('provinces')->result_array();
+		if ($filter === true) {
+			$result = $this->db->get_where('provinces', array('status' => 1))->result_array();
+		}
+		return $result;
 	}
 
 	/**

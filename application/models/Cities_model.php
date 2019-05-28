@@ -13,11 +13,16 @@ class Cities_model extends CI_Model {
 	/**
 	 * Get all cities by province id
 	 * @param $province_id
+	 * @param bool $filter
 	 * @return array
 	 */
-	public function get_all_cities($province_id) {
+	public function get_all_cities($province_id, $filter = true) {
 		$this->db->order_by('id', 'asc');
-		return $this->db->get_where('cities', array('province' => $province_id))->result_array();
+		$result = $this->db->get_where('cities', array('province' => $province_id))->result_array();
+		if ($filter === true) {
+			$result = $this->db->get_where('cities', array('province' => $province_id, 'status' => 1))->result_array();
+		}
+		return $result;
 	}
 
 	/**

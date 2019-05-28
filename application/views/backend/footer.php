@@ -32,6 +32,13 @@ if (isset($datatable)) {
 }
 ?>
 
+<!-- Select2 -->
+<?php
+if (isset($select2)) {
+	echo '<script src="public/backend/vendors/js/forms/select/select2.full.min.js"></script>';
+}
+?>
+
 <?php
 if (isset($name)) {
 	echo '<script src="public/backend/custom/' . $name . '.js"></script>';

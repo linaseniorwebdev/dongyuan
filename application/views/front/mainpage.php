@@ -139,14 +139,14 @@
                 <div class="col-sm-2 side-bar right" style="width:19%;">
                     <div class="login-box text-center">
                         <p class="login-slogen">
-                            Hi,&nbsp;<?=(isset($userdata['username']) ? $userdata['username'] : '')?>&nbsp;&nbsp;欢迎登录到东元商城</p>
+                            Hi,&nbsp;<?=(isset($userdata) ? $userdata : '')?>&nbsp;&nbsp;欢迎登录到东元商城</p>
                         <div class="login-btn-box">
                             <? if ($userdata == null): ?>
                                 <a href="<?php echo base_url('Page/login')?>" class="btn btn-primary">商户登录</a>
                                 <a href="<?php echo base_url('Page/register')?>" class="btn btn-default">免费注册</a>
                             <? else: ?>
                                 <a href="<?php echo base_url('Page/mypage')?>" class="btn btn-default login_true">会员中心</a>
-                                <a href="<?php echo base_url('data/logout')?>" class="btn btn-default login_true">退出登录</a>
+                                <a href="#" onclick="logout()" class="btn btn-default login_true">退出登录</a>
                             <? endif; ?>
                         </div>
                     </div>
@@ -236,16 +236,22 @@
                                     foreach ($item['goods_data'] as $item2s) {
                                         ?>
                                         <div class="swiper-slide">
-                                            <a class="sk_item_lk " href="#" onclick="goods_detail(this, <?php echo $item2s['id'];?>)">
+
+                                            <a class="sk_item_lk " href="#"
+                                               onclick="goods_detail(this, <?php echo $item2s['id']; ?>)">
+
                                                 <div class="text-center products-item">
-                                                    <img class="product-img" src="<?php echo $item2s['images']; ?>">
+                                                    <img class="product-img"
+                                                         src="<?php echo $item2s['images'][0]; ?>">
                                                 </div>
-                                                <p><?php echo $item2s['name']?></p>
+
+                                                <p><?php echo $item2s['name'] ?></p>
                                             </a>
                                         </div>
                                         <?php
                                     }
                                     ?>
+
                                 </div>
                                 <div class="swiper-scrollbar swiper-scrollbar<?php echo $key;?>"></div>
                             </div>

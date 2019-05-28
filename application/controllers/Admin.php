@@ -182,11 +182,11 @@ class Admin extends Base {
 
 				if ($type === 'province') {
 					$this->load->model('Provinces_model');
-					$data['rows'] = $this->Provinces_model->get_all_provinces();
+					$data['rows'] = $this->Provinces_model->get_all_provinces(false);
 				} else {
 					$id = $_GET['data'];
 					$this->load->model('Cities_model');
-					$data['rows'] = $this->Cities_model->get_all_cities($id);
+					$data['rows'] = $this->Cities_model->get_all_cities($id, false);
 				}
 
 				$data['type'] = $type;
@@ -301,27 +301,57 @@ class Admin extends Base {
 				if ($com === 'create') {
 					$hparams = array(
 						'title' => '添加新库存',
-						'lineawesome' => true
+						'lineawesome' => true,
+						'select2' => true
 					);
 					$fparams = array(
-						'name' => 'inventory/create'
+						'name' => 'inventory/create',
+						'select2' => true
 					);
+
+					$data = array();
+
+					$this->load->model('Categories_model');
+					$data['levels'] = $this->Categories_model->get_categories(1);
+
+					$this->load->model('Brands_model');
+					$data['brands1'] = $this->Brands_model->get_all_brands(1, 1);
+					$data['brands2'] = $this->Brands_model->get_all_brands(2, 1);
+					$data['brands3'] = $this->Brands_model->get_all_brands(3, 1);
+
+					$arr = array();
+					$this->load->model('Provinces_model');
+					$this->load->model('Cities_model');
+					$provinces = $this->Provinces_model->get_all_provinces();
+					foreach ($provinces as $province) {
+						$cities = $this->Cities_model->get_all_cities($province['id']);
+						$arr[] = array('id' => $province['id'], 'name' => $province['name']);
+						foreach ($cities as $city) {
+							$arr[] = array('id' => $province['id'] . '-' . $city['id'], 'name' => $province['name'] . $city['name']);
+						}
+					}
+					$data['cities'] = $arr;
+
+					$this->load->model('Inventories_model');
+					$data['inventories'] = $this->Inventories_model->get_all_inventories();
 
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
-					$this->load->view('backend/sidebar', array('com' => 'brand'));
-					$this->load->view('backend/brand/create');
+					$this->load->view('backend/sidebar', array('com' => 'inventory'));
+					$this->load->view('backend/inventory/create', $data);
 					$this->load_footer($fparams, true);
 				} elseif ($com === 'edit') {
 					$hparams = array(
 						'title' => '编辑库存',
 						'lineawesome' => true,
-						'switchery' => true
+						'switchery' => true,
+						'select2' => true
 					);
 					$fparams = array(
 						'name' => 'inventory/edit',
-						'switchery' => true
+						'switchery' => true,
+						'select2' => true
 					);
 
 					$this->load->model('Brands_model');
@@ -330,8 +360,8 @@ class Admin extends Base {
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
-					$this->load->view('backend/sidebar', array('com' => 'brand'));
-					$this->load->view('backend/brand/edit', array('row' => $data));
+					$this->load->view('backend/sidebar', array('com' => 'inventory'));
+					$this->load->view('backend/inventory/edit', array('row' => $data));
 					$this->load_footer($fparams, true);
 				} else {
 					$hparams = array(

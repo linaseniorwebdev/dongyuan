@@ -20,7 +20,7 @@
                 <tr>
                     <th class="text-center">商品列表</th>
                     <th class="text-center">品牌</th>
-                    <th class="text-center">订货号</th>
+<!--                    <th class="text-center">订货号</th>-->
                     <th class="text-center">替代型号</th>
                     <th class="text-center">产地</th>
                     <th class="text-center">价格</th>
@@ -29,205 +29,37 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="text-center">燃油机JIN</td>
-                    <td class="text-center">大风品牌</td>
-                    <td class="text-center">1245NFX</td>
-                    <td class="text-center">134689F</td>
-                    <td class="text-center">山东</td>
-                    <td class="text-center">169</td>
+                    <?php
+                    foreach ($carts_rel as $item){
+
+                    ?>
+                    <td class="text-center"><?php echo $item['detail']['inventory_name'];?></td>
+                    <td class="text-center"><?php echo $item['detail']['brand_name'];?></td>
+<!--                    <td class="text-center">1245NFX</td>-->
+                    <td class="text-center"><?php echo $item['detail']['serial_no'];?></td>
+                    <td class="text-center"><?php echo $item['place_real'];?></td>
+                    <td class="text-center"><?php echo $item['detail']['price'];?></td>
                     <td class="text-center opration">
                         <div class="opration-item">
                             <div class="input-group text-right">
                                             <span class="input-group-btn">
                                                 <button class="btn btn-default btn-cut" type="button"><i
-                                                        class="fa fa-minus"></i></button>
+                                                            class="fa fa-minus"></i></button>
                                             </span>
-                                <input type="text" data-price="169" data-max='999' data-min="0"
+                                <input type="text" data-price="<?php echo $item['detail']['price'];?>" data-max='999999' data-min="0"
                                        class="form-control input-numbox" oninput="countAmount(this)"
-                                       placeholder="0" value="0">
+                                       placeholder="0" value="<?php echo $item['amount'];?>">
                                 <span class="input-group-btn">
                                                 <button class="btn btn-default btn-add" type="button"><i
-                                                        class="fa fa-plus"></i></button>
+                                                            class="fa fa-plus"></i></button>
                                             </span>
                             </div>
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="text-center">燃油机JIN</td>
-                    <td class="text-center">大风品牌</td>
-                    <td class="text-center">1245NFX</td>
-                    <td class="text-center">134689F</td>
-                    <td class="text-center">山东</td>
-                    <td class="text-center">169</td>
-                    <td class="text-center opration">
-                        <div class="opration-item">
-                            <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                        class="fa fa-minus"></i></button>
-                                            </span>
-                                <input type="text" data-price="169" data-max='999' data-min="0"
-                                       class="form-control input-numbox" oninput="countAmount(this)"
-                                       placeholder="0" value="0">
-                                <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                        class="fa fa-plus"></i></button>
-                                            </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">燃油机JIN</td>
-                    <td class="text-center">大风品牌</td>
-                    <td class="text-center">1245NFX</td>
-                    <td class="text-center">134689F</td>
-                    <td class="text-center">山东</td>
-                    <td class="text-center">169</td>
-                    <td class="text-center opration">
-                        <div class="opration-item">
-                            <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                        class="fa fa-minus"></i></button>
-                                            </span>
-                                <input type="text" data-price="169" data-max='999' data-min="0"
-                                       class="form-control input-numbox" oninput="countAmount(this)"
-                                       placeholder="0" value="0">
-                                <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                        class="fa fa-plus"></i></button>
-                                            </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">燃油机JIN</td>
-                    <td class="text-center">大风品牌</td>
-                    <td class="text-center">1245NFX</td>
-                    <td class="text-center">134689F</td>
-                    <td class="text-center">山东</td>
-                    <td class="text-center">169</td>
-                    <td class="text-center opration">
-                        <div class="opration-item">
-                            <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                        class="fa fa-minus"></i></button>
-                                            </span>
-                                <input type="text" data-price="169" data-max='999' data-min="0"
-                                       class="form-control input-numbox" oninput="countAmount(this)"
-                                       placeholder="0" value="0">
-                                <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                        class="fa fa-plus"></i></button>
-                                            </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">燃油机JIN</td>
-                    <td class="text-center">大风品牌</td>
-                    <td class="text-center">1245NFX</td>
-                    <td class="text-center">134689F</td>
-                    <td class="text-center">山东</td>
-                    <td class="text-center">169</td>
-                    <td class="text-center opration">
-                        <div class="opration-item">
-                            <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                        class="fa fa-minus"></i></button>
-                                            </span>
-                                <input type="text" data-price="169" data-max='999' data-min="0"
-                                       class="form-control input-numbox" oninput="countAmount(this)"
-                                       placeholder="0" value="0">
-                                <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                        class="fa fa-plus"></i></button>
-                                            </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">燃油机JIN</td>
-                    <td class="text-center">大风品牌</td>
-                    <td class="text-center">1245NFX</td>
-                    <td class="text-center">134689F</td>
-                    <td class="text-center">山东</td>
-                    <td class="text-center">169</td>
-                    <td class="text-center opration">
-                        <div class="opration-item">
-                            <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                        class="fa fa-minus"></i></button>
-                                            </span>
-                                <input type="text" data-price="169" data-max='999' data-min="0"
-                                       class="form-control input-numbox" oninput="countAmount(this)"
-                                       placeholder="0" value="0">
-                                <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                        class="fa fa-plus"></i></button>
-                                            </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">燃油机JIN</td>
-                    <td class="text-center">大风品牌</td>
-                    <td class="text-center">1245NFX</td>
-                    <td class="text-center">134689F</td>
-                    <td class="text-center">山东</td>
-                    <td class="text-center">169</td>
-                    <td class="text-center opration">
-                        <div class="opration-item">
-                            <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                        class="fa fa-minus"></i></button>
-                                            </span>
-                                <input type="text" data-price="169" data-max='999' data-min="0"
-                                       class="form-control input-numbox" oninput="countAmount(this)"
-                                       placeholder="0" value="0">
-                                <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                        class="fa fa-plus"></i></button>
-                                            </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center">燃油机JIN</td>
-                    <td class="text-center">大风品牌</td>
-                    <td class="text-center">1245NFX</td>
-                    <td class="text-center">134689F</td>
-                    <td class="text-center">山东</td>
-                    <td class="text-center">169</td>
-                    <td class="text-center opration">
-                        <div class="opration-item">
-                            <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                        class="fa fa-minus"></i></button>
-                                            </span>
-                                <input type="text" data-price="169" data-max='999' data-min="0"
-                                       class="form-control input-numbox" oninput="countAmount(this)"
-                                       placeholder="0" value="0">
-                                <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                        class="fa fa-plus"></i></button>
-                                            </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
+                <?php
+                    }
+                ?>
 
                 </tbody>
             </table>

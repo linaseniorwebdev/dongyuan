@@ -31,7 +31,7 @@
 									<span style="font-size: 16px;">品牌名称</span>
 								</div>
 								<div class="col-10">
-									<input type="tel" class="form-control" name="brand_name" required />
+									<input type="text" class="form-control" name="brand_name" required />
 								</div>
 							</div>
 							<div class="form-group row no-gutters">

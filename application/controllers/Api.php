@@ -7,7 +7,7 @@ require_once APPPATH . 'controllers/Base.php';
 class Api extends Base {
 
 	/**
-	 * `Addresss` Processing API
+	 * `Address` Processing API
 	 * @param string $com
 	 */
 	public function address($com = 'list') {
@@ -64,7 +64,20 @@ class Api extends Base {
 	public function category($com = 'list') {
 		$this->load->model('Categories_model');
 		if ($com === 'list') {
+			if ($this->post_exist()) {
+				$level = $this->input->post('level');
+				$id    = $this->input->post('id');
 
+				if ($id) {
+					$levels = $this->Categories_model->get_categories($level, $id);
+				} else {
+					$levels = $this->Categories_model->get_categories($level);
+				}
+
+				echo json_encode($levels);
+			} else {
+				$this->bad_request();
+			}
 		} elseif ($com === 'update') {
 			$id     = $this->input->post('item_id_edit');
 			$params = array(
@@ -240,6 +253,150 @@ class Api extends Base {
 			);
 
 			echo json_encode($output);
+		} elseif ($com === 'create') {
+			if ($this->post_exist()) {
+				$images = array();
+				$total = count($_FILES['images']['name']);
+				for ($i = 0; $i < $total; $i++) {
+					$_FILES['userfile']['name']     = $_FILES['images']['name'][$i];
+					$_FILES['userfile']['type']     = $_FILES['images']['type'][$i];
+					$_FILES['userfile']['tmp_name'] = $_FILES['images']['tmp_name'][$i];
+					$_FILES['userfile']['error']    = $_FILES['images']['error'][$i];
+					$_FILES['userfile']['size']     = $_FILES['images']['size'][$i];
+
+					$config = array(
+						'file_name'     => uniqid('', false),
+						'allowed_types' => 'jpg|jpeg|png|gif',
+						'max_size'      => 3000,
+						'overwrite'     => FALSE,
+						'upload_path'   => 'public/uploads/inventories'
+					);
+
+					$this->upload->initialize($config);
+
+					if ($this->upload->do_upload()) {
+						$row = $this->upload->data();
+						$images[] = 'public/uploads/inventories/' . $row['file_name'];
+					}
+				}
+
+				$brands = array(
+					$this->input->post('brand1'),
+					$this->input->post('brand2'),
+					$this->input->post('brand3')
+				);
+
+				$branches = array();
+				$models = $this->input->post('i_models');
+				$prices = $this->input->post('i_prices');
+				for ($i = 0, $len = count($models); $i < $len; $i++) {
+					$branches[] = array(
+						'model' => $models[$i],
+						'price' => $prices[$i]
+					);
+				}
+				array_pop($branches);
+
+				$places = $this->input->post('i_place_of');
+				if ($places) {
+					$places = explode(',', $places);
+				} else {
+					$places = array();
+				}
+
+				$links = $this->input->post('i_links');
+				foreach ($links as &$link) {
+					$link = urlencode($link);
+				}
+				array_pop($links);
+
+				$params = array(
+					'level_one' => $this->input->post('level1'),
+					'level_two' => $this->input->post('level2'),
+					'level_three' => $this->input->post('level3'),
+					'name' => $this->input->post('i_name'),
+					'brief' => $this->input->post('i_brief'),
+					'images' => serialize($images),
+					'brands' => serialize($brands),
+					'branches' => serialize($branches),
+					'serial_no' => $this->input->post('i_serial_no'),
+					'place_of' => serialize($places),
+					'related' => $this->input->post('i_related'),
+					'links' => serialize($links)
+				);
+
+				$this->Inventories_model->add_inventory($params);
+
+				redirect('admin/inventory');
+			} else {
+				$this->bad_request();
+			}
+		}
+	}
+
+	/**
+	 * `Cart` Processing API
+	 * @param string $com
+	 */
+	public function cart($com = 'list') {
+		$this->load->model('Carts_model');
+		if ($com === 'create') {
+			if ($this->post_exist()) {
+				$detail = array(
+					'inventory_name' => $this->input->post('inventory_name'),
+					'brand_name'     => $this->input->post('brand_name'),
+					'serial_no'      => $this->input->post('serial_no'),
+					'place_of'       => $this->input->post('place_of'),
+					'price'          => $this->input->post('price')
+				);
+
+				$params = array(
+					'user'   => $this->session->user,
+					'amount' => $this->input->post('amount'),
+					'detail' => serialize($detail)
+				);
+
+				$cart_id = $this->Carts_model->add_cart($params);
+
+				echo json_encode(array('status' => 'success', 'cart' => $cart_id));
+			} else {
+				$this->bad_request();
+			}
+		}
+	}
+
+	/**
+	 * `Order` Processing API
+	 * @param string $com
+	 */
+	public function order($com = 'list') {
+		$this->load->model('Orders_model');
+		if ($com === 'create') {
+			if ($this->post_exist()) {
+				$detail = array(
+					'receipt_name'     => $this->input->post('receipt_name'),
+					'receipt_phone'    => $this->input->post('receipt_phone'),
+					'shipping_address' => $this->input->post('shipping_address'),
+					'inventory_name'   => $this->input->post('inventory_name'),
+					'brand_name'       => $this->input->post('brand_name'),
+					'serial_no'        => $this->input->post('serial_no'),
+					'place_of'         => $this->input->post('place_of'),
+					'price'            => $this->input->post('price'),
+					'amount'           => $this->input->post('amount')
+				);
+
+				$params = array(
+					'user'  => $this->session->user,
+					'number' => uniqid('DYO', false),
+					'detail' => serialize($detail)
+				);
+
+				$order_id = $this->Orders_model->add_order($params);
+
+				echo json_encode(array('status' => 'success', 'order' => $order_id));
+			} else {
+				$this->bad_request();
+			}
 		}
 	}
 }

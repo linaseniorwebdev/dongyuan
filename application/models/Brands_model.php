@@ -15,14 +15,24 @@ class Brands_model extends CI_Model {
 	 * @param null $status
 	 * @return mixed
 	 */
-	public function get_all_brands($status = null) {
+	public function get_all_brands($type = null, $status = null) {
 		$this->db->order_by('id', 'asc');
 
-		if ($status){
-			return $this->db->get_where('brands', array('status' => $status))->result_array();
-        }
+		if ($type) {
+			if ($status){
+				$result = $this->db->get_where('brands', array('type' => $type, 'status' => $status))->result_array();
+			} else {
+				$result = $this->db->get_where('brands', array('type' => $type))->result_array();
+			}
+		} else {
+			if ($status){
+				$result = $this->db->get_where('brands', array('status' => $status))->result_array();
+			} else {
+				$result = $this->db->get('brands')->result_array();
+			}
+		}
 
-		return $this->db->get('brands')->result_array();
+		return $result;
 
 	}
 
