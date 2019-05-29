@@ -111,4 +111,39 @@ class Base extends CI_Controller {
 		$date = new DateTime();
 		return $date->getTimestamp();
 	}
+
+	/**
+	 * Get current user's permission status
+	 */
+	public function status() {
+		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				return array();
+			}
+			$rows = $this->Permissions_model->get_table_fields();
+			$fields = array();
+			$comments = array(
+				'permission' => '角色管理',
+				'ad'         => '广告管理',
+				'notice'     => '咨询管理',
+				'brand'      => '品牌管理',
+				'user'       => '用户管理',
+				'category'   => '分类管理',
+				'address'    => '地址管理',
+				'inventory'  => '库存管理',
+				'order'      => '订货管理',
+			);
+			foreach ($rows as $row) {
+				if (strpos($row, '_status') !== false) {
+					$name = substr($row, 0, -7);
+					$fields[$name] = array(
+						'title' => $comments[$name],
+						'value' => $this->privilege($name)
+					);
+				}
+			}
+			return $fields;
+		}
+		return array();
+	}
 }

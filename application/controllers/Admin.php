@@ -14,13 +14,28 @@ class Admin extends Base {
 			if ($this->user->getPermission() === 5) {
 				redirect('admin/logout');
 			}
-			$hparams = array('title' => '控制台', 'lineawesome' => true);
+
+			$this->load->model('Dashboard_model');
+
+			$data = array();
+			$data['users'] = $this->Dashboard_model->get_users();
+			$data['products'] = $this->Dashboard_model->get_products();
+			$data['orders'] = $this->Dashboard_model->get_orders();
+
+			$hparams = array(
+				'title' => '控制台',
+				'lineawesome' => true,
+				'feather' => true
+			);
 			$fparams = array();
+
+			$permission = $this->status();
+
 			$user = $this->user->getUsername();
 			$this->load_header($hparams, true);
 			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar');
-			$this->load->view('backend/index');
+			$this->load->view('backend/sidebar', $permission);
+			$this->load->view('backend/index', $data);
 			$this->load_footer($fparams, true);
 		} else {
 			redirect('admin/signin');
@@ -80,12 +95,22 @@ class Admin extends Base {
 				redirect('admin/logout');
 			}
 			if ($this->privilege('permission')) {
-				$hparams = array('title' => '角色管理', 'lineawesome' => true);
-				$fparams = array();
+				$hparams = array(
+					'title' => '角色管理',
+					'lineawesome' => true,
+					'datatable' => true,
+					'feather' => true
+				);
+				$fparams = array(
+					'name' => 'role',
+					'datatable' => true
+				);
+				$permission = $this->status();
+				$permission['com'] = 'role';
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
-				$this->load->view('backend/sidebar', array('com' => 'role'));
+				$this->load->view('backend/sidebar', $permission);
 				$this->load->view('backend/role');
 				$this->load_footer($fparams, true);
 			} else {
@@ -108,16 +133,19 @@ class Admin extends Base {
 				$hparams = array(
 					'title' => '用户管理',
 					'lineawesome' => true,
-					'datatable' => true
+					'datatable' => true,
+					'feather' => true
 				);
 				$fparams = array(
 					'name' => 'user',
 					'datatable' => true
 				);
+				$permission = $this->status();
+				$permission['com'] = 'user';
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
-				$this->load->view('backend/sidebar', array('com' => 'user'));
+				$this->load->view('backend/sidebar', $permission);
 				$this->load->view('backend/user');
 				$this->load_footer($fparams, true);
 			} else {
@@ -142,7 +170,8 @@ class Admin extends Base {
 				$hparams = array(
 					'title' => '分类管理',
 					'lineawesome' => true,
-					'switchery' => true
+					'switchery' => true,
+					'feather' => true
 				);
 				$fparams = array(
 					'name' => 'category',
@@ -181,7 +210,9 @@ class Admin extends Base {
 					'id'    => $id,
 					'rows'  => $this->Categories_model->get_categories($lv, $id)
 				);
-				$this->load->view('backend/sidebar', array('com' => 'category'));
+				$permission = $this->status();
+				$permission['com'] = 'category';
+				$this->load->view('backend/sidebar', $permission);
 				$this->load->view('backend/category', $data);
 				$this->load_footer($fparams, true);
 			} else {
@@ -220,17 +251,21 @@ class Admin extends Base {
 				$hparams = array(
 					'title' => '地址管理',
 					'lineawesome' => true,
-					'switchery' => true
+					'switchery' => true,
+					'feather' => true
 				);
 				$fparams = array(
 					'name' => 'address',
 					'switchery' => true
 				);
 
+				$permission = $this->status();
+				$permission['com'] = 'system';
+				$permission['sub'] = 'address';
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
-				$this->load->view('backend/sidebar', array('com' => 'address'));
+				$this->load->view('backend/sidebar', $permission);
 				$this->load->view('backend/address', $data);
 				$this->load_footer($fparams, true);
 			} else {
@@ -256,17 +291,20 @@ class Admin extends Base {
 					$hparams = array(
 						'title' => '添加新品牌',
 						'lineawesome' => true,
-						'cropper' => true
+						'cropper' => true,
+						'feather' => true
 					);
 					$fparams = array(
 						'name' => 'brand/create',
 						'cropper' => true
 					);
 
+					$permission = $this->status();
+					$permission['com'] = 'brand';
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
-					$this->load->view('backend/sidebar', array('com' => 'brand'));
+					$this->load->view('backend/sidebar', $permission);
 					$this->load->view('backend/brand/create');
 					$this->load_footer($fparams, true);
 				} elseif ($com === 'edit') {
@@ -285,10 +323,12 @@ class Admin extends Base {
 					$this->load->model('Brands_model');
 					$data = $this->Brands_model->get_by_id($sub);
 
+					$permission = $this->status();
+					$permission['com'] = 'brand';
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
-					$this->load->view('backend/sidebar', array('com' => 'brand'));
+					$this->load->view('backend/sidebar', $permission);
 					$this->load->view('backend/brand/edit', array('row' => $data));
 					$this->load_footer($fparams, true);
 				} else {
@@ -303,10 +343,12 @@ class Admin extends Base {
 					$this->load->model('Brands_model');
 					$data = $this->Brands_model->get_all_brands();
 
+					$permission = $this->status();
+					$permission['com'] = 'brand';
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
-					$this->load->view('backend/sidebar', array('com' => 'brand'));
+					$this->load->view('backend/sidebar', $permission);
 					$this->load->view('backend/brand', array('rows' => $data));
 					$this->load_footer($fparams, true);
 				}
@@ -333,7 +375,8 @@ class Admin extends Base {
 					$hparams = array(
 						'title' => '添加新库存',
 						'lineawesome' => true,
-						'select2' => true
+						'select2' => true,
+						'feather' => true
 					);
 					$fparams = array(
 						'name' => 'inventory/create',
@@ -366,10 +409,12 @@ class Admin extends Base {
 					$this->load->model('Inventories_model');
 					$data['inventories'] = $this->Inventories_model->get_all_inventories();
 
+					$permission = $this->status();
+					$permission['com'] = 'inventory';
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
-					$this->load->view('backend/sidebar', array('com' => 'inventory'));
+					$this->load->view('backend/sidebar', $permission);
 					$this->load->view('backend/inventory/create', $data);
 					$this->load_footer($fparams, true);
 				} elseif ($com === 'edit') {
@@ -412,10 +457,12 @@ class Admin extends Base {
 					$data['inventories'] = $this->Inventories_model->get_all_inventories();
 					$data['row'] = $this->Inventories_model->get_by_id($sub);
 
+					$permission = $this->status();
+					$permission['com'] = 'inventory';
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
-					$this->load->view('backend/sidebar', array('com' => 'inventory'));
+					$this->load->view('backend/sidebar', $permission);
 					$this->load->view('backend/inventory/edit', $data);
 					$this->load_footer($fparams, true);
 				} else {
@@ -428,10 +475,12 @@ class Admin extends Base {
 						'name' => 'inventory',
 						'datatable' => true
 					);
+					$permission = $this->status();
+					$permission['com'] = 'inventory';
 					$user = $this->user->getUsername();
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
-					$this->load->view('backend/sidebar', array('com' => 'inventory'));
+					$this->load->view('backend/sidebar', $permission);
 					$this->load->view('backend/inventory');
 					$this->load_footer($fparams, true);
 				}
@@ -455,16 +504,19 @@ class Admin extends Base {
 				$hparams = array(
 					'title' => '订单管理',
 					'lineawesome' => true,
-					'datatable' => true
+					'datatable' => true,
+					'feather' => true
 				);
 				$fparams = array(
 					'name' => 'order',
 					'datatable' => true
 				);
+				$permission = $this->status();
+				$permission['com'] = 'order';
 				$user = $this->user->getUsername();
 				$this->load_header($hparams, true);
 				$this->load->view('backend/topbar', array('username' => $user));
-				$this->load->view('backend/sidebar', array('com' => 'order'));
+				$this->load->view('backend/sidebar', $permission);
 				$this->load->view('backend/order');
 				$this->load_footer($fparams, true);
 			} else {
@@ -483,12 +535,19 @@ class Admin extends Base {
 			if ($this->user->getPermission() === 5) {
 				redirect('admin/logout');
 			}
-			$hparams = array('title' => '我的账户', 'lineawesome' => true);
+			$hparams = array(
+				'title' => '我的账户',
+				'lineawesome' => true,
+				'feather' => true
+			);
 			$fparams = array();
+			$permission = $this->status();
+			$permission['com'] = 'system';
+			$permission['sub'] = 'profile';
 			$user = $this->user->getUsername();
 			$this->load_header($hparams, true);
 			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar', array('com' => 'profile'));
+			$this->load->view('backend/sidebar', $permission);
 			$this->load->view('backend/profile');
 			$this->load_footer($fparams, true);
 		} else {

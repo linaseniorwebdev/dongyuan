@@ -1,4 +1,3 @@
-
 <div class="main-menu-box">
     <div class="container">
         <div class="row">
@@ -16,32 +15,17 @@
     <div class="text-center hot-brands-box">
         <div class="container">
             <ul class="hot-brands-ul">
-                <li class="text-center">
+                <li class="text-center v-center">
                     品牌：
                 </li>
-                <li class="brand-slider-parent">
-                    <div class="brand-slider prev">
-                        <i class="fa-fw fa-2x fa fa-angle-left left"></i>
+                <li class="text-center" v-for="brand in brands" v-cloak>
+                    <div class="v-center">
+                        <img class="brand-img" :src="brand.url" :alt="brand.url">
                     </div>
+                    <!-- <p>{{ brand.title }}</p> -->
                 </li>
-                <li style="width:calc(100% - 82px);">
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" v-for="brand in brands" v-cloak>
-                                <a class="sk_item_lk"  href="#">
-                                    <div class="text-center brand-item">
-                                        <img class="brand-img" :src="brand.url" :alt="brand.url">
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="swiper-scrollbar"></div>
-                    </div>
-                </li>
-                <li class="brand-slider-parent">
-                    <div class="next brand-slider">
-                        <i class="fa-fw fa-2x fa fa-angle-right right"></i>
-                    </div>
+                <li class="v-center li-to-more">
+                    <a href="#">更多<i class="fa fa-fw fa-angle-right"></i></a>
                 </li>
             </ul>
 

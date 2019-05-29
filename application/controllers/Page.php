@@ -62,39 +62,19 @@ class Page extends Base {
 	}
 
 	public function register() {
+        $this->load->model('Permissions_model');
         if ($this->login) {
             redirect('/');
         } else {
-            $this->load->view('front/register');
+            $results = $this->Permissions_model->get_all_permissions();
+
+            $this->load->view('front/register', array('permit_data' => $results));
         }
 	}
 
 	public function forgetPass() {
 		$this->load->view('front/forgetPass');
 	}
-
-	public function get_products($category_id) {
-		$this->load->model('Categories_model');
-		$this->load->model('Inventories_model');
-
-        $categoryInfo = $this->Categories_model->get_by_id($category_id);
-        if ((int)$categoryInfo['level'] === 1) {
-            $results = $this->Inventories_model->get_by_level('one', $category_id);
-            $child2_categories = $this->Categories_model->get_categories(2, $category_id);
-            foreach ($child2_categories as &$row){
-                $child3_categories = $this->Categories_model->get_categories(3, $row['id']);
-                $row['children'] = $child3_categories;
-            }
-        } elseif ((int)$categoryInfo['level'] === 2) {
-            $results = $this->Inventories_model->get_by_level('two', $category_id);
-            $child_categories = $this->Categories_model->get_categories(3, $category_id);
-            $parent_category = $this->Categories_model->get_by_id($categoryInfo['parent']);
-        } else {
-            $results = $this->Inventories_model->get_by_level('three', $category_id);
-            $category_two = $this->Categories_model->get_by_id($categoryInfo['parent']);
-            $category_one = $this->Categories_model->get_by_id($category_two['parent']);
-        }
-    }
 
     public function get_places($goods_data, $cond = null){
         $r = array();
@@ -240,10 +220,34 @@ class Page extends Base {
     }
 
     public function goodsList() {
+        $this->load->model('Brands_model');
+        $this->load->model('Categories_model');
+        $this->load->model('Cities_model');
+        $this->load->model('Inventories_model');
+        $this->load->model('Provinces_model');
         $data = array(
             'title' => '商品列表',
             'userdata' => '',
         );
+
+        $category_rows = $this->Categories_model->get_categories(1);
+        if ($category_rows){
+            foreach ($category_rows as &$row) {
+                $row2s = $this->Categories_model->get_categories(2, $row['id']);
+                $goods_rows = $this->Inventories_model->get_by_level('one', $row['id']);
+                if ($row2s){
+                    foreach ($row2s as &$row2) {
+                        $row3s = $this->Categories_model->get_categories(3, $row2['id']);
+                        $row2['children'] = $row3s;
+                    }
+                }
+                $row['children'] = $row2s;
+                $row['goods_data'] = $goods_rows;
+
+            }
+        }
+        $brand_rows = $this->Brands_model->get_all_brands(1);
+
 
         if ($this->login){
 	        $data['userdata'] = $this->user->getUsername();

@@ -24,6 +24,9 @@ class Users_model extends CI_Model {
 	 * @return int
 	 */
 	public function add_user($params) {
+		if (!$params['photo']) {
+			$params['photo'] = 'empty.png';
+		}
 		$params['created_at'] = date('Y-m-d H:i:s');
 		$params['updated_at'] = date('Y-m-d H:i:s');
 		$this->db->insert('users', $params);

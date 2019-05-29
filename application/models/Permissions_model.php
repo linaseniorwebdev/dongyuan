@@ -12,10 +12,17 @@ class Permissions_model extends CI_Model {
 
 	/**
 	 * Get all permissions
+	 * @param bool $filter
+	 * @return mixed
 	 */
-	public function get_all_permissions() {
+	public function get_all_permissions($filter = true) {
 		$this->db->order_by('id', 'desc');
-		return $this->db->get('permissions')->result_array();
+		if ($filter) {
+			$result = $this->db->get_where('permissions', array('status' => 1))->result_array();
+		} else {
+			$result = $this->db->get('permissions')->result_array();
+		}
+		return $result;
 	}
 
 	/**

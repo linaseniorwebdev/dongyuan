@@ -8,10 +8,10 @@
 	<!--	<meta name="keywords" content="">-->
 	<meta name="author" content="Lina - Senior Web Dev">
 
-	<title><?php echo $title;?> | <?php echo  APPNAME; ?></title>
+	<title><?php echo $title;?> | <?php echo APPNAME; ?></title>
 
 	<link rel="apple-touch-icon" href="public/backend/images/ico/apple-icon-120.png">
-	<link rel="shortcut icon" type="image/x-icon" href="public/backend/images/ico/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="public/backend/images/ico/favicon-32.png">
 
 	<link rel="stylesheet" href="public/backend/css/bootstrap.min.css">
 	<link rel="stylesheet" href="public/backend/css/bootstrap-extended.min.css">
@@ -26,6 +26,12 @@
 	<?php
 	if (isset($lineawesome)) {
 		echo '<link rel="stylesheet" href="public/backend/fonts/line-awesome/css/line-awesome.min.css">';
+	}
+	?>
+
+	<?php
+	if (isset($feather)) {
+		echo '<link rel="stylesheet" href="public/backend/fonts/feather/style.min.css">';
 	}
 	?>
 

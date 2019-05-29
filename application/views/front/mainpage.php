@@ -194,24 +194,52 @@
 
 <div class="row">
     <div class="text-center hot-brands-box">
-        <!-- <p class="position"></p> -->
-        <p class="text-center hot-brands-title">热门品牌</p>
+<!--        <p class="text-center hot-brands-title">热门品牌</p>-->
         <div class="container">
             <ul class="hot-brands-ul">
-                <?php
-                foreach ($brand as $item){
-                    ?>
-                    <li class="text-center">
-
-                        <div class="v-center">
-                            <img class="brand-img" src="<?php echo $item['image'];?>">
+                <li class="text-center">
+                    品牌：
+                </li>
+                <li class="brand-slider-parent">
+                    <div class="brand-slider prev-home">
+                        <i class="fa-fw fa-2x fa fa-angle-left left"></i>
+                    </div>
+                </li>
+                <li style="width:calc(100% - 82px);">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" v-for="brand in brands" v-cloak>
+                                <a class="sk_item_lk"  href="#">
+                                    <div class="text-center brand-item">
+                                        <img class="brand-img" :src="brand.url" :alt="brand.url">
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-
-                    </li>
-                    <?php
-                }
-                ?>
+                        <div class="swiper-scrollbar"></div>
+                    </div>
+                </li>
+                <li class="brand-slider-parent">
+                    <div class="next-home brand-slider">
+                        <i class="fa-fw fa-2x fa fa-angle-right right"></i>
+                    </div>
+                </li>
             </ul>
+<!--            <ul class="hot-brands-ul">-->
+<!--                --><?php
+//                foreach ($brand as $item){
+//                    ?>
+<!--                    <li class="text-center">-->
+<!---->
+<!--                        <div class="v-center">-->
+<!--                            <img class="brand-img" src="--><?php //echo $item['image'];?><!--">-->
+<!--                        </div>-->
+<!---->
+<!--                    </li>-->
+<!--                    --><?php
+//                }
+//                ?>
+<!--            </ul>-->
         </div>
     </div>
 </div>
@@ -219,7 +247,7 @@
 <div class="pro-box">
     <div class="container">
         <div class="row">
-            <div class="production-box">
+            <div class="production-box" style="padding-top: 5px;">
                 <?php
                 foreach ($categories as $key=>$item) {
                     $idx = 1;

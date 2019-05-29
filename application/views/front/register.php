@@ -62,11 +62,13 @@
                             <label class="col-sm-2 control-label">选择角色</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="role" name="role">
-                                    <option value="1">请选择角色</option>
-                                    <option value="2">超级管理员</option>
-                                    <option value="3">库存管理员</option>
-                                    <option value="4">供应商经理</option>
-                                    <option value="5">客服经理</option>
+                                    <?php
+                                    foreach ($permit_data as $item) {
+                                        ?>
+                                        <option value="<?php echo $item['id'];?>"><?php echo $item['name']; ?></option>
+                                        <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -93,7 +95,7 @@
                         </div>
                         <div class="div-domination"></div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">附件</label>
+                            <label class="col-sm-2 control-label">图片</label>
                             <div class="col-sm-9">
                                 <div class="upload-box">
                                     <img id="file-img" class="upload-file-img"
@@ -149,7 +151,6 @@
         var username = $("#username").val();
         var password = $("#password").val();
         var repassword =  $("#repassword").val();
-        // var img = document.getElementById('file-img').src;
 
         if (role == null) {
             swal("警告!", "请选择你的角色。", "warning");
@@ -162,10 +163,32 @@
         }
         else if (repassword.length < 1 || password != repassword) {
             swal("警告!", "密码不匹配。", "warning");
-        }else if(image == null){
-            swal("警告!", "请选择您的个人资料图片。", "warning");
-        }
-        else {
+        }else if (image == null){
+            $.post(_server_url + 'data/register', {
+                'role': role,
+                'username' : username,
+                'password' : password,
+                },
+                function (data) {
+                    var result = JSON.parse(data);
+                    console.log(result);
+                    if (result['state'] == "success") {
+                        swal({
+                            title: "成功！",
+                            text: "您已成功注册。",
+                            icon: "success",
+                        })
+                            .then((isok) => {
+                                if (isok) {
+                                    location.href =_server_url + 'page/signin';
+                                }
+                            });
+                    }
+                    else {
+                        swal("警告!", "帐户已存在。.", "warning");
+                    }
+                });
+        }else {
             var formData = new FormData();
             formData.append('image', image, image.filename);
             formData.append('role', role);
@@ -204,7 +227,6 @@
                 processData: false
             });
         }
-
     }
 
 

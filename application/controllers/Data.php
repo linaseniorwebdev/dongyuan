@@ -59,45 +59,43 @@ class Data extends  Base {
         $file_element_name = 'image';
         $image_url ="";
         $status = "";
-
-        if ($status != "error")
+        if ($file_element_name)
         {
-            $config['upload_path'] = './public/uploads/users';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['max_size'] = 500 * 500;
-            $config['encrypt_name'] = FALSE;
-
-            $this->load->library('upload', $config);
-
-            if (!$this->upload->do_upload($file_element_name))
+            if ($status != "error")
             {
-                $status = 'error';
-                $msg = $this->upload->display_errors('', '');
+                $config['upload_path'] = './public/uploads/users';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size'] = 500 * 500;
+                $config['encrypt_name'] = FALSE;
+
+                $this->load->library('upload', $config);
+
+                if (!$this->upload->do_upload($file_element_name))
+                {
+                    $status = 'error';
+                    $msg = $this->upload->display_errors('', '');
+                }
+                else
+                {
+                    $data = $this->upload->data();
+                    $image_url = $data['file_name'];
+                }
             }
-            else
-            {
-                $data = $this->upload->data();
-                $image_url = $data['file_name'];
-            }
+            $params['photo'] = $image_url;
         }
 
         $role = $this->input->post('role');
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        $params = array(
-            'username' =>$username,
-            'password' => md5(SALT .$password),
-            'photo' => $image_url,
-            'permission' => $role
-        );
+        $params['username'] = $username;
+        $params['password'] = md5(SALT.$password);
+        $params['permission'] = $role;
 
         $data = array(
             'state' => 'fail',
-            'msg' => '',
-            'user_id' => ''
+            'msg' => ''
         );
-
 
         $sqls = "select * from dy_users where username ='".$username."'";
         $row = $this->Global_model->excute_query_row($sqls);
@@ -113,7 +111,6 @@ class Data extends  Base {
                 'msg' => 'success',
             );
         }
-
         echo json_encode($data);
 
     }
@@ -127,14 +124,4 @@ class Data extends  Base {
 
     }
 
-
-    public function addOrder() {
-
-
-    }
-
-    public function addCarts() {
-
-
-    }
 }
