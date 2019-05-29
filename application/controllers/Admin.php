@@ -88,31 +88,54 @@ class Admin extends Base {
 
 	/**
 	 * 角色管理
+	 * @param null $com
 	 */
-	public function role() {
+	public function role($com = null) {
 		if ($this->login) {
 			if ($this->user->getPermission() === 5) {
 				redirect('admin/logout');
 			}
 			if ($this->privilege('permission')) {
-				$hparams = array(
-					'title' => '角色管理',
-					'lineawesome' => true,
-					'datatable' => true,
-					'feather' => true
-				);
-				$fparams = array(
-					'name' => 'role',
-					'datatable' => true
-				);
-				$permission = $this->status();
-				$permission['com'] = 'role';
-				$user = $this->user->getUsername();
-				$this->load_header($hparams, true);
-				$this->load->view('backend/topbar', array('username' => $user));
-				$this->load->view('backend/sidebar', $permission);
-				$this->load->view('backend/role');
-				$this->load_footer($fparams, true);
+				if ($com === 'edit') {
+					$hparams = array(
+						'title' => '角色编辑',
+						'lineawesome' => true,
+						'feather' => true
+					);
+					$fparams = array(
+						'name' => 'role/edit',
+						'datatable' => true
+					);
+
+					$permission = $this->status();
+					$permission['com'] = 'role';
+					$user = $this->user->getUsername();
+
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', $permission);
+					$this->load->view('backend/role/edit');
+					$this->load_footer($fparams, true);
+				} else {
+					$hparams = array(
+						'title' => '角色管理',
+						'lineawesome' => true,
+						'datatable' => true,
+						'feather' => true
+					);
+					$fparams = array(
+						'name' => 'role',
+						'datatable' => true
+					);
+					$permission = $this->status();
+					$permission['com'] = 'role';
+					$user = $this->user->getUsername();
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', $permission);
+					$this->load->view('backend/role');
+					$this->load_footer($fparams, true);
+				}
 			} else {
 				$this->not_authorized();
 			}

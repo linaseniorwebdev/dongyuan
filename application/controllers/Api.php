@@ -579,6 +579,8 @@ class Api extends Base {
 			);
 
 			echo json_encode($output);
+		} elseif ($com === 'update') {
+
 		}
 	}
 

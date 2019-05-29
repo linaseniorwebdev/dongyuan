@@ -208,13 +208,20 @@
                 <li style="width:calc(100% - 82px);">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide" v-for="brand in brands" v-cloak>
-                                <a class="sk_item_lk"  href="#">
-                                    <div class="text-center brand-item">
-                                        <img class="brand-img" :src="brand.url" :alt="brand.url">
-                                    </div>
-                                </a>
-                            </div>
+                            <?php
+                            foreach ($brand as $item) {
+
+                                ?>
+                                <div class="swiper-slide">
+                                    <a class="sk_item_lk" href="#">
+                                        <div class="text-center brand-item">
+                                            <img class="brand-img" src="<?php echo $item['image'];?>">
+                                        </div>
+                                    </a>
+                                </div>
+                                <?php
+                            }
+                            ?>
                         </div>
                         <div class="swiper-scrollbar"></div>
                     </div>

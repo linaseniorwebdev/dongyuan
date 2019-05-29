@@ -38,9 +38,9 @@
                         echo '<td colspan="4" style="text-align: center;">没有购物车。</td>';
                     }else{
 
-                    foreach ($orders as $key=>$item){
+                    foreach ($orders as $item){
 
-                    foreach ($item['detail'] as $i){
+                    foreach ($item['detail'] as $key=>$i){
 
                     ?>
                     <td class="text-center"><?php echo $item['number']; ?></td>
@@ -61,8 +61,8 @@
     </div>
 </div>
 <?php
-foreach ($orders as $key=>$item){
-    foreach ($item['detail'] as $i){
+foreach ($orders as $item){
+    foreach ($item['detail'] as $key=>$i){
         ?>
         <div class="modal fade bd-example-modal-lg<?php echo $key;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">

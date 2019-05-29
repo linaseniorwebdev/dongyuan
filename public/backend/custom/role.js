@@ -139,9 +139,18 @@ $(document).ready(function() {
 				targets: [12],
 				className: 'text-center',
 				render: function(data, type, row) {
-					let buffer = '<input type="hidden" value="' + row[13] + '" />';
-					buffer += ('<button type="button" class="btn btn-info round box-shadow-1" onclick="modifyRole(this)">编辑</button>');
-					return buffer;
+					if (parseInt(row[13]) > 1) {
+						let buffer = row[2];
+						for (let i = 3; i < 11; i++) {
+							buffer += (':' + row[i]);
+						}
+						buffer = '<input type="hidden" value="' + buffer + '" />';
+						buffer += ('<input type="hidden" value="' + row[1] + '" />');
+						buffer += ('<input type="hidden" value="' + row[13] + '" />');
+						buffer += ('<button type="button" class="btn btn-info round box-shadow-1" onclick="modifyRole(this)">编辑</button>');
+						return buffer;
+					}
+					return '';
 				},
 				orderable: false
 			}
@@ -269,42 +278,9 @@ $(document).ready(function() {
 
 function modifyRole(obj) {
 	let userID = obj.previousElementSibling.value;
-	let status = 1 - parseInt(obj.previousElementSibling.previousElementSibling.value);
-
-	swal({
-		title: "确定吗？",
-		icon: "info",
-		buttons: {
-			cancel: {
-				text: "取消",
-				value: null,
-				visible: true,
-				className: "",
-				closeModal: true,
-			},
-			confirm: {
-				text: "确定",
-				value: true,
-				visible: true,
-				className: "",
-				closeModal: false
-			}
-		}
-	}).then(isConfirm => {
-		if (isConfirm) {
-			// $.post(
-			// 	'../api/user/update',
-			// 	{
-			// 		id    : userID,
-			// 		status: status
-			// 	},
-			// 	function (respond) {
-			// 		table1.ajax.reload( null, false );
-			// 		swal("更改成功!", "", "success");
-			// 	}
-			// );
-		}
-	});
+	let name   = obj.previousElementSibling.previousElementSibling.value;
+	let status = obj.previousElementSibling.previousElementSibling.previousElementSibling.value;
+	location.href = 'role/edit?id=' + userID + '&name=' + name + '&data=' + status;
 }
 
 function modifyAdmin(obj) {
