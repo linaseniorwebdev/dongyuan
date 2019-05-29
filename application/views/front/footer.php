@@ -53,8 +53,8 @@
                                     <li>
                                         <ul>
                                             <li class=""><a href="#">资金管理</a></li>
-                                            <li class=""><a href="#">我的收藏</a></li>
-                                            <li class=""><a href="#">我的订单</a></li>
+                                            <li class=""><a href="<?php echo base_url('page/cartList');?>">我的收藏</a></li>
+                                            <li class=""><a href="<?php echo base_url('page/orderList');?>">我的订单</a></li>
                                         </ul>
                                     </li>
                                     <li>
@@ -107,13 +107,13 @@
                     <div class="col-sm-6 col-sm-offset-3">
                         <div class="text-center">
                             <ul class="first-ul">
-                                <li><a href="./index.html">首页</a></li>|
-                                <li><a href="./index.html">隐私保护</a></li>|
-                                <li><a href="./index.html">联系我们</a></li>|
-                                <li><a href="./index.html">免责条款</a></li>|
-                                <li><a href="./index.html">公司简介</a></li>|
-                                <li><a href="./index.html">商户入驻</a></li>|
-                                <li><a href="./index.html">意见反馈</a></li>
+                                <li><a href="<?php echo base_url();?>">首页</a></li>|
+                                <li><a href="#">隐私保护</a></li>|
+                                <li><a href="#">联系我们</a></li>|
+                                <li><a href="#">免责条款</a></li>|
+                                <li><a href="">公司简介</a></li>|
+                                <li><a href="">商户入驻</a></li>|
+                                <li><a href="">意见反馈</a></li>
                             </ul>
                             <p class="text-center">ICP备案证书号：123456789</p>
                         </div>
@@ -156,6 +156,7 @@
         })
 
         $("#sumb-price").html(totalAmount);
+        $("#total-price").val(totalAmount);
     })
     function getBrowser() {
         if (window.navigator.userAgent.indexOf("Chrome") == -1) {
@@ -172,7 +173,7 @@
     }
 
     function searchList(obj, idx) {
-        location.href =_server_url + 'page/searchList?keyword='+ '&categoryId=' + idx + '&pageNum=1' + '&pageSize=40';
+        location.href =_server_url + 'page/searchList?categoryId=' + idx + '&pageNum=1' + '&pageSize=40';
     }
 
     function logout() {
@@ -238,7 +239,13 @@
             totalAmount = accAdd(thisAmount, totalAmount);
         })
         $("#sumb-price").html(totalAmount);
+        $("#total-price").val(totalAmount);
         $("#hidden_amount").val($("#amount").val());
+    }
+
+    function search() {
+        var keyword = $("#keyword").val();
+        location.href =_server_url + 'page/searchList?keyword=' + keyword + '&pageNum=1' + '&pageSize=40';
     }
 
 

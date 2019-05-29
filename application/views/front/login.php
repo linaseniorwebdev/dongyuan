@@ -31,11 +31,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <small>您好，欢迎光临东元商城！</small>
                 <small>
                     <a type="button" class="btn btn-link" href="">请登录</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/register">免费注册</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/register')?>">免费注册</a>|
                     <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
                     <!--                        <a type="button" class="btn btn-link" href="--><?php //echo base_url()?><!--Page/cart">购物车</a>|-->
-                    <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/cartList">订购清单</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/orderList">我的订单</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/cartList')?>">订购清单</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/orderList')?>">我的订单</a>|
                     <a type="button" class="btn btn-link" href="#">网站服务</a>|
                     <a type="button" class="btn btn-link" href="#">国际站</a>
                 </small>

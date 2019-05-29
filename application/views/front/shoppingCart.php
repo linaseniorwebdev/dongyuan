@@ -124,7 +124,7 @@
                         <span>
                             总金额： ￥
                             <span id="sumb-price">0.00</span>
-                            <input type="hidden" name="total" id="sumb-price">
+                            <input type="hidden" name="total" value="0" id="total-price">
                         </span>
                     <button type="submit" class="btn btn-primary">提交订单</button>
                 </div>

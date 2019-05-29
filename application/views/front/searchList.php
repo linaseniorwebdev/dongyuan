@@ -36,21 +36,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <h3>
                     <small>您好，欢迎光临东元商城！</small>
                     <small>
-                        <? if ($userdata != null): ?>
+                        <?php if ($userdata != null){
+
+                            ?>
                             <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
-                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/profile">
-                                <?php echo $userdata;?>
+                            <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/profile">
+                                <?php echo $userdata; ?>
                             </a>|
                             <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
-
-                        <? else: ?>
-                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/signin">请登录</a>|
-                            <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/register">免费注册</a>|
-                        <? endif; ?>
+                            <?php
+                        }else{
+                            ?>
+                            <a type="button" class="btn btn-link" href="<?php echo base_url('page/signin') ?>">请登录</a>|
+                            <a type="button" class="btn btn-link" href="<?php echo base_url('page/register') ?>">免费注册</a>|
+                            <?php
+                        }
+                        ?>
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
-                        <!--                        <a type="button" class="btn btn-link" href="--><?php //echo base_url()?><!--Page/cart">购物车</a>|-->
-                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/cartList">订购清单</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/orderList">我的订单</a>|
+
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('page/cartList')?>">订购清单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('page/orderList')?>">我的订单</a>|
                         <a type="button" class="btn btn-link" href="#">网站服务</a>|
                         <a type="button" class="btn btn-link" href="#">国际站</a>
                     </small>
@@ -70,10 +75,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row">
                             <div class="col-sm-10">
                                 <div class="input-group w-100">
-                                    <input type="text" class="form-control keywords-input" placeholder="请输入关键词"
+                                    <input type="text" class="form-control keywords-input" id="keyword" placeholder="请输入关键词"
                                            v-focus>
                                     <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="button">搜索</button>
+                                            <button class="btn btn-primary" type="button" onclick="search()">搜索</button>
                                         </span>
                                 </div>
                             </div>
@@ -106,6 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 
+    <input type="hidden" id="category_id" value="<?php echo $category_info['id']?>">
     <div class="main-menu-box">
         <div class="container">
             <div class="row">
@@ -439,8 +445,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <li>
                                         <ul>
                                             <li class=""><a href="#">资金管理</a></li>
-                                            <li class=""><a href="#">我的收藏</a></li>
-                                            <li class=""><a href="#">我的订单</a></li>
+                                            <li class=""><a href="<?php echo base_url('page/cartList');?>">我的收藏</a></li>
+                                            <li class=""><a href="<?php echo base_url('page/orderList');?>">我的订单</a></li>
                                         </ul>
                                     </li>
                                     <li>
@@ -493,13 +499,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="col-sm-6 col-sm-offset-3">
                         <div class="text-center">
                             <ul class="first-ul">
-                                <li><a href="./index.html">首页</a></li>|
-                                <li><a href="./index.html">隐私保护</a></li>|
-                                <li><a href="./index.html">联系我们</a></li>|
-                                <li><a href="./index.html">免责条款</a></li>|
-                                <li><a href="./index.html">公司简介</a></li>|
-                                <li><a href="./index.html">商户入驻</a></li>|
-                                <li><a href="./index.html">意见反馈</a></li>
+                                <li><a href="<?php echo base_url();?>">首页</a></li>|
+                                <li><a href="#">隐私保护</a></li>|
+                                <li><a href="#">联系我们</a></li>|
+                                <li><a href="#">免责条款</a></li>|
+                                <li><a href="#">公司简介</a></li>|
+                                <li><a href="#">商户入驻</a></li>|
+                                <li><a href="#">意见反馈</a></li>
                             </ul>
                             <p class="text-center">ICP备案证书号：123456789</p>
                         </div>
@@ -547,6 +553,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     if (getBrowser()) {
         layer.msg("请在Chrome谷歌内核浏览器中查看效果更佳，双核浏览器可切换Chrome内核")
+    }
+
+    function search() {
+        var keyword = $("#keyword").val();
+        var idx = $("#category_id").val();
+        location.href =_server_url + 'page/searchList?keyword=' + keyword + '&categoryId=' + idx +'&pageNum=1' + '&pageSize=40';
     }
 
     function goodsList(obj, idx) {

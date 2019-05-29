@@ -245,7 +245,6 @@
                         <th class="text-center">商品列表</th>
                         <th class="text-center">型号</th>
                         <th class="text-center">规格</th>
-                        <th class="text-center">产地</th>
                         <th class="text-center">价格</th>
                         <th class="text-center">数量</th>
                     </tr>
@@ -257,7 +256,6 @@
                         ?>
                         <td class="text-center" id="more_name"><?php echo $item['name']; ?></td>
                         <td class="text-center" id="more_type"><?php echo $item['serial_no']; ?></td>
-                        <td class="text-center" id="more-scale"><?php echo $item['branches'][0]['model']; ?></td>
                         <td class="text-center" id="more-scale"><?php echo $item['branches'][0]['model']; ?></td>
                         <td class="text-center" id="more_price"><?php echo $item['branches'][0]['price']; ?></td>
                         <td class="text-center opration">

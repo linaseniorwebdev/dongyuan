@@ -117,12 +117,9 @@ class Page extends Base {
                 $places[] = $e;
             }
         }else{
-            foreach ($goods_data as &$item){
 
-            }
         }
-
-        return$places;
+        return $places;
     }
 
 	public function productinfo() {
@@ -168,6 +165,7 @@ class Page extends Base {
         $places = $this->get_places($product_data);
 		$data['place'] = $places;
 
+
         if ($this->login){
 	        $data['userdata'] = $this->user->getUsername();
 	        $this->load->view('front/header', $data);
@@ -191,18 +189,20 @@ class Page extends Base {
 			$cart_results = $this->Carts_model->get_all_carts_by_user_id($userid);
 
 			if ($cart_results){
-                foreach ($cart_results as &$item){
 
-                    $s = explode('-', $item['detail']['place_of']);
-					$province = $this->Provinces_model->get_by_id($s[0]);
-					$city = $this->Cities_model->get_by_id($s[1]);
-					$item['place_real'] = $province['name'] .  $city['name'];
+                foreach ($cart_results as &$item){
+                    if ($item['detail']['place_of']){
+                        $s = explode('-', $item['detail']['place_of']);
+                        $province = $this->Provinces_model->get_by_id($s[0]);
+                        $city = $this->Cities_model->get_by_id($s[1]);
+                        $item['place_real'] = $province['name'] .  $city['name'];
+                    }else{
+                        $item['place_real'] = '';
+                    }
+
                 }
             }
 
-
-			var_dump($cart_results);
-			exit();
 
 			$data = array(
 				'title' => '订购清单',
@@ -313,6 +313,9 @@ class Page extends Base {
         $data['brands2_inactive'] = $this->Brands_model->get_all_brands(2,0);
         $data['brands3_active']   = $this->Brands_model->get_all_brands(3,1);
         $data['brands3_inactive'] = $this->Brands_model->get_all_brands(3,0);
+
+//        var_dump($results);
+//        exit();
 
         if ($this->login){
 	        $data['userdata'] = $this->user->getUsername();

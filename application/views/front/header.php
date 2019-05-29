@@ -40,22 +40,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         ?>
                         <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
-                        <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/profile">
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('page/profile') ?>">
                             <?php echo $userdata; ?>
                         </a>|
                         <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
                         <?php
                         }else{
                             ?>
-                            <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/signin">请登录</a>|
-                            <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/register">免费注册</a>|
+                            <a type="button" class="btn btn-link" href="<?php echo base_url('page/signin') ?>">请登录</a>|
+                            <a type="button" class="btn btn-link" href="<?php echo base_url('page/register') ?>">免费注册</a>|
                             <?php
                         }
                         ?>
 
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/cartList">订购清单</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>Page/orderList">我的订单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('page/cartList')?>">订购清单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('page/orderList')?>">我的订单</a>|
                         <a type="button" class="btn btn-link" href="#">网站服务</a>|
                         <a type="button" class="btn btn-link" href="#">国际站</a>
                     </small>
@@ -75,10 +75,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row">
                             <div class="col-sm-10">
                                 <div class="input-group w-100">
-                                    <input type="text" class="form-control keywords-input" placeholder="请输入关键词"
+                                    <input type="text" class="form-control keywords-input" id="keyword" placeholder="请输入关键词"
                                            v-focus>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="button">搜索</button>
+                                        <button class="btn btn-primary" type="button" onclick="search()">搜索</button>
                                     </span>
                                 </div>
                             </div>
