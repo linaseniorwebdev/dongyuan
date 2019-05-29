@@ -589,6 +589,7 @@ class Api extends Base {
 	public function admin($com = 'list') {
 		$this->load->model('Users_model');
 		if ($com === 'list') {
+			$this->load->model('Permissions_model');
 			$this->load->model('Api_model');
 
 			$this->Api_model->setTable('users');
@@ -600,17 +601,15 @@ class Api extends Base {
 			$_POST['filter_data'] = array(5);
 
 			$users = $this->Api_model->getRows($_POST);
-			// # 头像 用户名 注册日期 状态 操作
+			// # 头像 管理员名 角色名称 注册日期 状态 操作
 			$idx = 0;
 			foreach ($users as $user) {
 				$idx++;
-
-				// Image Processing...
 				$image = '<img src="public/uploads/users/' . $user->photo . '" style="width: 40px;" alt="Avatar" />';
-
+				$permission = $this->Permissions_model->get_by_id($user->permission);
+				$role = $permission['name'];
 				$created = date( 'Y年m月d日', strtotime($user->created_at));
-
-				$data[] = array($idx, $image, $user->username, $created, $user->status, null, $user->id);
+				$data[] = array($idx, $image, $user->username, $role, $created, $user->status, null, $user->id);
 			}
 
 			$output = array(

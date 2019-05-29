@@ -87,15 +87,10 @@
                             <input type="hidden" name="place_of[]" value="<?php echo $item['detail']['place_of']; ?>">
                             <input type="hidden" name="price[]" value="<?php echo $item['detail']['price']; ?>">
                             <input type="hidden" name="amount[]" data-price="<?php echo $item['detail']['price']; ?>"
-                                   data-max='999999'
-                                   data-min="0"
-                                   class="form-control input-numbox" oninput="countAmount(this)"
-                                   placeholder="0" id="hidden_amount" value="<?php echo $item['amount']; ?>">
+                                   value="<?php echo $item['amount']; ?>">
                             <?php
                         }
                         ?>
-
-
                         <div class="row">
                             <div class="form-group">
                                 <label class="col-sm-1 control-label">姓名 :</label>
