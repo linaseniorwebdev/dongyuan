@@ -378,7 +378,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     foreach ($products as $item) {
                         ?>
                         <li class="search-result-li v-center">
-                            <div class="pro-item v-center text-center">
+                            <div class="pro-item v-center text-center" onclick="goods_detail(this, <?php echo $item['id']; ?>">
                                 <img src="<?php echo $item['images'][0];?>">
                                 <p><?php echo $item['name']; ?></p>
                             </div>
@@ -559,6 +559,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     if (getBrowser()) {
         layer.msg("请在Chrome谷歌内核浏览器中查看效果更佳，双核浏览器可切换Chrome内核")
+    }
+
+    function goods_detail(obj, idx) {
+        location.href =_server_url + 'page/productinfo?productId=' + idx;
     }
 
     function search() {
