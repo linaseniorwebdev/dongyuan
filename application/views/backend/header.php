@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="public/backend/css/components.min.css">
 	<link rel="stylesheet" href="public/backend/css/core/menu/menu-types/vertical-menu-modern.css">
 	<link rel="stylesheet" href="public/backend/css/core/colors/palette-gradient.min.css">
+	<link rel="stylesheet" href="public/backend/css/core/colors/palette-callout.min.css">
 	<link rel="stylesheet" href="public/backend/vendors/css/extensions/pace.css">
 	<link rel="stylesheet" href="public/backend/vendors/css/extensions/sweetalert.css" />
 

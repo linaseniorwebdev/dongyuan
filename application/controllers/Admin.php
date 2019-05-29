@@ -559,20 +559,41 @@ class Admin extends Base {
 			if ($this->user->getPermission() === 5) {
 				redirect('admin/logout');
 			}
+
+			$data = array('id' => $this->user->getId());
+
+			if ($this->post_exist()) {
+				$this->load->model('Users_model');
+
+				$id = $this->input->post('id');
+				$ps = $this->input->post('ps');
+				$rp = $this->input->post('rp');
+				if ($ps) {
+					if ($ps !== $rp) {
+						$data['error'] = '密码不匹配';
+					} else {
+						$this->Users_model->update_user($id, array('password' => md5(SALT . $ps)));
+						$data['message'] = '密码修改成功';
+					}
+				}
+			}
+
 			$hparams = array(
 				'title' => '我的账户',
 				'lineawesome' => true,
 				'feather' => true
 			);
 			$fparams = array();
+
 			$permission = $this->status();
 			$permission['com'] = 'system';
 			$permission['sub'] = 'profile';
 			$user = $this->user->getUsername();
+
 			$this->load_header($hparams, true);
 			$this->load->view('backend/topbar', array('username' => $user));
 			$this->load->view('backend/sidebar', $permission);
-			$this->load->view('backend/profile');
+			$this->load->view('backend/profile', $data);
 			$this->load_footer($fparams, true);
 		} else {
 			redirect('admin/signin');

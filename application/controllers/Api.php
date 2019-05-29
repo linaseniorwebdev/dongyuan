@@ -420,24 +420,20 @@ class Api extends Base {
 			}
 		} elseif ($com === 'list') {
 			$this->load->model('Api_model');
+			$this->load->model('Users_model');
 
 			$this->Api_model->setTable('orders');
 			$this->Api_model->setColumnSearch(array('number'));
 
 			$data = array();
-
-			$users = $this->Api_model->getRows($_POST);
-			// # 头像 用户名 注册日期 状态 操作
+			$orders = $this->Api_model->getRows($_POST);
 			$idx = 0;
-			foreach ($users as $user) {
+			foreach ($orders as $order) {
 				$idx++;
-
-				// Image Processing...
-				$image = '<img src="public/uploads/users/' . $user->photo . '" style="width: 40px;" alt="Avatar" />';
-
-				$created = date( 'Y年m月d日', strtotime($user->created_at));
-
-				$data[] = array($idx, $image, $user->username, $created, $user->status, null, $user->id);
+				$user = $this->Users_model->get_by_id($order->user);
+				$image = '<img src="public/uploads/users/' . $user['photo'] . '" style="width: 40px;" alt="Avatar" />' . $user['username'];
+				$updated = date( 'Y年m月d日', strtotime($order->updated_at));
+				$data[] = array($idx, $order->number, $image, $order->total, $updated, $order->status, null, $order->id, $order->comment?:'');
 			}
 
 			$output = array(
@@ -449,7 +445,13 @@ class Api extends Base {
 
 			echo json_encode($output);
 		} elseif ($com === 'update') {
+			$id = $this->input->post('id');
+			$status = (int)$this->input->post('status');
+			$remark = $this->input->post('remark');
 
+			$this->Orders_model->update_order($id, array('status' => $status, 'comment' => $remark));
+
+			echo json_encode(array('status' => 'success'));
 		}
 	}
 
