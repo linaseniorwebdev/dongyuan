@@ -377,8 +377,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php
                     foreach ($products as $item) {
                         ?>
-                        <li class="search-result-li v-center" v-for="p in products">
-                            <div class="pro-item v-center text-center" @click="goodsInfo(p.id)">
+                        <li class="search-result-li v-center">
+                            <div class="pro-item v-center text-center">
                                 <img src="<?php echo $item['images'][0];?>">
                                 <p><?php echo $item['name']; ?></p>
                             </div>

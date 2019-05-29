@@ -35,8 +35,9 @@
 				<thead>
 				<tr>
 					<th>#</th>
-					<th>头像</th>
+					<th>订货号</th>
 					<th>用户名</th>
+					<th>总价格</th>
 					<th>注册日期</th>
 					<th>状态</th>
 					<th>操作</th>
