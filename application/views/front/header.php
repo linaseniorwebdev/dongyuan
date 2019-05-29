@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         ?>
                         <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('page/profile') ?>">
+                        <a type="button" class="btn btn-link" href="#">
                             <?php echo $userdata; ?>
                         </a>|
                         <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
@@ -68,7 +68,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="container">
             <div class="row">
                 <div class="logo-box">
-                    <img src="public/front/img/res/logo.png" alt="">
+                    <a href="<?php echo base_url();?>">
+                        <img class="logo" src="public/front/img/res/logo.png" alt="">
+                    </a>
                 </div>
                 <div class="col-sm-8" style="padding: 40px 0 15px;">
                     <form class="form-inline search-form" role="form">

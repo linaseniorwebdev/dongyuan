@@ -44,7 +44,9 @@
 <div class="page-content" style="background-color: #FFF">
     <div class="logo-box">
         <div class="container">
-            <img class="logo" src="public/front/img/res/logo.png" alt="">
+            <a href="<?php echo base_url();?>">
+                <img class="logo" src="public/front/img/res/logo.png" alt="">
+            </a>
         </div>
     </div>
 
@@ -142,7 +144,6 @@
     }
 
     function register() {
-        alert(_server_url);
         var e = document.getElementById("role");
         var role = e.options[e.selectedIndex].value;
         var username = $("#username").val();
@@ -161,7 +162,10 @@
         }
         else if (repassword.length < 1 || password != repassword) {
             swal("警告!", "密码不匹配。", "warning");
-        }else {
+        }else if(image == null){
+            swal("警告!", "请选择您的个人资料图片。", "warning");
+        }
+        else {
             var formData = new FormData();
             formData.append('image', image, image.filename);
             formData.append('role', role);
@@ -169,21 +173,19 @@
             formData.append('password', password);
             $.ajax({
                 type: "POST",
-                url: _server_url + 'Data/register',
+                url: _server_url + 'data/register',
                 success: function (data, textStatus, jqXHR) {
                     var result = JSON.parse(data);
                     console.log(result);
                     if (result['state'] == "success") {
                         swal({
                             title: "成功！",
-                            text: "您已成功注册。.",
+                            text: "您已成功注册。",
                             icon: "success",
-
-                            buttons: ["好"],
                         })
                             .then((isok) => {
                                 if (isok) {
-                                    location.href =_server_url;
+                                    location.href =_server_url + 'page/signin';
                                 }
                             });
                     }

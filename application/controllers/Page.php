@@ -314,7 +314,7 @@ class Page extends Base {
         $data['brands3_active']   = $this->Brands_model->get_all_brands(3,1);
         $data['brands3_inactive'] = $this->Brands_model->get_all_brands(3,0);
 
-//        var_dump($results);
+//        var_dump($categoryInfo);
 //        exit();
 
         if ($this->login){

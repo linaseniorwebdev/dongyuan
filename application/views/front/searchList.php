@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                             ?>
                             <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
-                            <a type="button" class="btn btn-link" href="<?php echo base_url() ?>Page/profile">
+                            <a type="button" class="btn btn-link" href="#">
                                 <?php echo $userdata; ?>
                             </a>|
                             <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
@@ -68,7 +68,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="container">
             <div class="row">
                 <div class="logo-box">
-                    <img src="public/front/img/res/logo.png" alt="">
+                    <a href="<?php echo base_url();?>">
+                        <img class="logo" src="public/front/img/res/logo.png" alt="">
+                    </a>
                 </div>
                 <div class="col-sm-8" style="padding: 40px 0 15px;">
                     <form action="" method="POST" class="form-inline search-form" role="form">
@@ -142,32 +144,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="col-sm-12">
                     <ol class="breadcrumb">
-                        <li>首页</li>
+                        <li><a href="<?php echo base_url();?>"> 首页 </a></li>
                         <?php
                         if ($category_info['level'] == 1) {
                             ?>
-                            <li class="active" onclick="searchList(this, <?php $category_info['id'];?>)">
+                            <li class="active" onclick="searchList(this, <?php echo $category_info['id'];?>)">
                                 <?php echo $category_info['name']; ?>
                             </li>
                             <?php
                         }elseif ($category_info['level'] == 2) {
                             ?>
-                            <li onclick="searchList(this, <?php $category_one['id']; ?>)">
+                            <li onclick="searchList(this, <?php echo $category_one['id']; ?>)">
                                 <?php echo $category_one['name']; ?>
                             </li>
-                            <li class="active" onclick="searchList(this, <?php $category_info['id']; ?>)">
+                            <li class="active" onclick="searchList(this, <?php echo $category_info['id']; ?>)">
                                 <?php echo $category_info['name']; ?>
                             </li>
                             <?php
                         }else {
                             ?>
-                            <li onclick="searchList(this, <?php $category_one['id']; ?>)">
+                            <li onclick="searchList(this, <?php echo $category_one['id']; ?>)">
                                 <?php echo $category_one['name']; ?>
                             </li>
-                            <li onclick="searchList(this, <?php $category_two['id']; ?>)">
+                            <li onclick="searchList(this, <?php echo $category_two['id']; ?>)">
                                 <?php echo $category_two['name']; ?>
                             </li>
-                            <li class="active" onclick="searchList(this, <?php $category_info['id']; ?>)">
+                            <li class="active" onclick="searchList(this, <?php echo $category_info['id']; ?>)">
                                 <?php echo $category_info['name']; ?>
                             </li>
                             <?php
@@ -185,16 +187,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     foreach ($category_two as $key=>$item) {
 
                                         ?>
-                                        <span class="tag-span <?php if ($key == 0) echo 'active';?>" filter="tag" value="<?php echo $item['name'];?>">
-                                            <?php echo $item['name'];?>
+                                        <span class="tag-span" filter="tag" value="<?php echo $item['id'];?>">
+                                            <?php echo $item['name'];?><input type="hidden" id="tag-span" value="<?php echo $item['id'];?>">
                                         </span>
                                         <?php
                                     }
                                 }elseif ($category_info['level'] == 2) {
                                     foreach ($category_three as $key=>$item) {
                                         ?>
-                                        <span class="tag-span <?php if ($key == 0) echo 'active';?>" filter="tag" value="<?php echo $item['name']; ?>">
-                                            <?php echo $item['name']; ?>
+                                        <span class="tag-span" filter="tag" value="<?php echo $item['id']; ?>">
+                                            <?php echo $item['name']; ?><input type="hidden" id="tag-span" value="<?php echo $item['id'];?>">
                                         </span>
                                         <?php
                                     }
@@ -378,7 +380,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     foreach ($products as $item) {
                         ?>
                         <li class="search-result-li v-center">
-                            <div class="pro-item v-center text-center" onclick="goods_detail(this, <?php echo $item['id']; ?>">
+                            <div class="pro-item v-center text-center" onclick="goods_detail(this, <?php echo $item['id'];?>)">
                                 <img src="<?php echo $item['images'][0];?>">
                                 <p><?php echo $item['name']; ?></p>
                             </div>
@@ -547,6 +549,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <script type="text/javascript" src="public/front/js/jquery.min.js"></script>
 <script type="text/javascript" src="public/front/layer/layer.js"></script>
+<script src="public/front/js/sweetalert.min.js"></script>
 <script>
 
     var _server_url = '<?php echo base_url();?>';
@@ -555,6 +558,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             //如果浏览器为IE7
             return true;
         }
+    }
+
+    function logout() {
+        swal({
+            title: "警告!",
+            text: "您确定要退出吗？",
+            icon: "warning",
+
+            buttons: ["不", "是"],
+        })
+            .then((isok) => {
+                if (isok) {
+                    location.href = _server_url + 'data/logout';
+                }
+            });
     }
 
     if (getBrowser()) {
@@ -985,6 +1003,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $(this).addClass("active").siblings().removeClass("active");
                 // 装配新tag条件并搜索
                 vm.search('filter:' + $(this).attr("filter") + "---value:" + $(this).attr("value"));
+                var idx = $("#tag-span").val();
+                searchList(this, idx);
             })
 
             // 按filter-opt查询
@@ -995,7 +1015,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 // 装配新filter条件并搜索
                 vm.search('filter:' + $(this).attr("filter") + "---value:" + $(this).attr("value"));
             })
-
             // 排序
             $(".sort-by-ul .sort-by-li").click(function () {
                 $(this).addClass("active").siblings().removeClass("active");

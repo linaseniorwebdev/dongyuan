@@ -1383,3 +1383,7 @@ tr>td:last-child .input-group-btn:last-child {
 .btn-primary-block:hover,.btn-primary-block.active,.btn-primary-block:visited{
     color: #1869BC;
 }
+
+.breadcrumb li:hover {
+    cursor: pointer;
+}

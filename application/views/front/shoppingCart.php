@@ -31,8 +31,8 @@
                     <tbody>
                     <tr>
                         <?php
-                        if (!isset($carts_rel)){
-                            echo '<tr><li> 没有购物车。</li></tr>';
+                        if ($carts_rel == null){
+                            echo '<td colspan="6" style="text-align: center;">没有购物车。</td>';
                         }else{
                         foreach ($carts_rel as $item){
                         ?>
@@ -126,7 +126,11 @@
                             <span id="sumb-price">0.00</span>
                             <input type="hidden" name="total" value="0" id="total-price">
                         </span>
-                    <button type="submit" class="btn btn-primary">提交订单</button>
+                    <?php
+                    if ($carts_rel == null) echo '<button type="submit" class="btn btn-primary" disabled>提交订单</button>';
+                    else echo '<button type="submit" class="btn btn-primary">提交订单</button>'
+                    ?>
+
                 </div>
             </form>
 

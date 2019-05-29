@@ -34,9 +34,13 @@
                 <tbody>
                 <tr>
                     <?php
-                    foreach ($orders as $item){
+                    if ($orders == null){
+                        echo '<td colspan="4" style="text-align: center;">没有购物车。</td>';
+                    }else{
 
-                    foreach ($item['detail'] as $key=>$i){
+                    foreach ($orders as $key=>$item){
+
+                    foreach ($item['detail'] as $i){
 
                     ?>
                     <td class="text-center"><?php echo $item['number']; ?></td>
@@ -47,6 +51,7 @@
                     </td>
                 </tr>
                 <?php
+                }
                 }
                 }
                 ?>
