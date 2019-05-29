@@ -374,12 +374,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="container">
             <div class="row">
                 <ul class="search-result-ul">
-                    <li class="search-result-li v-center" v-for="p in products">
-                        <div class="pro-item v-center text-center" @click="goodsInfo(p.id)">
-                            <img :src="p.img" :alt="p.img">
-                            <p :title="p.name">{{ p.name }}</p>
-                        </div>
-                    </li>
+                    <?php
+                    foreach ($products as $item) {
+                        ?>
+                        <li class="search-result-li v-center" v-for="p in products">
+                            <div class="pro-item v-center text-center" @click="goodsInfo(p.id)">
+                                <img src="<?php echo $item['images'][0];?>">
+                                <p><?php echo $item['name']; ?></p>
+                            </div>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
             <div class="row">

@@ -38,7 +38,7 @@ class Api_model extends CI_Model {
 
 	public function _get_datatables_query($postData) {
 		$this->db->from($this->table);
-		if ($postData['filter_rows']) {
+		if (isset($postData['filter_rows'])) {
 			$len = count($postData['filter_rows']);
 			for ($i = 0; $i < $len; $i++) {
 				$this->db->where($postData['filter_rows'][$i], $postData['filter_data'][$i]);
