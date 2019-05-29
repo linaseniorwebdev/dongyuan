@@ -11,7 +11,7 @@
 	<title>管理后台登录 | <?php echo APPNAME; ?></title>
 
 	<link rel="apple-touch-icon" href="public/backend/images/ico/apple-icon-120.png">
-	<link rel="shortcut icon" type="image/x-icon" href="public/backend/images/ico/favicon.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="public/backend/images/ico/favicon.png">
 
 	<link rel="stylesheet" type="text/css" href="public/backend/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="public/backend/css/bootstrap-extended.min.css">

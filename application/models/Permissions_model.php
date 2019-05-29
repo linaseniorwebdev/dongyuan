@@ -31,8 +31,6 @@ class Permissions_model extends CI_Model {
 	 * @return int
 	 */
 	public function add_permission($params) {
-		$params['created_at'] = date('Y-m-d H:i:s');
-		$params['updated_at'] = date('Y-m-d H:i:s');
 		$this->db->insert('permissions', $params);
 		return $this->db->insert_id();
 	}
@@ -44,7 +42,6 @@ class Permissions_model extends CI_Model {
 	 * @return bool
 	 */
 	public function update_permission($id, $params) {
-		$params['updated_at'] = date('Y-m-d H:i:s');
 		$this->db->where('id', $id);
 		return $this->db->update('permissions', $params);
 	}

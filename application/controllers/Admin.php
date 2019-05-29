@@ -100,11 +100,12 @@ class Admin extends Base {
 					$hparams = array(
 						'title' => '角色编辑',
 						'lineawesome' => true,
+						'switchery' => true,
 						'feather' => true
 					);
 					$fparams = array(
 						'name' => 'role/edit',
-						'datatable' => true
+						'switchery' => true
 					);
 
 					$permission = $this->status();

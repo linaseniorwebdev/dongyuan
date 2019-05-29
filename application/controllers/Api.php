@@ -580,7 +580,33 @@ class Api extends Base {
 
 			echo json_encode($output);
 		} elseif ($com === 'update') {
+			if ($this->post_exist()) {
+				$comments = array(
+					'permission' => '角色管理',
+					'ad'         => '广告管理',
+					'notice'     => '咨询管理',
+					'brand'      => '品牌管理',
+					'user'       => '用户管理',
+					'category'   => '分类管理',
+					'address'    => '地址管理',
+					'inventory'  => '库存管理',
+					'order'      => '订货管理',
+				);
 
+				$id = $this->input->post('id');
+				$params = array('name' => $this->input->post('name'));
+
+				foreach ($comments as $key => $comment) {
+					if ($key === 'permission') { continue; }
+					$params[$key . '_status'] = $this->input->post($key);
+				}
+
+				$this->Permissions_model->update_permission($id, $params);
+
+				redirect('admin/role');
+			} else {
+				$this->bad_request();
+			}
 		}
 	}
 
