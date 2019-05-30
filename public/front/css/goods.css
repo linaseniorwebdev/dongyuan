@@ -466,12 +466,12 @@ li.tag-content-li .input-group .input-numbox{
     /* border: 1px solid rgba(240,240,240,.6); */
 }
 
-.goods-gallery .product-slider i.fa.right {
+.product-slider i.fa.right {
     top: calc(50% - 7px);
     right: 2px;
 }
 
-.goods-gallery .product-slider i.fa.left {
+.product-slider i.fa.left {
     top: calc(50% - 7px);
     left: 2px;
 }
@@ -520,11 +520,14 @@ li.tag-content-li .input-group .input-numbox{
     background: none;
 }
 
-.product-item {
+.products-item {
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.product-item img {
+.products-item img {
     margin: 2px;
     position: relative;
     display: block;

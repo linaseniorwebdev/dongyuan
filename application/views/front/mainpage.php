@@ -1,3 +1,5 @@
+<link href="<?php echo base_url();?>public/front/css/menu.css" rel="stylesheet" type="text/css" />
+
 <div class="main-menu-box">
     <div class="container">
         <div class="row">
@@ -7,7 +9,7 @@
                     <a href="#home" aria-controls="home" role="tab" data-toggle="tab">全部商品分类</a>
                 </li>
                 <li role="presentation" class="text-center col-sm-2">
-                    <a href="" aria-controls="profile" role="tab" data-toggle="tab">东元商城</a>
+                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">东元商城</a>
                 </li>
                 <li role="presentation" class="text-center col-sm-2">
                     <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">线上交易</a>
@@ -91,7 +93,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-7" style="padding-left:0;width: 63%;">
+                <div class="col-sm-7" style="padding-left:0;background:rgba(255,255,255,0.86);width: 63%;">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
@@ -138,17 +140,16 @@
                 </div>
                 <div class="col-sm-2 side-bar right" style="width:19%;">
                     <div class="login-box text-center">
-                        <p class="login-slogen">
-                            Hi, 欢迎登录到东元商城</p>
+                        <p class="login-slogen">Hi！欢迎登录到东元商城</p>
                         <div class="login-btn-box">
                             <?php if ($userdata == null){
                                 ?>
-                                <a href="<?php echo base_url('Page/signin') ?>" class="btn btn-primary">商户登录</a>
-                                <a href="<?php echo base_url('Page/register') ?>" class="btn btn-default">免费注册</a>
+                                <a href="<?php echo base_url('home/signin') ?>" class="btn btn-primary">商户登录</a>
+                                <a href="<?php echo base_url('home/register') ?>" class="btn btn-default">免费注册</a>
                                 <?php
                             }else {
                                 ?>
-                                <a href="<?php echo base_url('Page/mypage') ?>"
+                                <a href="<?php echo base_url('home/mypage') ?>"
                                    class="btn btn-default login_true">会员中心</a>
                                 <a href="#" onclick="logout()" class="btn btn-default login_true">退出登录</a>
                                 <?php
@@ -183,7 +184,7 @@
                             </li>
                         </ul>
                         <div class="resources-footer">
-                            <img class="res-sub-img" src="public/front/img/res/pho.png" alt="">
+                            <img class="res-sub-img" src="<?php echo base_url();?>public/front/img/res/pho.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -194,59 +195,23 @@
 
 <div class="row">
     <div class="text-center hot-brands-box">
-<!--        <p class="text-center hot-brands-title">热门品牌</p>-->
+        <!-- <p class="position"></p> -->
+        <p class="text-center hot-brands-title">热门品牌</p>
         <div class="container">
             <ul class="hot-brands-ul">
-                <li class="text-center">
-                    品牌：
-                </li>
-                <li class="brand-slider-parent">
-                    <div class="brand-slider prev-home">
-                        <i class="fa-fw fa-2x fa fa-angle-left left"></i>
-                    </div>
-                </li>
-                <li style="width:calc(100% - 82px);">
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <?php
-                            foreach ($brand as $item) {
-
-                                ?>
-                                <div class="swiper-slide">
-                                    <a class="sk_item_lk" href="#">
-                                        <div class="text-center brand-item">
-                                            <img class="brand-img" src="<?php echo $item['image'];?>">
-                                        </div>
-                                    </a>
-                                </div>
-                                <?php
-                            }
-                            ?>
+                <?php
+                foreach ($brand as $item) {
+                    ?>
+                    <li class="text-center">
+                        <div class="v-center">
+                            <img class="brand-img" src="<?php echo $item['image'];?>">
                         </div>
-                        <div class="swiper-scrollbar"></div>
-                    </div>
-                </li>
-                <li class="brand-slider-parent">
-                    <div class="next-home brand-slider">
-                        <i class="fa-fw fa-2x fa fa-angle-right right"></i>
-                    </div>
-                </li>
+                        <!-- <p>{{ brand.title }}</p> -->
+                    </li>
+                    <?php
+                }
+                ?>
             </ul>
-<!--            <ul class="hot-brands-ul">-->
-<!--                --><?php
-//                foreach ($brand as $item){
-//                    ?>
-<!--                    <li class="text-center">-->
-<!---->
-<!--                        <div class="v-center">-->
-<!--                            <img class="brand-img" src="--><?php //echo $item['image'];?><!--">-->
-<!--                        </div>-->
-<!---->
-<!--                    </li>-->
-<!--                    --><?php
-//                }
-//                ?>
-<!--            </ul>-->
         </div>
     </div>
 </div>
@@ -254,58 +219,69 @@
 <div class="pro-box">
     <div class="container">
         <div class="row">
-            <div class="production-box" style="padding-top: 5px;">
+            <div class="production-box">
                 <?php
+
                 foreach ($categories as $key=>$item) {
-                    $idx = 1;
-                    ?>
-                    <div class="production-header">
-                        <a href="#"><span class="floor-num"><?php echo ($key++) + 1;?>F</span><?php echo $item['name'];?></a>
-                        <a href="#" class="view-more" onclick="searchList(this, <?php echo $item['id']?>)">查看更多<i
-                                    class="fa-fw fa-2x fa fa-angle-right"></i> </a>
-                    </div>
-                    <ul class="production-ul" style="height: 270px;">
-                        <li class="product-slider-parent">
-                            <div class="product-slider<?php echo $key;?> product-slider prev homepage">
-                                <i class="fa-fw fa-3x fa fa-angle-left left"></i>
+                    $style = "";
+                    if ($item['goods_data'] == null) {
+                        $style = "style='display:none;'";
+                    }else{
+                        ?>
+                        <div id="goods-box" <?php echo $style; ?>>
+                            <div class="production-header">
+                                <a href="#"><span
+                                            class="floor-num"><?php echo ($key++) + 1; ?>F</span><?php echo $item['name']; ?>
+                                </a>
+                                <a href="#" class="view-more"
+                                   onclick="searchList(this, <?php echo $item['id'] ?>)">查看更多<i
+                                            class="fa-fw fa-2x fa fa-angle-right"></i> </a>
                             </div>
-                        </li>
-                        <li style="width:calc(100% - 86px);">
-                            <div class="swiper-container swiper-container<?php echo $key;?>">
-                                <div class="swiper-wrapper" id="products<?php echo $key;?>">
-                                    <?php
-                                    foreach ($item['goods_data'] as $item2s) {
-                                        ?>
-                                        <div class="swiper-slide">
+                            <ul class="production-ul">
+                                <li class="product-slider-parent">
+                                    <div class="product-slider<?php echo $key; ?> product-slider prev">
+                                        <i class="fa-fw fa-3x fa fa-angle-left left"></i>
+                                    </div>
+                                </li>
+                                <li style="width:calc(100% - 86px);">
+                                    <div class="swiper-container swiper-container<?php echo $key; ?>">
+                                        <div class="swiper-wrapper" id="products<?php echo $key; ?>">
+                                            <?php
+                                            foreach ($item['goods_data'] as $item2s) {
+                                                ?>
+                                                <div class="swiper-slide">
 
-                                            <a class="sk_item_lk " href="#"
-                                               onclick="goods_detail(this, <?php echo $item2s['id']; ?>)">
+                                                    <a class="sk_item_lk " href="#"
+                                                       onclick="goods_detail(this, <?php echo $item2s['id']; ?>)">
 
-                                                <div class="text-center products-item">
-                                                    <img class="product-img"
-                                                         src="<?php echo $item2s['images'][0]; ?>">
+                                                        <div class="text-center products-item">
+                                                            <img class="product-img"
+                                                                 src="<?php echo $item2s['images'][0]; ?>">
+                                                        </div>
+
+                                                        <p><?php echo $item2s['name'] ?></p>
+                                                    </a>
                                                 </div>
 
-                                                <p><?php echo $item2s['name'] ?></p>
-                                            </a>
-                                        </div>
-                                        <?php
-                                    }
-                                    ?>
+                                                <?php
+                                            }
+                                            ?>
 
-                                </div>
-                                <div class="swiper-scrollbar swiper-scrollbar<?php echo $key;?>"></div>
-                            </div>
-                        </li>
-                        <li class="product-slider-parent">
-                            <div class="next product-slider homepage product-slider<?php echo $key;?>">
-                                <i class="fa-fw fa-3x fa fa-angle-right right"></i>
-                                <!-- <a class="product-slider-item right" href="javascript:;">
-                                </a> -->
-                            </div>
-                        </li>
-                    </ul>
-                    <?php
+                                        </div>
+                                        <div class="swiper-scrollbar swiper-scrollbar<?php echo $key; ?>"></div>
+                                    </div>
+                                </li>
+                                <li class="product-slider-parent">
+                                    <div class="next product-slider product-slider<?php echo $key; ?>">
+                                        <i class="fa-fw fa-3x fa fa-angle-right right"></i>
+                                        <!-- <a class="product-slider-item right" href="javascript:;">
+                                        </a> -->
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <?php
+                    }
                 }
                 ?>
             </div>
@@ -313,10 +289,3 @@
     </div>
 </div>
 
-<!--<div class="domination"></div>-->
-
-<script type="text/javascript">
-    function goods_detail(obj, idx) {
-        location.href =_server_url + 'page/productinfo?productId=' + idx;
-    }
-</script>

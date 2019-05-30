@@ -1,4 +1,4 @@
-ul.pro-address-ul{
+ul.hot-brands-ul, ul.pro-address-ul{
     padding: 34px 10px;
 }
 
@@ -28,8 +28,8 @@ ul li.li-to-more a:hover,ul li.li-to-more a:active{
     color: #444444;
 }
 
-.hot-brands-box ul.pro-address-ul li:first-child,
-.hot-brands-box ul.pro-address-ul li:last-child
+.hot-brands-box .hot-brands-ul li:first-child, .hot-brands-box ul.pro-address-ul li:first-child,
+.hot-brands-box .hot-brands-ul li:last-child, .hot-brands-box ul.pro-address-ul li:last-child
 {
     font-family: PingFangSC-Medium;
     font-size: 14px;

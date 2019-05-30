@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url();?>public/front/css/order.css">
 <div class="main-menu-box">
     <div class="container">
         <div class="row">
@@ -16,33 +16,18 @@
     <div class="text-center hot-brands-box">
         <div class="container">
             <ul class="hot-brands-ul">
-                <li class="text-center">
-                    品牌：
-                </li>
-                <li class="brand-slider-parent">
-                    <div class="brand-slider prev">
-                        <i class="fa-fw fa-2x fa fa-angle-left left"></i>
-                    </div>
-                </li>
-                <li style="width:calc(100% - 82px);">
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" v-for="brand in brands" v-cloak>
-                                <a class="sk_item_lk"  href="#">
-                                    <div class="text-center brand-item">
-                                        <img class="brand-img" :src="brand.url" :alt="brand.url">
-                                    </div>
-                                </a>
-                            </div>
+                <?php
+                foreach ($brand as $item) {
+                    ?>
+                    <li class="text-center">
+                        <div class="v-center">
+                            <img class="brand-img" src="<?php echo $item['image'];?>">
                         </div>
-                        <div class="swiper-scrollbar"></div>
-                    </div>
-                </li>
-                <li class="brand-slider-parent">
-                    <div class="next brand-slider">
-                        <i class="fa-fw fa-2x fa fa-angle-right right"></i>
-                    </div>
-                </li>
+                        <!-- <p>{{ brand.title }}</p> -->
+                    </li>
+                    <?php
+                }
+                ?>
             </ul>
 
             <ul class="pro-address-ul">

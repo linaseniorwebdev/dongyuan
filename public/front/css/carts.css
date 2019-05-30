@@ -1,0 +1,136 @@
+.page-content {
+    background: #f2f2f2;
+    padding-top: 6px;
+}
+
+.more-goods-body {
+    background: #ffffff;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+}
+
+.more-goods-body .table {
+    margin-bottom: 0px;
+}
+
+table thead {
+    background: #EEF3F9;
+    border: none;
+}
+
+.table>thead>tr>th {
+    border-bottom-width: 1px;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    color: #444444;
+    letter-spacing: 0;
+}
+
+.table>tbody>tr>td {
+    border: none;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #444444;
+    letter-spacing: 0;
+}
+
+.more-goods-body .input-group .input-numbox {
+    border: none;
+    box-shadow: none;
+    left: 1px;
+}
+
+.more-goods-body .input-group .btn {
+    /* border: none; */
+    color: #1869BC;
+    border-color: #1869BC;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+tr>td:last-child .input-group-btn:first-child {
+    padding-right: 1px;
+}
+
+tr>td:last-child .input-group-btn:last-child {
+    padding-left: 1px;
+}
+
+.order-info-box {
+    background: #ffffff;
+}
+
+.order-info-box .order-info-title {
+    padding-left: 10px;
+    border-left: 6px solid #1869BC;
+    line-height: 33px;
+    margin-bottom: 37px;
+    text-align: left;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    color: #000000;
+    letter-spacing: 0;
+}
+
+.order-info-box textarea {
+    resize: none;
+}
+
+.order-info-box .form-horizontal .form-group {
+    margin-bottom: 13px;
+}
+
+.order-info-box .form-horizontal .form-group:last-child {
+    margin-bottom: 50px;
+}
+
+.order-info-box .form-horizontal .control-label {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #000000;
+    letter-spacing: 0;
+}
+
+.order-info-box .form-horizontal .form-control::placeholder {
+    color: #cccccc;
+}
+
+.order-info-box .form-horizontal .form-control {
+    box-shadow: none;
+    border: 1px solid #cccccc;
+    border-radius: 0;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #444444;
+    letter-spacing: 0;
+    padding: 5px 12px;
+}
+
+.submit-form-box {
+    background: #ffffff;
+    margin-top: 3px;
+    display: flex;
+    justify-content: space-between;
+    line-height: 50px;
+    padding-left: 40px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #1869BC;
+    letter-spacing: 0;
+}
+
+.submit-form-box .btn-primary {
+    background: #1869BC;
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    border-radius: 0;
+    margin: 0;
+    width: 270px;
+}
+
+.domination {
+    background: #f2f2f2;
+}

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url();?>public/front/css/carts.css">
 <div class="main-menu-box">
     <div class="container">
         <div class="row">

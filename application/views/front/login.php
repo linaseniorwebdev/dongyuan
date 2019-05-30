@@ -10,16 +10,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
     <title>登录 | <?php echo APPNAME;?></title>
-    <link rel="shortcut icon" href="public/front/img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="public/front/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="public/front/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="public/front/layer/skin/layer.css">
-    <link rel="stylesheet" href="public/front/Swiper/css/swiper.min.css">
-    <link rel="stylesheet" href="public/front/css/style.css">
-    <link rel="stylesheet" href="public/front/css/login.css">
+    <link rel="shortcut icon" href="<?php echo base_url();?>public/front/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/layer/skin/layer.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/Swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/style.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/login.css">
     <!--[if lt IE 9]>
-    <script src="public/front/js/respond.min.js"></script>
-    <script src="public/front/js/html5shiv.js"></script>
+    <script src="<?php echo base_url();?>public/front/js/respond.min.js"></script>
+    <script src="<?php echo base_url();?>public/front/js/html5shiv.js"></script>
     <![endif]-->
 </head>
 
@@ -28,14 +28,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="container">
         <div class="page-header">
             <h3>
-                <small>您好，欢迎光临东元商城！</small>
+                <small></small>
                 <small>
-                    <a type="button" class="btn btn-link" href="">请登录</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/register')?>">免费注册</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
-                    <!--                        <a type="button" class="btn btn-link" href="--><?php //echo base_url()?><!--Page/cart">购物车</a>|-->
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/cartList')?>">订购清单</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/orderList')?>">我的订单</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/signin');?>">请登录</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/register');?>">免费注册</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url();?>">商城首页</a>|
+                    <!-- <a type="button" class="btn btn-link" href="./shoppingCart.html">购物车</a>| -->
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartsList');?>">订购清单</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList');?>">我的订单</a>|
                     <a type="button" class="btn btn-link" href="#">网站服务</a>|
                     <a type="button" class="btn btn-link" href="#">国际站</a>
                 </small>
@@ -44,11 +44,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 </div>
 
-<div class="page-content" style="background-color: #FFF">
+<div class="page-content">
     <div class="logo-box">
         <div class="container">
             <a href="<?php echo base_url();?>">
-                <img class="logo" src="public/front/img/res/logo.png" alt="">
+                <img class="logo" src="<?php echo base_url();?>public/front/img/res/logo.png" alt="">
             </a>
         </div>
     </div>
@@ -56,20 +56,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="container">
             <div class="login-box">
                 <div class="login-form-box row text-center">
-                    <form action="<?php echo base_url('data/login');?>" method="post" class="form-horizontal" role="form">
+                    <form action="<?php echo base_url('data/login');?>" method="POST" class="form-horizontal" role="form">
                         <div class="form-group">
                             <p class="login-slogon">登录</p>
                             <?php
                             if (isset($message)) {
-                                echo '<h3 class="text-center text-danger">' . $message . '</h3>';
+                                echo '<h4 class="text-center text-danger">' . $message . '</h4>';
                             }
                             ?>
-
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">账号</label>
                             <div class="col-sm-9">
-                                <input type="text" name="username" class="form-control" placeholder="请输入账号" <?php if (isset($username)) echo 'value="' . $username . '"'; ?> required/>
+                                <input type="text" name="username" class="form-control" placeholder="请输入账号">
                             </div>
                         </div>
                         <div class="div-domination"></div>
@@ -80,13 +79,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                         </div>
                         <div class="text-right col-sm-11">
-                            <a class="foget-pwd" href="<?php echo base_url('page/forgetPass')?>">忘记密码</a>
+                            <a class="foget-pwd" href="<?php echo base_url('home/forgetPass')?>">忘记密码</a>
                         </div>
                         <div class="div-domination"></div>
                         <div class="form-group">
                             <div class="login-btn-box">
                                 <button type="submit" class="btn btn-primary">登录</button>
-                                <a type="button" class="btn btn-default" href="<?php echo base_url('page/register');?>">注册</a>
+                                <a type="button" class="btn btn-default" href="<?php echo base_url('home/register')?>">注册</a>
                             </div>
                         </div>
                     </form>

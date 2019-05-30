@@ -9,22 +9,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
-    <title><?php echo $title?> | <?php echo APPNAME;?></title>
-    <link rel="shortcut icon" href="public/front/img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="public/front/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="public/front/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="public/front/layer/skin/layer.css">
-    <link rel="stylesheet" href="public/front/Swiper/css/swiper.min.css">
-    <link rel="stylesheet" href="public/front/css/style.css">
-    <link rel="stylesheet" href="public/front/css/goods.css">
-    <link rel="stylesheet" href="public/front/css/goodsStyle.css">
-    <link rel="stylesheet" href="public/front/css/pagenation.css">
-<!--    <link rel="stylesheet" href="public/front/css/search.css">-->
-    <link href="public/front/css/menu.css" rel="stylesheet" type="text/css" />
+    <title>东元商城</title>
+    <link rel="shortcut icon" href="<?php echo base_url();?>public/front/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/layer/skin/layer.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/Swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/style.css">
 
     <!--[if lt IE 9]>
-    <script src="public/front/js/respond.min.js"></script>
-    <script src="public/front/js/html5shiv.js"></script>
+    <script src="<?php echo base_url();?>public/front/js/respond.min.js"></script>
+    <script src="<?php echo base_url();?>public/front/js/html5shiv.js"></script>
     <![endif]-->
 </head>
 
@@ -34,28 +29,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="container">
             <div class="page-header">
                 <h3>
-                    <small>您好，欢迎光临东元商城！</small>
+                    <small></small>
                     <small>
-                        <?php if ($userdata != null){
-
-                        ?>
-                        <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
-                        <a type="button" class="btn btn-link" href="#">
-                            <?php echo $userdata; ?>
-                        </a>|
-                        <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
-                        <?php
-                        }else{
-                            ?>
-                            <a type="button" class="btn btn-link" href="<?php echo base_url('page/signin') ?>">请登录</a>|
-                            <a type="button" class="btn btn-link" href="<?php echo base_url('page/register') ?>">免费注册</a>|
-                            <?php
-                        }
-                        ?>
-
-                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('page/cartList')?>">订购清单</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('page/orderList')?>">我的订单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/signin');?>">请登录</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/register');?>">免费注册</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url();?>">商城首页</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartsList');?>">订购清单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList');?>">我的订单</a>|
                         <a type="button" class="btn btn-link" href="#">网站服务</a>|
                         <a type="button" class="btn btn-link" href="#">国际站</a>
                     </small>
@@ -69,35 +49,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="row">
                 <div class="logo-box">
                     <a href="<?php echo base_url();?>">
-                        <img class="logo" src="public/front/img/res/logo.png" alt="">
+                        <img class="logo" src="<?php echo base_url();?>public/front/img/res/logo.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm-8" style="padding: 40px 0 15px;">
-                    <form class="form-inline search-form" role="form">
+                    <form action="" method="POST" class="form-inline search-form" role="form">
                         <div class="row">
                             <div class="col-sm-10">
                                 <div class="input-group w-100">
-                                    <input type="text" class="form-control keywords-input" id="keyword" placeholder="请输入关键词"
+                                    <input type="text" class="form-control keywords-input" placeholder="请输入关键词"
                                            v-focus>
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="button" onclick="search()">搜索</button>
-                                    </span>
+                                            <button class="btn btn-primary" type="button">搜索</button>
+                                        </span>
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" class="btn btn-default">
-                                    <img style="height: 1.2em;position: relative; margin-top: -0.1em;margin-right: 6px;"
-                                         src="public/front/img/res/kefu.png" alt=""> 联系客服</button>
+                                <a href="tel:400-000-000">
+                                    <button type="button" class="btn btn-default">
+                                        <img style="height: 1.2em;position: relative; margin-top: -0.1em;margin-right: 6px;" src="<?php echo base_url();?>public/front/img/res/kefu.png" alt=""> 联系客服
+                                    </button>
+                                </a>
                             </div>
                             <div class="col-sm-8">
                                 <ul class="shortcut-search">
-                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
+                                    <li><a href="<?php echo base_url('home/goodsList')?>">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
+                                    <li><a href="<?php echo base_url('home/goodsList')?>">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
+                                    <li><a href="<?php echo base_url('home/goodsList')?>">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="#" onclick="goodsList(this, id)">发动机</a></li>
+                                    <li><a href="<?php echo base_url('home/goodsList')?>">发动机</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -105,11 +87,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <div class="col-sm-1" style="margin-left: 5%;">
                     <div class="logo-box" style="width: 110px;padding-top: 22px;">
-                        <img src="public/front/img/res/erwm.png" alt="">
+                        <img src="<?php echo base_url();?>public/front/img/res/erwm.png" alt="">
                         <p class="download-qrcode">下载手机东元商城</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-

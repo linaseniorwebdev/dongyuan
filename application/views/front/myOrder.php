@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo base_url();?>public/front/css/order.css">
 <style>
     .close_add_modal {
         position: absolute;

@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,16 +10,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
     <title>免费注册 | <?php echo APPNAME;?></title>
-    <link rel="shortcut icon" href="public/front/img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="public/front/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="public/front/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="public/front/layer/skin/layer.css">
-    <link rel="stylesheet" href="public/front/Swiper/css/swiper.min.css">
-    <link rel="stylesheet" href="public/front/css/style.css">
-    <link rel="stylesheet" href="public/front/css/login.css">
+    <link rel="shortcut icon" href="<?php echo base_url();?>public/front/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/layer/skin/layer.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/Swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/style.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/login.css">
     <!--[if lt IE 9]>
-    <script src="public/front/js/respond.min.js"></script>
-    <script src="public/front/js/html5shiv.js"></script>
+    <script src="<?php echo base_url();?>public/front/js/respond.min.js"></script>
+    <script src="<?php echo base_url();?>public/front/js/html5shiv.js"></script>
     <![endif]-->
 </head>
 
@@ -25,14 +28,13 @@
     <div class="container">
         <div class="page-header">
             <h3>
-                <small>您好，欢迎光临东元商城！</small>
+                <small></small>
                 <small>
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/signin')?>">请登录</a>|
-                    <a type="button" class="btn btn-link" href="">免费注册</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
-                    <!--                        <a type="button" class="btn btn-link" href="--><?php //echo base_url()?><!--Page/cart">购物车</a>|-->
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/cartList')?>">订购清单</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('page/orderList')?>">我的订单</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/signin');?>">请登录</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/register');?>">免费注册</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url();?>">商城首页</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartsList');?>">订购清单</a>|
+                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList');?>">我的订单</a>|
                     <a type="button" class="btn btn-link" href="#">网站服务</a>|
                     <a type="button" class="btn btn-link" href="#">国际站</a>
                 </small>
@@ -41,7 +43,7 @@
     </div>
 </div>
 
-<div class="page-content" style="background-color: #FFF">
+<div class="page-content">
     <div class="logo-box">
         <div class="container">
             <a href="<?php echo base_url();?>">
@@ -100,7 +102,7 @@
                                 <div class="upload-box">
                                     <img id="file-img" class="upload-file-img"
                                          src="public/front/img/res/upload-file.jpg" alt="">
-<!--                                    <input id="file-input" type="file" class="file-input" accept="image/*" onchange="uploadFile('file-input', 'file-img', 'attachment-path')">-->
+                                    <!--                                    <input id="file-input" type="file" class="file-input" accept="image/*" onchange="uploadFile('file-input', 'file-img', 'attachment-path')">-->
                                     <input id="file-input" type="file" class="file-input" accept="image/*" onchange="image_upload(this)">
                                 </div>
                                 <!-- attachment-path用于保存最后要提交的文件路径 -->
@@ -123,11 +125,10 @@
     </div>
 </div>
 
-<script src="public/front/js/jquery.min.js"></script>
-<script src="public/front/js/file-upload.js"></script>
-<script src="public/front/js/sweetalert.min.js"></script>
+<script src="<?php echo base_url();?>public/front/js/jquery.min.js"></script>
+<script src="<?php echo base_url();?>public/front/js/file-upload.js"></script>
+<script src="<?php echo base_url();?>public/front/js/sweetalert.min.js"></script>
 <script>
-
     var image=null;
     var _server_url = '<?php echo base_url();?>';
 
@@ -165,9 +166,9 @@
             swal("警告!", "密码不匹配。", "warning");
         }else if (image == null){
             $.post(_server_url + 'data/register', {
-                'role': role,
-                'username' : username,
-                'password' : password,
+                    'role': role,
+                    'username' : username,
+                    'password' : password,
                 },
                 function (data) {
                     var result = JSON.parse(data);
@@ -228,8 +229,6 @@
             });
         }
     }
-
-
 </script>
 </body>
 
