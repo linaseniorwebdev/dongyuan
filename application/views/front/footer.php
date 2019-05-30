@@ -1666,7 +1666,7 @@
 
     function search() {
         var keyword = $("#keyword").val();
-        location.href =_server_url + 'page/searchList?keyword=' + keyword + '&pageNum=1' + '&pageSize=40';
+        location.href =_server_url + 'home/searchList?keyword=' + keyword + '&pageNum=1' + '&pageSize=40';
     }
 
     function addToCart() {

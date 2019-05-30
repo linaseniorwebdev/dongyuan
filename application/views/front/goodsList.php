@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?php echo base_url();?>public/front/css/order.css">
+<link rel="stylesheet" href="<?php echo base_url();?>public/front/css/goodsStyle.css">
 <div class="main-menu-box">
     <div class="container">
         <div class="row">

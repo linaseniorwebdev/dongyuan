@@ -31,11 +31,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <h3>
                     <small></small>
                     <small>
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/signin');?>">请登录</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/register');?>">免费注册</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url();?>">商城首页</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartsList');?>">订购清单</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList');?>">我的订单</a>|
+                        <?php if ($userdata != null){
+
+                            ?>
+                            <a type="button" class="btn btn-link">欢迎光临东元商城,</a>
+                            <a type="button" class="btn btn-link" href="#">
+                                <?php echo $userdata; ?>
+                            </a>|
+                            <a type="button" class="btn btn-link" href="#" onclick="logout();">退出</a>|
+                            <?php
+                        }else{
+                            ?>
+                            <a type="button" class="btn btn-link" href="<?php echo base_url('home/signin') ?>">请登录</a>|
+                            <a type="button" class="btn btn-link" href="<?php echo base_url('home/register') ?>">免费注册</a>|
+                            <?php
+                        }
+                        ?>
+                        <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartList')?>">订购清单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList')?>">我的订单</a>|
                         <a type="button" class="btn btn-link" href="#">网站服务</a>|
                         <a type="button" class="btn btn-link" href="#">国际站</a>
                     </small>
