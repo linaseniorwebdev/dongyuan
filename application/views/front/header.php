@@ -57,7 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row">
                             <div class="col-sm-10">
                                 <div class="input-group w-100">
-                                    <input type="text" class="form-control keywords-input" placeholder="请输入关键词"
+                                    <input type="text" class="form-control keywords-input" id="keyword" placeholder="请输入关键词"
                                            v-focus>
                                     <span class="input-group-btn">
                                             <button class="btn btn-primary" type="button">搜索</button>

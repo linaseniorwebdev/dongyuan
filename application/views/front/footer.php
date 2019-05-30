@@ -160,6 +160,25 @@
 <script type="text/javascript" src="<?php echo base_url();?>public/front/js/common.js"></script>
 <script type="text/javascript">
     var _server_url = '<?php echo base_url();?>';
+
+    $(document).ready(function () {
+        // var totalNum = 0;
+        var totalAmount = 0.00;
+        var numbox = $(".input-numbox");
+        $.each(numbox, function (index, val) {
+            var thisNum = $(val).val();
+            if (thisNum == '') {
+                thisNum = 0.00;
+            }
+            var thisPrice = $(val).attr("data-price");
+            var thisAmount = accMul(parseFloat(thisNum), thisPrice);
+            totalAmount = accAdd(thisAmount, totalAmount);
+        })
+
+        $("#sumb-price").html(totalAmount);
+        $("#total-price").val(totalAmount);
+    })
+
     function getBrowser() {
         if (window.navigator.userAgent.indexOf("Chrome") == -1) {
             //如果浏览器为IE7
@@ -173,6 +192,25 @@
 
     function goods_detail(obj, idx) {
         location.href =_server_url + 'home/goodsInfo?productId=' + idx;
+    }
+
+    function searchList(obj, idx) {
+        location.href =_server_url + 'home/searchList?categoryId=' + idx + '&pageNum=1' + '&pageSize=40';
+    }
+
+    function logout() {
+        swal({
+            title: "警告!",
+            text: "您确定要退出吗？",
+            icon: "warning",
+
+            buttons: ["不", "是"],
+        })
+            .then((isok) => {
+                if (isok) {
+                    location.href = _server_url + 'data/logout';
+                }
+            });
     }
 
     var vm = new Vue({
@@ -1622,6 +1660,13 @@
         })
         // layer.msg(totalAmount)
         $("#sumb-price").html(totalAmount);
+        $("#total-price").val(totalAmount);
+        $("#hidden_amount").val($("#amount").val());
+    }
+
+    function search() {
+        var keyword = $("#keyword").val();
+        location.href =_server_url + 'page/searchList?keyword=' + keyword + '&pageNum=1' + '&pageSize=40';
     }
 
     function addToCart() {
