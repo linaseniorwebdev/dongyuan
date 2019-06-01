@@ -18,82 +18,82 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/login.css">
     <!--[if lt IE 9]>
-    <script src="<?php echo base_url();?>public/front/js/respond.min.js"></script>
-    <script src="<?php echo base_url();?>public/front/js/html5shiv.js"></script>
+        <script src="<?php echo base_url();?>public/front/js/respond.min.js"></script>
+        <script src="<?php echo base_url();?>public/front/js/html5shiv.js"></script>
     <![endif]-->
 </head>
 
 <body>
-<div class="header">
-    <div class="container">
-        <div class="page-header">
-            <h3>
-                <small></small>
-                <small>
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/signin');?>">请登录</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/register');?>">免费注册</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url();?>">商城首页</a>|
-                    <!-- <a type="button" class="btn btn-link" href="./shoppingCart.html">购物车</a>| -->
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartsList');?>">订购清单</a>|
-                    <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList');?>">我的订单</a>|
-                    <a type="button" class="btn btn-link" href="#">网站服务</a>|
-                    <a type="button" class="btn btn-link" href="#">国际站</a>
-                </small>
-            </h3>
+    <div class="header">
+        <div class="container">
+            <div class="page-header">
+                <h3>
+                    <small></small>
+                    <small>
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/signin');?>">请登录</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/register');?>">免费注册</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url();?>">商城首页</a>|
+                        <!-- <a type="button" class="btn btn-link" href="./shoppingCart.html">购物车</a>| -->
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartsList');?>">订购清单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList');?>">我的订单</a>|
+                        <a type="button" class="btn btn-link" href="#">网站服务</a>|
+                        <a type="button" class="btn btn-link" href="#">国际站</a>
+                    </small>
+                </h3>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="page-content">
-    <div class="logo-box">
-        <div class="container">
-            <a href="<?php echo base_url();?>">
-                <img class="logo" src="<?php echo base_url();?>public/front/img/res/logo.png" alt="">
-            </a>
+    <div class="page-content">
+        <div class="logo-box">
+            <div class="container">
+                <a href="<?php echo base_url();?>">
+                    <img class="logo" src="<?php echo base_url();?>public/front/img/res/logo.png" alt="">
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="login-content">
-        <div class="container">
-            <div class="login-box">
-                <div class="login-form-box row text-center">
-                    <form action="<?php echo base_url('data/login');?>" method="POST" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <p class="login-slogon">登录</p>
-                            <?php
-                            if (isset($message)) {
-                                echo '<h4 class="text-center text-danger">' . $message . '</h4>';
-                            }
-                            ?>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">账号</label>
-                            <div class="col-sm-9">
-                                <input type="text" name="username" class="form-control" placeholder="请输入账号">
+        <div class="login-content">
+            <div class="container">
+                <div class="login-box">
+                    <div class="login-form-box row text-center">
+                        <form action="<?php echo base_url('data/login');?>" method="POST" class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <p class="login-slogon">登录</p>
+                                <?php
+                                if (isset($message)) {
+                                    echo '<h4 class="text-center text-danger">' . $message . '</h4>';
+                                }
+                                ?>
                             </div>
-                        </div>
-                        <div class="div-domination"></div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">密码</label>
-                            <div class="col-sm-9">
-                                <input type="password" name="password" class="form-control" placeholder="请输入密码">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">账号</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="username" class="form-control" placeholder="请输入账号">
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-right col-sm-11">
-                            <a class="foget-pwd" href="<?php echo base_url('home/forgetPass')?>">忘记密码</a>
-                        </div>
-                        <div class="div-domination"></div>
-                        <div class="form-group">
-                            <div class="login-btn-box">
-                                <button type="submit" class="btn btn-primary">登录</button>
-                                <a type="button" class="btn btn-default" href="<?php echo base_url('home/register')?>">注册</a>
+                            <div class="div-domination"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">密码</label>
+                                <div class="col-sm-9">
+                                    <input type="password" name="password" class="form-control" placeholder="请输入密码">
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            <div class="text-right col-sm-11">
+                                <a class="foget-pwd" href="<?php echo base_url('home/forgetPass')?>">忘记密码</a>
+                            </div>
+                            <div class="div-domination"></div>
+                            <div class="form-group">
+                                <div class="login-btn-box">
+                                    <button type="submit" class="btn btn-primary">登录</button>
+                                    <a type="button" class="btn btn-default" href="<?php echo base_url('home/register')?>">注册</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>

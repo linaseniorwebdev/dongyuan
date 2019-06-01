@@ -19,8 +19,6 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index() {
-		$this->load->model('Brands_model');
-		$data = $this->Brands_model->get_all_brands(1, 0);
-		var_dump($data);
+		$this->load->view('welcome_message');
 	}
 }

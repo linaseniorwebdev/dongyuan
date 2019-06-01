@@ -75,8 +75,11 @@ tr>td:last-child .input-group-btn:last-child {
 
 .order-info-box textarea {
     resize: none;
+    border-radius: 0;
 }
-
+.order-info-box input {
+    border-radius: 0;
+}
 .order-info-box .form-horizontal .form-group {
     margin-bottom: 13px;
 }

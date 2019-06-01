@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         }
                         ?>
                         <a type="button" class="btn btn-link" href="<?php echo base_url()?>">商城首页</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartList')?>">订购清单</a>|
+                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartsList')?>">订购清单</a>|
                         <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList')?>">我的订单</a>|
                         <a type="button" class="btn btn-link" href="#">网站服务</a>|
                         <a type="button" class="btn btn-link" href="#">国际站</a>
@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row">
                             <div class="col-sm-10">
                                 <div class="input-group w-100">
-                                    <input type="text" class="form-control keywords-input" id="keyword" placeholder="请输入关键词"
+                                    <input type="text" class="form-control keywords-input" placeholder="请输入关键词"
                                            v-focus>
                                     <span class="input-group-btn">
                                             <button class="btn btn-primary" type="button">搜索</button>
@@ -80,20 +80,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-sm-2">
                                 <a href="tel:400-000-000">
-                                    <button type="button" class="btn btn-default">
-                                        <img style="height: 1.2em;position: relative; margin-top: -0.1em;margin-right: 6px;" src="<?php echo base_url();?>public/front/img/res/kefu.png" alt=""> 联系客服
-                                    </button>
+                                <button type="button" class="btn btn-default">
+                                    <img style="height: 1.2em;position: relative; margin-top: -0.1em;margin-right: 6px;" src="<?php echo base_url();?>public/front/img/res/kefu.png" alt=""> 联系客服
+                                </button>
                                 </a>
                             </div>
                             <div class="col-sm-8">
                                 <ul class="shortcut-search">
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">发动机</a></li>
+                                    <li><a href="<?php echo base_url('home/goodsList')?>">东成</a></li>
+                                    <li>|</li>
+                                    <li><a href="<?php echo base_url('home/goodsList')?>">博世</a></li>
                                     <li>|</li>
                                     <li><a href="<?php echo base_url('home/goodsList')?>">发动机</a></li>
                                     <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">发动机</a></li>
-                                    <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">发动机</a></li>
+                                    <li><a href="<?php echo base_url('home/goodsList')?>">雨刮器</a></li>
                                 </ul>
                             </div>
                         </div>

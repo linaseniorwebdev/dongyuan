@@ -6,7 +6,7 @@
         border: 1px solid #E3E3E3;
     }
 </style>
-
+<input type="hidden" id="user_check" value="<?php echo $userdata;?>">
 <div class="main-menu-box">
     <div class="container">
         <div class="row">
@@ -38,17 +38,17 @@
             <div class="col-sm-12">
                 <ol class="breadcrumb">
                     <li><a href="<?php echo base_url();?>"> 首页 </a></li>
-                    <li onclick="searchList(this, <?php echo $category_one['id']; ?>)"><?php echo $category_one['name']; ?></li>
+                    <li onclick="searchList(<?php echo $category_one['id']; ?>)"><?php echo $category_one['name']; ?></li>
                     <?php if (isset($product_info['level_two'])) {
                         ?>
-                        <li onclick="searchList(this, <?php echo $category_two['id']; ?>)">
+                        <li onclick="searchList(<?php echo $category_two['id']; ?>)">
                             <?php echo $category_two['name'];?>
                         </li>
                         <?php
                     }
                     if (isset($product_info['level_three'])) {
                         ?>
-                        <li onclick="searchList(this, <?php echo $category_three['id']; ?>)">
+                        <li onclick="searchList(<?php echo $category_three['id']; ?>)">
                             <?php echo $category_three['name']; ?>
                         </li>
                         <?php
@@ -167,7 +167,8 @@
                                                                             type="button"><i
                                                                                 class="fa fa-minus"></i></button>
                                                                 </span>
-                                                                <input type="text" data-price="169" data-max='999'
+                                                                <input type="text" id="goods_amount" data-price="<?php echo $product_info['branches'][0]['price'];?>"
+                                                                       data-max='999'
                                                                        data-min="15" class="form-control input-numbox"
                                                                        oninput="countAmount(this)" placeholder="0"
                                                                        value="15">
@@ -188,10 +189,15 @@
                                         <li class="tag-name-li" style="color: #737373;"><span
                                                     class="tag-name-first">规</span>格：</li>
                                         <li class="tag-content-li">
-                                            <span class="goods-specification active">7米</span>
-                                            <span class="goods-specification">8米</span>
-                                            <span class="goods-specification">9米</span>
-                                            <span class="goods-specification">9米</span>
+                                            <?php
+                                            foreach ($product_info['branches'] as $key=>$item) {
+                                                ?>
+                                                <span id="goods_scale" class="goods-specification <?php if ($key == 0) echo 'active';?>">
+                                                            <?php echo $item['model'];?>
+                                                        </span>
+                                                <?php
+                                            }
+                                            ?>
                                         </li>
                                     </ul>
                                 </li>
@@ -209,16 +215,16 @@
                             <p class="text-center extra-goods-title">相关商品推荐</p>
                             <div class="extra-goods text-center">
                                 <ul>
-                                    <li>
+                                    <li onclick="goods_detail(this, <?php echo $related[0]['id'];?>)">
                                         <a href="#">
-                                            <img src="<?php echo base_url();?>public/front/img/product/product_4.png" alt="">
-                                            <p class="text-center extra-goods-name">气缸</p>
+                                            <img src="<?php echo $related[0]['images'][0]?>" alt="">
+                                            <p class="text-center extra-goods-name"><?php echo $related[0]['name']?></p>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li onclick="goods_detail(this, <?php echo $related[1]['id'];?>)">
                                         <a href="#">
-                                            <img src="<?php echo base_url();?>public/front/img/product/product_4.png" alt="">
-                                            <p class="text-center extra-goods-name">气缸</p>
+                                            <img src="<?php echo $related[1]['images'][0]?>" alt="">
+                                            <p class="text-center extra-goods-name"><?php echo $related[1]['name']?></p>
                                         </a>
                                     </li>
                                     <li>
@@ -256,7 +262,8 @@
                 <table class="table table-responsive table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-center">订货号</th>
+                        <th class="text-center">商品列表</th>
+                        <th class="text-center">品牌</th>
                         <th class="text-center">型号</th>
                         <th class="text-center">规格</th>
                         <th class="text-center">价格</th>
@@ -265,221 +272,41 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-center">2929282</td>
-                        <td class="text-center">02728A</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
+                        <?php
+                        foreach ($more_goods as $key=>$item){
+                        ?>
+                        <td class="text-center" id="more_name"><?php echo $item['name']; ?></td>
+                        <td class="text-center" id="more_brand"><?php echo $item['brands_name']['name']; ?></td>
+                        <td class="text-center" id="more_type"><?php echo $item['serial_no']; ?></td>
+                        <td class="text-center" id="more-scale"><?php echo $item['branches'][0]['model']; ?></td>
+                        <td class="text-center" id="more_price"><?php echo $item['branches'][0]['price']; ?></td>
                         <td class="text-center opration">
                             <div class="opration-item">
                                 <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
                                     <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
+                                        <button class="btn btn-default btn-cut" type="button"><i
+                                                    class="fa fa-minus"></i></button>
+                                    </span>
+                                    <input type="text" data-price="<?php echo $item['branches'][0]['price']; ?>" data-max='99999' data-min="15"
+                                           class="form-control input-numbox" oninput="countAmount(this)"
+                                           placeholder="0" id="more_amount<?php echo $key;?>" value="15">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-add" type="button">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </span>
                                 </div>
                             </div>
                             <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
+                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart(<?php echo $key;?>)">
+                                    <i class="fa fa-fw fa-shopping-cart"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="text-center">2929282</td>
-                        <td class="text-center">02728A</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
-                        <td class="text-center opration">
-                            <div class="opration-item">
-                                <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
-                                    <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
-                                </div>
-                            </div>
-                            <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2929282</td>
-                        <td class="text-center">02728A</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
-                        <td class="text-center opration">
-                            <div class="opration-item">
-                                <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
-                                    <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
-                                </div>
-                            </div>
-                            <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2929282</td>
-                        <td class="text-center">02728A</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
-                        <td class="text-center opration">
-                            <div class="opration-item">
-                                <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
-                                    <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
-                                </div>
-                            </div>
-                            <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2929282</td>
-                        <td class="text-center">02728A</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
-                        <td class="text-center opration">
-                            <div class="opration-item">
-                                <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
-                                    <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
-                                </div>
-                            </div>
-                            <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2929282</td>
-                        <td class="text-center">02728A</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
-                        <td class="text-center opration">
-                            <div class="opration-item">
-                                <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
-                                    <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
-                                </div>
-                            </div>
-                            <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2929282</td>
-                        <td class="text-center">02728A</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
-                        <td class="text-center opration">
-                            <div class="opration-item">
-                                <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
-                                    <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
-                                </div>
-                            </div>
-                            <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">2929282</td>
-                        <td class="text-center">02728A</td>
-                        <td class="text-center">5*2721+38</td>
-                        <td class="text-center">¥198.00</td>
-                        <td class="text-center opration">
-                            <div class="opration-item">
-                                <div class="input-group text-right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default btn-cut" type="button"><i
-                                                            class="fa fa-minus"></i></button>
-                                            </span>
-                                    <input type="text" data-price="169" data-max='999' data-min="15"
-                                           class="form-control input-numbox" oninput="countAmount(this)"
-                                           placeholder="0" value="15">
-                                    <span class="input-group-btn">
-                                                <button class="btn btn-default btn-add" type="button"><i
-                                                            class="fa fa-plus"></i></button>
-                                            </span>
-                                </div>
-                            </div>
-                            <div class="opration-item">
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToCart()"><i
-                                            class="fa fa-fw fa-shopping-cart"></i></button>
-                            </div>
-                        </td>
-                    </tr>
+                    <?php
+                    }
+                    ?>
 
                     </tbody>
                 </table>
@@ -495,47 +322,19 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
+                        <?php
+                        foreach ($product_info['links'] as $item){
+                        ?>
+                        <td class="text-center company"><?php echo $item['name'];?></td>
                         <td class="text-center ">
                             <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
+                               href="<?php echo $item['link'];?>"><?php echo $item['link'];?></a>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center company">杭州东元商城有限公司</td>
-                        <td class="text-center ">
-                            <a class="hlink"
-                               href="http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606">http://b.toolmall.com/profile/newquiryorder/?type=look&id=B01000751606</a>
-                        </td>
-                    </tr>
+                    <?php
+                    }
+                    ?>
+
                     </tbody>
                 </table>
             </div>

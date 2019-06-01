@@ -5,8 +5,8 @@ require_once APPPATH . 'controllers/Base.php';
 
 class Home extends Base {
 
-    public function index()
-    {
+	public function index()
+	{
         $this->load->model('Ads_model');
         $this->load->model('Brands_model');
         $this->load->model('Categories_model');
@@ -53,7 +53,7 @@ class Home extends Base {
             $this->load->view('front/footer');
         }
 
-    }
+	}
 
     public function get_places($goods_data, $cond = null){
         $r = array();
@@ -81,7 +81,7 @@ class Home extends Base {
         return $places;
     }
 
-    public function goodsInfo()
+	public function goodsInfo()
     {
         $this->load->model('Brands_model');
         $this->load->model('Categories_model');
@@ -117,7 +117,20 @@ class Home extends Base {
             $products = $this->Inventories_model->get_by_level('three', $product_data['level_three']);
         }
 
+        foreach ($products as &$row){
+            $more_goods_brands = $this->Brands_model->get_by_id($row['brands'][0]);
+            $row['brands_name'] = $more_goods_brands;
+        }
+
         $data['more_goods'] = $products;
+
+        $related_string = explode(',', $product_data['related']);
+        if ($related_string){
+            for ($i = 0; $i < 2; $i++){
+                $related_goods[] = $this->Inventories_model->get_by_id($related_string[$i]);
+            }
+        }
+        $data['related'] = $related_goods;
 
         $brand_data = $this->Brands_model->get_by_id($product_data['brands'][0]);
         $data['brand'] = $brand_data;
@@ -157,11 +170,6 @@ class Home extends Base {
 
             $this->load->view('front/register', array('permit_data' => $results));
         }
-    }
-
-    public function logout()
-    {
-
     }
 
     public function cartsList()
@@ -220,6 +228,9 @@ class Home extends Base {
                 'userdata' => $userInfo,
                 'orders' => $order_results
             );
+
+//            var_dump($order_results[0]['detail']);
+//            exit();
             $this->load->view('front/header', $data);
             $this->load->view('front/myOrder', $data);
             $this->load->view('front/footer', $data);
@@ -233,6 +244,8 @@ class Home extends Base {
         $this->load->model('Brands_model');
         $this->load->model('Categories_model');
         $this->load->model('Inventories_model');
+        $this->load->helper('url');
+        $this->load->library("pagination");
 
         $data = array(
             'title' => '商品搜索',
@@ -243,38 +256,44 @@ class Home extends Base {
         $pageNum = $this->input->get('pageNum');
         $keyword = $this->input->get('keyword');
 
+        $config = array();
+
+
         $categoryInfo = $this->Categories_model->get_by_id($categoryId);
 
         if ($categoryInfo['level'] == 1){
-            $results = $this->Inventories_model->get_by_level('one', $categoryId);
+
             $child2_categories = $this->Categories_model->get_categories(2, $categoryId);
             foreach ($child2_categories as &$row){
                 $child3_categories = $this->Categories_model->get_categories(3, $row['id']);
                 $row['children'] = $child3_categories;
 
             }
+            $num_rows = $this->Inventories_model->getCounts('one', $categoryId);
+
+
             $data['category_info'] = $categoryInfo;
             $data['category_two'] = $child2_categories;
-            $data['products'] = $results;
+
 
         }elseif ($categoryInfo['level'] == 2) {
 
-            $results = $this->Inventories_model->get_by_level('two', $categoryId);
             $child_categories = $this->Categories_model->get_categories(3, $categoryId);
             $category_one = $this->Categories_model->get_by_id($categoryInfo['parent']);
 
+            $num_rows = $this->Inventories_model->getCounts('two', $categoryId);
+
             $data['category_info'] = $categoryInfo;
-            $data['products'] = $results;
             $data['category_one'] = $category_one;
             $data['category_three'] = $child_categories;
 
         }else {
-            $results = $this->Inventories_model->get_by_level('three', $categoryId);
             $category_two = $this->Categories_model->get_by_id($categoryInfo['parent']);
             $category_one = $this->Categories_model->get_by_id($category_two['parent']);
 
+            $num_rows = $this->Inventories_model->getCounts('three', $categoryId);
+
             $data['category_info'] = $categoryInfo;
-            $data['products'] = $results;
             $data['category_one'] = $category_one;
             $data['category_two'] = $category_two;
         }
@@ -286,8 +305,24 @@ class Home extends Base {
         $data['brands3_active']   = $this->Brands_model->get_all_brands(3,1);
         $data['brands3_inactive'] = $this->Brands_model->get_all_brands(3,0);
 
-//        var_dump($categoryInfo);
-//        exit();
+        $data['pageNum'] = $pageNum;
+        $data['pageSize'] = $pageSize;
+        $data['total'] = $num_rows;
+
+
+        $offset = ($pageNum - 1) * $pageSize;
+
+        if ($categoryInfo['level'] == 1)
+        {
+            $results = $this->Inventories_model->get_by_level_1('one', $categoryId, $pageSize, $offset);
+        }elseif ($categoryInfo['level'] == 2)
+        {
+            $results = $this->Inventories_model->get_by_level_1('two', $categoryId, $pageSize, $offset);
+        }else {
+            $results = $this->Inventories_model->get_by_level_1('three', $categoryId, $pageSize, $offset);
+        }
+
+        $data['products'] = $results;
 
         if ($this->login){
             $data['userdata'] = $this->user->getUsername();
@@ -332,6 +367,7 @@ class Home extends Base {
         }
         $brand_rows = $this->Brands_model->get_all_brands(1);
         $data['brand'] = $brand_rows;
+        $data['categories'] = $category_rows;
 
 
         if ($this->login){
