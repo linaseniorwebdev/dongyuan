@@ -215,18 +215,22 @@
                             <p class="text-center extra-goods-title">相关商品推荐</p>
                             <div class="extra-goods text-center">
                                 <ul>
-                                    <li onclick="goods_detail(this, <?php echo $related[0]['id'];?>)">
-                                        <a href="#">
-                                            <img src="<?php echo $related[0]['images'][0]?>" alt="">
-                                            <p class="text-center extra-goods-name"><?php echo $related[0]['name']?></p>
-                                        </a>
-                                    </li>
-                                    <li onclick="goods_detail(this, <?php echo $related[1]['id'];?>)">
-                                        <a href="#">
-                                            <img src="<?php echo $related[1]['images'][0]?>" alt="">
-                                            <p class="text-center extra-goods-name"><?php echo $related[1]['name']?></p>
-                                        </a>
-                                    </li>
+                                    <?php if (!$related) {?>
+                                        <div>没有相关产品推荐</div>
+                                    <?php } else {?>
+                                        <li onclick="goods_detail(this, <?php echo $related[0]['id'];?>)">
+                                            <a href="#">
+                                                <img src="<?php echo $related[0]['images'][0]?>" alt="">
+                                                <p class="text-center extra-goods-name"><?php echo $related[0]['name']?></p>
+                                            </a>
+                                        </li>
+                                        <li onclick="goods_detail(this, <?php echo $related[1]['id'];?>)">
+                                            <a href="#">
+                                                <img src="<?php echo $related[1]['images'][0]?>" alt="">
+                                                <p class="text-center extra-goods-name"><?php echo $related[1]['name']?></p>
+                                            </a>
+                                        </li>
+                                    <?php }?>
                                     <li>
                                         <a href="#">
                                             <p class="change">换一批</p>

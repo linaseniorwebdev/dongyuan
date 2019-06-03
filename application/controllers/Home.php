@@ -124,13 +124,17 @@ class Home extends Base {
 
         $data['more_goods'] = $products;
 
-        $related_string = explode(',', $product_data['related']);
-        if ($related_string){
-            for ($i = 0; $i < 2; $i++){
-                $related_goods[] = $this->Inventories_model->get_by_id($related_string[$i]);
+        if ($product_data['related'] != null){
+            $related_string = explode(',', $product_data['related']);
+            if ($related_string){
+                for ($i = 0; $i < 2; $i++){
+                    $related_goods[] = $this->Inventories_model->get_by_id($related_string[$i]);
+                    $data['related'] = $related_goods;
+                }
             }
+        }else {
+            $data['related'] = '';
         }
-        $data['related'] = $related_goods;
 
         $brand_data = $this->Brands_model->get_by_id($product_data['brands'][0]);
         $data['brand'] = $brand_data;
