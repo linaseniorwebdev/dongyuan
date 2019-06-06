@@ -27,25 +27,28 @@
 	<div class="content-wrapper">
 		<div class="content-header row">
 			<div class="content-header-left col-md-6 col-12 mb-2">
-				<h3 class="content-header-title mb-0 d-inline-block">用户列表</h3>
+				<h3 class="content-header-title mb-0 d-inline-block">广告列表</h3>
 			</div>
 		</div>
 		<div class="content-body">
-			<table class="table table-striped table-bordered" id="users">
-				<thead>
-				<tr>
-					<th>#</th>
-					<th>头像</th>
-					<th>用户名</th>
-					<th>注册日期</th>
-					<th>状态</th>
-					<th>操作</th>
-				</tr>
-				</thead>
-				<tbody>
-
-				</tbody>
-			</table>
+			<div class="card">
+				<div class="card-body">
+					<table class="table table-striped table-bordered" id="users">
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>图片</th>
+							<th>详情</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -8,7 +8,7 @@ $(document).ready(function() {
 		autoWidth: false,
 		order: [],
 		ajax: {
-			url : "../api/user/list",
+			url : "../api/notice/list",
 			type: "POST",
 			error: function (xhr, ajaxOptions, thrownError) {
 				console.log(xhr);
@@ -38,6 +38,11 @@ $(document).ready(function() {
 			{
 				targets: [4],
 				className: 'text-center',
+				orderable: false
+			},
+			{
+				targets: [5],
+				className: 'text-center',
 				render: function(data, type, row) {
 					if (parseInt(data) === 1) {
 						return '<i class="la la-check text-success"></i>';
@@ -47,17 +52,12 @@ $(document).ready(function() {
 				orderable: false
 			},
 			{
-				targets: [5],
+				targets: [6],
 				className: 'text-center',
 				render: function(data, type, row) {
-					let buffer = '<input type="hidden" value="' + row[4] + '" />';
-					buffer += '<input type="hidden" value="' + row[6] + '" />';
-					if (parseInt(row[4]) === 1) {
-						buffer += ('<button type="button" class="btn btn-secondary round box-shadow-1 mr-1" onclick="modifyUser(this)">停用</button>');
-					} else {
-						buffer += ('<button type="button" class="btn btn-success round box-shadow-1 mr-1" onclick="modifyUser(this)">允用</button>');
-					}
-					buffer += ('<button type="button" class="btn btn-danger round box-shadow-1" onclick="deleteUser(this)">删除</button>');
+					let buffer = '<input type="hidden" value="' + row[7] + '" />';
+					buffer += ('<button type="button" class="btn btn-success round box-shadow-1 mr-1" onclick="modifyItem(this)">编辑</button>');
+					buffer += ('<button type="button" class="btn btn-danger round box-shadow-1" onclick="deleteItem(this)">删除</button>');
 					return buffer;
 				},
 				orderable: false
@@ -70,7 +70,7 @@ $(document).ready(function() {
 			"infoEmpty":      "显示第 0 至 0 项结果，共 0 项",
 			"infoFiltered":   "(由 _MAX_ 项结果过滤)",
 			"infoPostFix":    "",
-			"lengthMenu":     "显示_MENU_条目",
+			"lengthMenu":     "显示 _MENU_ 项结果",
 			"loadingRecords": "载入中...",
 			"processing":     "处理中...",
 			"search":         "搜索:",
@@ -89,7 +89,7 @@ $(document).ready(function() {
 	});
 });
 
-function modifyUser(obj) {
+function modifyItem(obj) {
 	let userID = obj.previousElementSibling.value;
 	let status = 1 - parseInt(obj.previousElementSibling.previousElementSibling.value);
 
@@ -129,7 +129,7 @@ function modifyUser(obj) {
 	});
 }
 
-function deleteUser(obj) {
+function deleteItem(obj) {
 	let userID = obj.previousElementSibling.previousElementSibling.value;
 
 	swal({

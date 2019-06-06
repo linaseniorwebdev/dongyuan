@@ -55,22 +55,26 @@
 			</div>
 		</div>
 		<div class="content-body">
-			<table class="table table-striped table-bordered" id="orders">
-				<thead>
-				<tr>
-					<th>#</th>
-					<th>订货号</th>
-					<th>用户名</th>
-					<th>总价格</th>
-					<th>更新日期</th>
-					<th>状态</th>
-					<th>操作</th>
-				</tr>
-				</thead>
-				<tbody>
-
-				</tbody>
-			</table>
+			<div class="card">
+				<div class="card-body">
+					<table class="table table-striped table-bordered" id="orders">
+						<thead>
+						<tr>
+							<th>#</th>
+							<th>订货号</th>
+							<th>用户名</th>
+							<th>总价格</th>
+							<th>更新日期</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

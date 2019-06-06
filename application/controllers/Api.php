@@ -213,7 +213,7 @@ class Api extends Base {
 
 			$inventories = $this->Api_model->getRows($_POST);
 			// #, 分类, 名称, 描述, 图片, 品牌, 型号, 更新日期, 状态, 操作
-			$idx = 0;
+			$idx = (isset($_POST['start']))?(int)$_POST['start']:0;
 			foreach ($inventories as $inventory) {
 				$idx++;
 
@@ -429,7 +429,7 @@ class Api extends Base {
 
 			$data = array();
 			$orders = $this->Api_model->getRows($_POST);
-			$idx = 0;
+			$idx = (isset($_POST['start']))?(int)$_POST['start']:0;
 			foreach ($orders as $order) {
 				$idx++;
 				$user = $this->Users_model->get_by_id($order->user);
@@ -476,7 +476,7 @@ class Api extends Base {
 
 			$users = $this->Api_model->getRows($_POST);
 			// # 头像 用户名 注册日期 状态 操作
-			$idx = 0;
+			$idx = (isset($_POST['start']))?(int)$_POST['start']:0;
 			foreach ($users as $user) {
 				$idx++;
 
@@ -569,7 +569,7 @@ class Api extends Base {
 
 			$roles = $this->Api_model->getRows($_POST);
 			// # 头像 用户名 注册日期 状态 操作
-			$idx = 0;
+			$idx = (isset($_POST['start']))?(int)$_POST['start']:0;
 			foreach ($roles as $role) {
 				$idx++;
 				$data[] = array($idx, $role->name, $role->permission_status, $role->ad_status, $role->notice_status, $role->brand_status, $role->user_status, $role->category_status, $role->address_status, $role->inventory_status, $role->order_status, $role->status, null, $role->id);
@@ -634,7 +634,7 @@ class Api extends Base {
 
 			$users = $this->Api_model->getRows($_POST);
 			// # 头像 管理员名 角色名称 注册日期 状态 操作
-			$idx = 0;
+			$idx = (isset($_POST['start']))?(int)$_POST['start']:0;
 			foreach ($users as $user) {
 				$idx++;
 				$image = '<img src="public/uploads/users/' . $user->photo . '" style="width: 40px;" alt="Avatar" />';
@@ -651,6 +651,74 @@ class Api extends Base {
 				'data' => $data,
 			);
 
+			echo json_encode($output);
+		}
+	}
+	
+	/**
+	 * `Slider` Processing API
+	 * @param string $com
+	 */
+	public function slider($com = 'list') {
+		$this->load->model('Ads_model');
+		if ($com === 'list') {
+			$this->load->model('Api_model');
+			
+			$this->Api_model->setTable('ads');
+			$this->Api_model->setColumnSearch(array('title'));
+			
+			$data = array();
+			
+			$ads = $this->Api_model->getRows($_POST);
+			// # 图片 详情 状态 操作
+			$idx = (isset($_POST['start']))?(int)$_POST['start']:0;
+			foreach ($ads as $ad) {
+				$idx++;
+				$image = '<img src="public/uploads/sliders/' . $ad->image . '" style="width: 100px;" alt="Avatar" />';
+				$data[] = array($idx, $image, $ad->title, $ad->status, null, $ad->id);
+			}
+			
+			$output = array(
+				'draw' => $_POST['draw'],
+				'recordsTotal' => $this->Api_model->countAll(),
+				'recordsFiltered' => $this->Api_model->countFiltered($_POST),
+				'data' => $data,
+			);
+			
+			echo json_encode($output);
+		}
+	}
+	
+	/**
+	 * `Notice` Processing API
+	 * @param string $com
+	 */
+	public function notice($com = 'list') {
+		$this->load->model('Notices_model');
+		if ($com === 'list') {
+			$this->load->model('Api_model');
+			
+			$this->Api_model->setTable('notices');
+			$this->Api_model->setColumnSearch(array('title', 'detail'));
+			
+			$data = array();
+			
+			$notices = $this->Api_model->getRows($_POST);
+			// # 主题 详情 更新日期 状态 操作
+			$idx = (isset($_POST['start']))?(int)$_POST['start']:0;
+			foreach ($notices as $notice) {
+				$idx++;
+				$updated = date( 'Y年m月d日', strtotime($notice->updated_at));
+				$data[] = array($idx, $notice->title, $notice->detail, $updated, $notice->status, null, $notice->id);
+			}
+			
+			$output = array(
+				'draw' => $_POST['draw'],
+				'recordsTotal' => $this->Api_model->countAll(),
+				'recordsFiltered' => $this->Api_model->countFiltered($_POST),
+				'data' => $data,
+			);
+			
 			echo json_encode($output);
 		}
 	}
