@@ -755,6 +755,15 @@ class Api extends Base {
 			} else {
 				$this->bad_request();
 			}
+		} elseif ($com === 'delete') {
+			if ($this->post_exist()) {
+				$ad = $this->Ads_model->get_by_id($this->input->post('id'));
+				unlink('public/uploads/sliders/' . $ad['image']);
+				$this->Ads_model->delete_ad($ad['id']);
+				echo json_encode(array('status' => 'success'));
+			} else {
+				$this->bad_request();
+			}
 		}
 	}
 	
@@ -789,6 +798,19 @@ class Api extends Base {
 			);
 			
 			echo json_encode($output);
+		} elseif ($com === 'create') {
+			if ($this->post_exist()) {
+				$params = array(
+					'title'  => $this->input->post('notice_title'),
+					'detail' => $this->input->post('notice_detail')
+				);
+				
+				$this->Notices_model->add_notice($params);
+				
+				redirect('admin/notice');
+			} else {
+				$this->bad_request();
+			}
 		}
 	}
 }

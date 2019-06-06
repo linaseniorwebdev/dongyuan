@@ -112,7 +112,7 @@ function deleteItem(obj) {
 			$.post(
 				'../api/slider/delete',
 				{
-					id  : userID
+					id  : itemID
 				},
 				function (respond) {
 					table.ajax.reload( null, false );

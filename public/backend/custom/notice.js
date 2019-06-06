@@ -28,6 +28,9 @@ $(document).ready(function() {
 			{
 				targets: [2],
 				className: 'text-center',
+				render: function(data, type, row) {
+					return '<a href="javascript:void(0)" onclick="showDialog(this)">查看详情</a>';
+				},
 				orderable: false
 			},
 			{
@@ -38,11 +41,6 @@ $(document).ready(function() {
 			{
 				targets: [4],
 				className: 'text-center',
-				orderable: false
-			},
-			{
-				targets: [5],
-				className: 'text-center',
 				render: function(data, type, row) {
 					if (parseInt(data) === 1) {
 						return '<i class="la la-check text-success"></i>';
@@ -52,10 +50,10 @@ $(document).ready(function() {
 				orderable: false
 			},
 			{
-				targets: [6],
+				targets: [5],
 				className: 'text-center',
 				render: function(data, type, row) {
-					let buffer = '<input type="hidden" value="' + row[7] + '" />';
+					let buffer = '<input type="hidden" value="' + row[6] + '" />';
 					buffer += ('<button type="button" class="btn btn-success round box-shadow-1 mr-1" onclick="modifyItem(this)">编辑</button>');
 					buffer += ('<button type="button" class="btn btn-danger round box-shadow-1" onclick="deleteItem(this)">删除</button>');
 					return buffer;

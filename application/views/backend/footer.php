@@ -39,6 +39,14 @@ if (isset($select2)) {
 }
 ?>
 
+<!-- Summernote -->
+<?php
+if (isset($summernote)) {
+	echo '<script src="public/backend/vendors/js/editors/summernote/summernote.min.js"></script>';
+	echo '<script src="public/backend/vendors/js/editors/summernote/lang/summernote-zh-CN.min.js"></script>';
+}
+?>
+
 <?php
 if (isset($name)) {
 	echo '<script src="public/backend/custom/' . $name . '.js"></script>';

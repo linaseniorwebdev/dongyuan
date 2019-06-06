@@ -692,37 +692,93 @@ class Admin extends Base {
 			redirect('admin/signin');
 		}
 	}
-
+	
 	/**
 	 * 资讯管理
+	 * @param string $com
 	 */
-	public function notice() {
+	public function notice($com = 'list') {
 		if ($this->login) {
 			if ($this->user->getPermission() === 5) {
 				redirect('admin/logout');
 			}
-
-			$hparams = array(
-				'title' => '资讯管理',
-				'lineawesome' => true,
-				'datatable' => true,
-				'feather' => true
-			);
-			$fparams = array(
-				'name' => 'notice',
-				'datatable' => true
-			);
-
-			$permission = $this->status();
-			$permission['com'] = 'system';
-			$permission['sub'] = 'notice';
-			$user = $this->user->getUsername();
-
-			$this->load_header($hparams, true);
-			$this->load->view('backend/topbar', array('username' => $user));
-			$this->load->view('backend/sidebar', $permission);
-			$this->load->view('backend/notice');
-			$this->load_footer($fparams, true);
+			
+			if ($com === 'list') {
+				$hparams = array(
+					'title' => '资讯管理',
+					'lineawesome' => true,
+					'datatable' => true,
+					'feather' => true
+				);
+				$fparams = array(
+					'name' => 'notice',
+					'datatable' => true
+				);
+				
+				$permission = $this->status();
+				$permission['com'] = 'system';
+				$permission['sub'] = 'notice';
+				$user = $this->user->getUsername();
+				
+				$this->load_header($hparams, true);
+				$this->load->view('backend/topbar', array('username' => $user));
+				$this->load->view('backend/sidebar', $permission);
+				$this->load->view('backend/notice');
+				$this->load_footer($fparams, true);
+			} elseif ($com === 'create') {
+				$hparams = array(
+					'title' => '创建新资讯',
+					'lineawesome' => true,
+					'summernote' => true,
+					'feather' => true
+				);
+				$fparams = array(
+					'name' => 'notice/create',
+					'summernote' => true
+				);
+				
+				$permission = $this->status();
+				$permission['com'] = 'system';
+				$permission['sub'] = 'notice';
+				$user = $this->user->getUsername();
+				
+				$this->load_header($hparams, true);
+				$this->load->view('backend/topbar', array('username' => $user));
+				$this->load->view('backend/sidebar', $permission);
+				$this->load->view('backend/notice/create');
+				$this->load_footer($fparams, true);
+			} elseif ($com === 'edit') {
+				if ($this->post_exist()) {
+					$hparams = array(
+						'title' => '广告编辑',
+						'lineawesome' => true,
+						'switchery' => true,
+						'feather' => true
+					);
+					$fparams = array(
+						'name' => 'slider/edit',
+						'switchery' => true
+					);
+					
+					$permission = $this->status();
+					$permission['com'] = 'system';
+					$permission['sub'] = 'slider';
+					$user = $this->user->getUsername();
+					
+					$this->load->model('Ads_model');
+					$data = $this->Ads_model->get_by_id($this->input->post('id'));
+					
+					$this->load_header($hparams, true);
+					$this->load->view('backend/topbar', array('username' => $user));
+					$this->load->view('backend/sidebar', $permission);
+					$this->load->view('backend/slider/edit', array('row' => $data));
+					$this->load_footer($fparams, true);
+				} else {
+					$this->bad_request();
+				}
+			} else {
+				$this->bad_request();
+			}
 		} else {
 			redirect('admin/signin');
 		}

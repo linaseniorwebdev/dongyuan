@@ -64,6 +64,13 @@
 		echo '<link rel="stylesheet" href="public/backend/vendors/css/forms/selects/select2.min.css" />';
 	}
 	?>
+	
+	<!-- Summernote -->
+	<?php
+	if (isset($summernote)) {
+		echo '<link rel="stylesheet" href="public/backend/vendors/css/editors/summernote.css" />';
+	}
+	?>
 
 	<style>
 		.header-navbar .navbar-container ul.nav li a.nav-link-search, .header-navbar .navbar-container ul.nav li a.nav-link-expand {

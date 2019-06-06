@@ -28,7 +28,7 @@
 	<div class="content-wrapper">
 		<div class="content-header row">
 			<div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-				<h3 class="content-header-title mb-0 d-inline-block">广告编辑</h3>
+				<h3 class="content-header-title mb-0 d-inline-block">资讯编辑</h3>
 			</div>
 			<div class="content-header-right col-md-6 col-12">
 				<div class="btn-group float-md-right">
