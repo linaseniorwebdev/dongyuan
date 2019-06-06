@@ -18,7 +18,7 @@ class Ads_model extends CI_Model {
     public function get_all_ads($status = null) {
         $this->db->order_by('id', 'asc');
         
-        if ($status) {
+        if ($status !== null) {
 	        return $this->db->get_where('ads', array('status' => $status))->result_array();
         }
         

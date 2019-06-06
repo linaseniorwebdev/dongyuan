@@ -752,11 +752,13 @@ class Admin extends Base {
 					$hparams = array(
 						'title' => '广告编辑',
 						'lineawesome' => true,
+						'summernote' => true,
 						'switchery' => true,
 						'feather' => true
 					);
 					$fparams = array(
-						'name' => 'slider/edit',
+						'name' => 'notice/edit',
+						'summernote' => true,
 						'switchery' => true
 					);
 					
@@ -765,13 +767,13 @@ class Admin extends Base {
 					$permission['sub'] = 'slider';
 					$user = $this->user->getUsername();
 					
-					$this->load->model('Ads_model');
-					$data = $this->Ads_model->get_by_id($this->input->post('id'));
+					$this->load->model('Notices_model');
+					$data = $this->Notices_model->get_by_id($this->input->post('id'));
 					
 					$this->load_header($hparams, true);
 					$this->load->view('backend/topbar', array('username' => $user));
 					$this->load->view('backend/sidebar', $permission);
-					$this->load->view('backend/slider/edit', array('row' => $data));
+					$this->load->view('backend/notice/edit', array('row' => $data));
 					$this->load_footer($fparams, true);
 				} else {
 					$this->bad_request();

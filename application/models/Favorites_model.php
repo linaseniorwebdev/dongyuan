@@ -34,22 +34,24 @@ class Favorites_model extends CI_Model {
 	public function delete_favorite($id) {
 		return $this->db->delete('favorites', array('id' => $id));
 	}
-
+	
 	/**
 	 * Function to get favorites by user id
-	 * @param $favorite_id
+	 * @param $user_id
+	 * @param $inventory_id
+	 * @return mixed
+	 */
+	public function get_by_user_and_inventory($user_id, $inventory_id) {
+		$rows = $this->db->get_where('favorites', array('user' => $user_id, 'inventory' => $inventory_id))->row_array();
+		return $rows;
+	}
+	
+	/**
+	 * Get all favorites by user id
+	 * @param $user_id
 	 * @return mixed
 	 */
 	public function get_by_user_id($user_id) {
-		$rows = $this->db->get_where('favorites', array('user' => $user_id))->result_array();
-		return $rows;
-	}
-
-	/**
-	 * Get all favorites by user id
-	 * @return mixed
-	 */
-	public function get_favorites_by_user_id($user_id) {
 		$this->db->order_by('id', 'asc');
 		$rows = $this->db->get_where('favorites', array('user' => $user_id))->result_array();
 		return $rows;

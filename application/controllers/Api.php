@@ -811,6 +811,29 @@ class Api extends Base {
 			} else {
 				$this->bad_request();
 			}
+		} elseif ($com === 'update') {
+			if ($this->post_exist()) {
+				$id = $this->input->post('notice_id');
+				
+				$params = array(
+					'title'  => $this->input->post('notice_title'),
+					'detail' => $this->input->post('notice_detail'),
+					'status' => $this->input->post('notice_status')
+				);
+				
+				$this->Notices_model->update_notice($id, $params);
+				
+				redirect('admin/notice');
+			} else {
+				$this->bad_request();
+			}
+		} elseif ($com === 'delete') {
+			if ($this->post_exist()) {
+				$this->Notices_model->delete_notice($this->input->post('id'));
+				echo json_encode(array('status' => 'success'));
+			} else {
+				$this->bad_request();
+			}
 		}
 	}
 }

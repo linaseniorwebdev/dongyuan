@@ -17,7 +17,7 @@ class Notices_model extends CI_Model {
 	 */
 	public function get_all_notices($status = null) {
 		$this->db->order_by('id', 'asc');
-		if ($status){
+		if ($status !== null){
 			return $this->db->get('notices', array('status' => $status))->result_array();
 		}
 		return $this->db->get('notices')->result_array();

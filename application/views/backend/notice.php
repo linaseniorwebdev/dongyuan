@@ -56,6 +56,9 @@
 				</div>
 			</div>
 		</div>
+		<form action="<?php echo base_url('admin/notice/edit') ?>" method="post" id="editForm">
+			<input type="hidden" name="id" />
+		</form>
 	</div>
 </div>
 <!-- END::Body -->
