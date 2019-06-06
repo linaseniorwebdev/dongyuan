@@ -26,8 +26,13 @@
 <div class="app-content content">
 	<div class="content-wrapper">
 		<div class="content-header row">
-			<div class="content-header-left col-md-6 col-12 mb-2">
+			<div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
 				<h3 class="content-header-title mb-0 d-inline-block">广告列表</h3>
+			</div>
+			<div class="content-header-right col-md-6 col-12">
+				<div class="btn-group float-md-right">
+					<a href="<?php echo base_url('admin/slider/create'); ?>" class="btn btn-info" style="font-size: 18px;"><i class="la la-plus"></i> 添加</a>
+				</div>
 			</div>
 		</div>
 		<div class="content-body">
@@ -50,6 +55,9 @@
 				</div>
 			</div>
 		</div>
+		<form action="<?php echo base_url('admin/slider/edit') ?>" method="post" id="editForm">
+			<input type="hidden" name="id" />
+		</form>
 	</div>
 </div>
 <!-- END::Body -->

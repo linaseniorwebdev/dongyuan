@@ -686,6 +686,75 @@ class Api extends Base {
 			);
 			
 			echo json_encode($output);
+		} elseif ($com === 'create') {
+			if ($this->post_exist()) {
+				$config = array(
+					'file_name'     => uniqid('', false),
+					'allowed_types' => 'jpg|jpeg|png|gif',
+					'max_size'      => 3000,
+					'overwrite'     => FALSE,
+					'upload_path'   => 'public/uploads/sliders'
+				);
+				
+				$this->upload->initialize($config);
+				
+				if ($this->upload->do_upload()) {
+					$row = $this->upload->data();
+					
+					$params = array(
+						'title' => $this->input->post('ad_name'),
+						'image' => $row['file_name']
+					);
+					
+					$this->Ads_model->add_ad($params);
+				}
+				
+				redirect('admin/slider');
+			} else {
+				$this->bad_request();
+			}
+		} elseif ($com === 'update') {
+			if ($this->post_exist()) {
+				$ad = $this->Ads_model->get_by_id($this->input->post('ad_id'));
+				if ($this->input->post('image_changed') === 'yes') {
+					unlink('public/uploads/sliders/' . $ad['image']);
+					
+					$config = array(
+						'file_name'     => uniqid('', false),
+						'allowed_types' => 'jpg|jpeg|png|gif',
+						'max_size'      => 3000,
+						'overwrite'     => FALSE,
+						'upload_path'   => 'public/uploads/sliders'
+					);
+					
+					$this->upload->initialize($config);
+					
+					if ($this->upload->do_upload()) {
+						$row = $this->upload->data();
+						
+						$params = array(
+							'title'  => $this->input->post('ad_name'),
+							'status' => $this->input->post('ad_status'),
+							'image'  => $row['file_name']
+						);
+						
+						$this->Ads_model->update_ad($ad['id'], $params);
+					}
+					
+					redirect('admin/slider');
+				} else {
+					$params = array(
+						'title'  => $this->input->post('ad_name'),
+						'status' => $this->input->post('ad_status')
+					);
+					
+					$this->Ads_model->update_ad($ad['id'], $params);
+					
+					redirect('admin/slider');
+				}
+			} else {
+				$this->bad_request();
+			}
 		}
 	}
 	

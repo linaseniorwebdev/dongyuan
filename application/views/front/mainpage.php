@@ -113,7 +113,7 @@
                                 <div class="carousel-inner" role="listbox">
                                     <?php
                                     foreach ($ads as $key=>$item) {
-                                        $ads_url = './public/uploads/ads/' . $item['image'];
+                                        $ads_url = './public/uploads/sliders/' . $item['image'];
                                         ?>
                                         <div class="item <?php if ($key == 0) echo 'active';?>">
                                             <img class="carousel-img" src="<?php echo $ads_url;?>">

@@ -80,47 +80,13 @@ $(document).ready(function() {
 });
 
 function modifyItem(obj) {
-	let userID = obj.previousElementSibling.value;
-	let status = 1 - parseInt(obj.previousElementSibling.previousElementSibling.value);
-
-	swal({
-		title: "确定吗？",
-		icon: "info",
-		buttons: {
-			cancel: {
-				text: "取消",
-				value: null,
-				visible: true,
-				className: "",
-				closeModal: true,
-			},
-			confirm: {
-				text: "确定",
-				value: true,
-				visible: true,
-				className: "",
-				closeModal: false
-			}
-		}
-	}).then(isConfirm => {
-		if (isConfirm) {
-			$.post(
-				'../api/user/update',
-				{
-					id    : userID,
-					status: status
-				},
-				function (respond) {
-					table.ajax.reload( null, false );
-					swal("更改成功!", "", "success");
-				}
-			);
-		}
-	});
+	let itemID = obj.previousElementSibling.value;
+	$('#editForm > input:hidden').val(itemID);
+	$('#editForm').submit();
 }
 
 function deleteItem(obj) {
-	let userID = obj.previousElementSibling.previousElementSibling.value;
+	let itemID = obj.previousElementSibling.previousElementSibling.value;
 
 	swal({
 		title: "确定吗？",
@@ -144,7 +110,7 @@ function deleteItem(obj) {
 	}).then(isConfirm => {
 		if (isConfirm) {
 			$.post(
-				'../api/user/delete',
+				'../api/slider/delete',
 				{
 					id  : userID
 				},
