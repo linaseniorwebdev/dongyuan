@@ -61,12 +61,16 @@ class Admin extends Base {
 				$this->load->model('Users_model');
 				$user = $this->Users_model->get_by_name($username);
 				if ($user) {
-					$password = md5(SALT . $password);
-					if ($password === $user['password']) {
-						$this->session->set_userdata('user', $user['id']);
-						redirect('admin');
+					if ((int)$user['status'] === 0) {
+						$data['message'] = '您的帐户已禁用。请联系管理员。';
 					} else {
-						$data['message'] = '密码不正确';
+						$password = md5(SALT . $password);
+						if ($password === $user['password']) {
+							$this->session->set_userdata('user', $user['id']);
+							redirect('admin');
+						} else {
+							$data['message'] = '密码不正确';
+						}
 					}
 				} else {
 					$data['message'] = '未注册的账户';
@@ -594,6 +598,76 @@ class Admin extends Base {
 			$this->load->view('backend/topbar', array('username' => $user));
 			$this->load->view('backend/sidebar', $permission);
 			$this->load->view('backend/profile', $data);
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
+	}
+
+	/**
+	 * 广告管理
+	 */
+	public function slider() {
+		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
+
+			$hparams = array(
+				'title' => '广告管理',
+				'lineawesome' => true,
+				'datatable' => true,
+				'feather' => true
+			);
+			$fparams = array(
+				'name' => 'slider',
+				'datatable' => true
+			);
+
+			$permission = $this->status();
+			$permission['com'] = 'system';
+			$permission['sub'] = 'slider';
+			$user = $this->user->getUsername();
+
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', $permission);
+			$this->load->view('backend/slider');
+			$this->load_footer($fparams, true);
+		} else {
+			redirect('admin/signin');
+		}
+	}
+
+	/**
+	 * 资讯管理
+	 */
+	public function notice() {
+		if ($this->login) {
+			if ($this->user->getPermission() === 5) {
+				redirect('admin/logout');
+			}
+
+			$hparams = array(
+				'title' => '资讯管理',
+				'lineawesome' => true,
+				'datatable' => true,
+				'feather' => true
+			);
+			$fparams = array(
+				'name' => 'notice',
+				'datatable' => true
+			);
+
+			$permission = $this->status();
+			$permission['com'] = 'system';
+			$permission['sub'] = 'notice';
+			$user = $this->user->getUsername();
+
+			$this->load_header($hparams, true);
+			$this->load->view('backend/topbar', array('username' => $user));
+			$this->load->view('backend/sidebar', $permission);
+			$this->load->view('backend/notice');
 			$this->load_footer($fparams, true);
 		} else {
 			redirect('admin/signin');

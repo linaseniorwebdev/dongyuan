@@ -289,6 +289,7 @@ class Api extends Base {
 				$branches = array();
 				$models = $this->input->post('i_models');
 				$prices = $this->input->post('i_prices');
+				$price_default = $prices[0];
 				for ($i = 0, $len = count($models); $i < $len; $i++) {
 					$branches[] = array(
 						'model' => $models[$i],
@@ -315,18 +316,19 @@ class Api extends Base {
 				}
 
 				$params = array(
-					'level_one' => $this->input->post('level1'),
-					'level_two' => $this->input->post('level2'),
+					'level_one'   => $this->input->post('level1'),
+					'level_two'   => $this->input->post('level2'),
 					'level_three' => $this->input->post('level3'),
-					'name' => $this->input->post('i_name'),
-					'brief' => $this->input->post('i_brief'),
-					'images' => serialize($images),
-					'brands' => serialize($brands),
-					'branches' => serialize($branches),
-					'serial_no' => $this->input->post('i_serial_no'),
-					'place_of' => serialize($places),
-					'related' => $this->input->post('i_related'),
-					'links' => serialize($ldata)
+					'name' 		  => $this->input->post('i_name'),
+					'brief' 	  => $this->input->post('i_brief'),
+					'images' 	  => serialize($images),
+					'brands' 	  => serialize($brands),
+					'branches'    => serialize($branches),
+					'serial_no'   => $this->input->post('i_serial_no'),
+					'place_of'    => serialize($places),
+					'related'     => $this->input->post('i_related'),
+					'links' 	  => serialize($ldata),
+					'price' 	  => $price_default
 				);
 
 				$this->Inventories_model->add_inventory($params);

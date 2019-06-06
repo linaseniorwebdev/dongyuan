@@ -71,27 +71,26 @@ $(document).ready(function() {
 			}
 		],
 		language: {
-			"decimal":        "",
-			"emptyTable":     "没有数据",
-			"info":           "显示_START_到_END_的_TOTAL_个条目",
-			"infoEmpty":      "显示0个条目中的0到0",
-			"infoFiltered":   "(从_MAX_总条目中过滤掉)",
+			"decimal":        ",",
+			"emptyTable":     "表中数据为空",
+			"info":           "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+			"infoEmpty":      "显示第 0 至 0 项结果，共 0 项",
+			"infoFiltered":   "(由 _MAX_ 项结果过滤)",
 			"infoPostFix":    "",
-			"thousands":      ",",
 			"lengthMenu":     "显示_MENU_条目",
 			"loadingRecords": "载入中...",
 			"processing":     "处理中...",
 			"search":         "搜索:",
-			"zeroRecords":    "没有找到匹配的记录",
+			"zeroRecords":    "没有匹配结果",
 			"paginate": {
-				"first":      "最初",
-				"last":       "最后",
-				"next":       "下一页",
-				"previous":   "上一页"
+				"first":      "首页",
+				"last":       "末页",
+				"next":       "下页",
+				"previous":   "上页"
 			},
 			"aria": {
-				"sortAscending":  ": 激活以对列升序进行排序",
-				"sortDescending": ": 激活以按列降序排序"
+				"sortAscending":  ": 以升序排列此列",
+				"sortDescending": ": 以降序排列此列"
 			}
 		}
 	});

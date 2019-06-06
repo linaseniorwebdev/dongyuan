@@ -82,6 +82,24 @@
 						<?php
 					}
 					?>
+					<?php
+					if ($ad['value']) {
+						?>
+						<li class="<?php if ($com === 'system' && $sub === 'slider') echo 'active'; ?>">
+							<a class="menu-item" href="<?php echo base_url('admin/slider'); ?>"> 广告管理</a>
+						</li>
+						<?php
+					}
+					?>
+					<?php
+					if ($notice['value']) {
+						?>
+						<li class="<?php if ($com === 'system' && $sub === 'notice') echo 'active'; ?>">
+							<a class="menu-item" href="<?php echo base_url('admin/notice'); ?>"> 资讯管理</a>
+						</li>
+						<?php
+					}
+					?>
 					<li class="<?php if ($com === 'system' && $sub === 'profile') echo 'active'; ?>">
 						<a class="menu-item" href="<?php echo base_url('admin/profile'); ?>"> 我的账户</a>
 					</li>
