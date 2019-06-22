@@ -12,7 +12,7 @@
 	<div class="content-wrapper">
 		<div class="content-header row">
 			<div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
-				<h3 class="content-header-title mb-0 d-inline-block">分类清单</h3>
+				<h3 class="content-header-title mb-0 d-inline-block">分类清单（<?php echo $heading; ?>）</h3>
 				<div class="row breadcrumbs-top d-inline-block">
 					<div class="breadcrumb-wrapper col-12">
 						<ol class="breadcrumb">
@@ -38,7 +38,7 @@
 				<div class="btn-group float-md-right">
 					<input type="hidden" value="<?php echo $level; ?>" />
 					<input type="hidden" value="<?php echo $id; ?>" />
-					<a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px;" onclick="addItem(this)"><i class="la la-plus"></i> 添加</a>
+					<a href="javascript:void(0)" class="btn btn-info" style="font-size: 18px;" onclick="addItem(this)"><i class="la la-plus"></i> 添加（<?php echo $heading; ?>）</a>
 				</div>
 			</div>
 		</div>

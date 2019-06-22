@@ -54,28 +54,24 @@ body {
     margin: 0;
     background-color: #EFEFEF;
     padding: 0 0;
-}
-
-.page-header h3 {
-    display: flex;
-    justify-content: space-between;
+    text-align: right;
     margin: 0;
     padding: 0 20px;
-}
-
-h3 small {
     height: 40px;
     line-height: 40px;
-    font-family: PingFangSC-Regular;
-    font-size: 12px;
-    color: #666666;
-    line-height: 40px;
+    color: lightgrey;
 }
 
-.page-header h3 small .btn-link {
+.page-header .btn-link {
+    font-size: 12px;
+    font-family: PingFangSC-Regular;
     color: #666666;
     outline: none !important;
     text-decoration: none;
+}
+
+.page-header .dropdown{
+    display: inline;
 }
 
 ul.shortcut-search {
@@ -316,76 +312,6 @@ a.dropdown-toggle {
     cursor: pointer;
 }
 
-.dropdown-menu {
-    left: calc(100% + 33px);
-    top: 0;
-    border-radius: 0;
-    -webkit-background-clip: unset;
-    background-clip: unset;
-    background: rgba(255, 255, 255, 0.86);
-    width: calc(150% + 33px);
-}
-
-.dropdown-menu .third-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.dropdown-menu .third-ul li.third-ul-li {
-    float: left;
-    list-style-type: none;
-}
-
-.dropdown-menu .third-title-ul {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-    padding-right: 10%;
-    padding-left: 10%;
-}
-
-.dropdown-menu .third-title-ul>li:first-child a {
-    text-decoration: none;
-    font-family: PingFangSC-Medium;
-    font-size: 14px;
-    color: #444444;
-    letter-spacing: 0;
-    line-height: 44px;
-}
-
-.dropdown-menu .third-title-ul>li:last-child a {
-    text-decoration: none;
-    font-family: PingFangSC-Regular;
-    font-size: 12px;
-    color: #444444;
-    letter-spacing: 0;
-    line-height: 44px;
-}
-
-.dropdown-menu .third-title-ul>li:last-child .fa {
-    position: relative;
-    top: -3px;
-}
-
-.dropdown-menu .third-ul li.third-ul-li {
-    width: 33.33%;
-    text-align: center;
-}
-
-.dropdown-menu .third-ul li.third-ul-li a {
-    font-family: PingFangSC-Regular;
-    font-size: 12px;
-    color: #999999;
-    letter-spacing: 0;
-}
-
-.dropdown-menu .third-ul li.third-ul-li a:hover {
-    text-decoration: none;
-    color: #1869BC;
-    ;
-}
-
 .dropdown-menu li.dropdown-menu-li {
     line-height: 34px;
 }
@@ -500,8 +426,8 @@ ul.second-menu li .fa {
 .resources-footer {
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 100%;
+    left: -5px;
+    width: 103%;
     height: 100px;
     overflow: hidden;
     vertical-align: bottom;
@@ -512,7 +438,7 @@ ul.second-menu li .fa {
     font-family: PingFangSC-Regular;
     font-size: 14px;
     color: #999999;
-    letter-spacing: 0;
+    letter-spacing: 1px;
 }
 
 ul.resources-menu {
@@ -532,8 +458,8 @@ ul.resources-menu li a p {
     font-family: PingFangSC-Regular;
     font-size: 12px;
     color: #666666;
-    letter-spacing: 0;
     line-height: 24px;
+    letter-spacing: .6px;
 }
 
 .res-sub-img {
@@ -1245,4 +1171,8 @@ tr>td>a.hlink {
 .breadcrumb li:hover {
     cursor: pointer;
     color: red;
+}
+
+.dropdown-menu li:hover {
+    background-color: #d1d1d1;
 }

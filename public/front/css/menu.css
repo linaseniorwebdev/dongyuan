@@ -12,7 +12,7 @@ Template Type: type_0
 .nav-box{padding-top: 5px;}
 
 .submenu-item {height: 26px;line-height: 26px;padding:0 14px;background: #fff;}
-.submenu-item:hover {background-color:#fff;}
+.submenu-item:hover {background: #d1d1d1;}
 .submenu .last {height: 10px;line-height: 10px;}
 
 .submenu-title {position: relative;display: flex;justify-content: space-between}

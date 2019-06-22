@@ -194,6 +194,12 @@ class Admin extends Base {
 			}
 			if ($this->privilege('category')) {
 				$this->load->model('Categories_model');
+				
+				$titles = array(
+					'1' => '主分类',
+					'2' => '二级分类',
+					'3' => '三级分类'
+				);
 
 				$hparams = array(
 					'title' => '分类管理',
@@ -232,11 +238,12 @@ class Admin extends Base {
 					}
 				}
 				$data = array(
-					'crumb' => $crumb,
-					'title' => $title,
-					'level' => $lv,
-					'id'    => $id,
-					'rows'  => $this->Categories_model->get_categories($lv, $id)
+					'heading' => $titles[$lv],
+					'crumb'   => $crumb,
+					'title'   => $title,
+					'level'   => $lv,
+					'id'      => $id,
+					'rows'    => $this->Categories_model->get_categories($lv, $id)
 				);
 				$permission = $this->status();
 				$permission['com'] = 'category';

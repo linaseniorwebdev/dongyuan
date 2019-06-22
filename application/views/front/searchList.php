@@ -276,7 +276,7 @@
                                 <li class="search-result-li v-center">
                                     <div class="pro-item v-center text-center"
                                          onclick="goods_detail(this, <?php echo $item['id']; ?>)">
-                                        <img src="<?php echo $item['images'][0]; ?>">
+                                        <img src="<?php echo $item['images'][0]; ?>" width="180" height="160">
                                         <p><?php echo $item['name']; ?></p>
                                     </div>
                                 </li>

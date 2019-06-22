@@ -65,11 +65,11 @@
                                                                             foreach ($row2s['children'] as $row3s) {
                                                                                 ?>
                                                                                 <span>
-                                                                            <span style="padding: 0 3%;">|</span>
-                                                                            <a href="#" onclick="searchList(<?php echo $row3s['id'];?>)">
-                                                                                <?php echo $row3s['name'];?>
-                                                                            </a>
-                                                                        </span>
+                                                                                    <span style="padding: 0 3%;">|</span>
+                                                                                    <a href="#" onclick="searchList(<?php echo $row3s['id'];?>)">
+                                                                                        <?php echo $row3s['name'];?>
+                                                                                    </a>
+                                                                                </span>
                                                                                 <?php
                                                                             }
                                                                             ?>
@@ -256,7 +256,7 @@
 
                                                                 <div class="text-center products-item">
                                                                     <img class="product-img"
-                                                                         src="<?php echo $item2s['images'][0];?>">
+                                                                         src="<?php echo $item2s['images'][0];?>" width="200" height="200">
                                                                 </div>
 
                                                                 <p><?php echo $item2s['name'] ?></p>
@@ -288,5 +288,3 @@
                 </div>
             </div>
         </div>
-
-

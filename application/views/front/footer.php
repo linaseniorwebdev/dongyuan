@@ -149,406 +149,432 @@
     </div>
 </template>
 
-<script type="text/javascript" src="<?php echo base_url();?>public/front/js/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/Swiper/js/swiper.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/layer/layer.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/js/SuperSlide.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/js/common-min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/js/area_data.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/js/vue.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/js/common.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>public/front/js/sweetalert.min.js"></script>
-<script type="text/javascript">
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/js/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/Swiper/js/swiper.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/layer/layer.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/js/SuperSlide.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/js/common-min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/js/area_data.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/bootstrap/js/bootstrap-hover-dropdown.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/js/vue.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/js/common.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/js/sweetalert.min.js"></script>
+    <script type="text/javascript">
 
-    var _server_url = '<?php echo base_url();?>';
+        var _server_url = '<?php echo base_url();?>';
 
-    function getBrowser() {
-        if (window.navigator.userAgent.indexOf("Chrome") == -1) {
-            //如果浏览器为IE7
-            return true;
-        }
-    }
-
-    if (getBrowser()) {
-        layer.msg("请在Chrome谷歌内核浏览器中查看效果更佳，双核浏览器可切换Chrome内核")
-    }
-
-    $(document).ready(function () {
-        // var totalNum = 0;
-        var totalAmount = 0.00;
-        var numbox = $(".input-numbox");
-        $.each(numbox, function (index, val) {
-            var thisNum = $(val).val();
-            if (thisNum == '') {
-                thisNum = 0.00;
+        function getBrowser() {
+            if (window.navigator.userAgent.indexOf("Chrome") == -1) {
+                //如果浏览器为IE7
+                return true;
             }
-            var thisPrice = $(val).attr("data-price");
-            var thisAmount = accMul(parseFloat(thisNum), thisPrice);
-            totalAmount = accAdd(thisAmount, totalAmount);
+        }
+
+        if (getBrowser()) {
+            layer.msg("请在Chrome谷歌内核浏览器中查看效果更佳，双核浏览器可切换Chrome内核")
+        }
+
+        $(document).ready(function () {
+            // var totalNum = 0;
+            var totalAmount = 0.00;
+            var numbox = $(".input-numbox");
+            $.each(numbox, function (index, val) {
+                var thisNum = $(val).val();
+                if (thisNum == '') {
+                    thisNum = 0.00;
+                }
+                var thisPrice = $(val).attr("data-price");
+                var thisAmount = accMul(parseFloat(thisNum), thisPrice);
+                totalAmount = accAdd(thisAmount, totalAmount);
+            });
+
+            $("#sumb-price").html(totalAmount);
+            $("#total-price").val(totalAmount);
         });
 
-        $("#sumb-price").html(totalAmount);
-        $("#total-price").val(totalAmount);
-    });
-
-    function goods_detail(obj, idx) {
-        location.href =_server_url + 'home/goodsInfo?productId=' + idx;
-    }
-
-    function goodsList(obj, idx) {
-        location.href =_server_url + 'home/goodsList';
-    }
-
-    function searchList(idx, pageNum = 1, pageSize = 5) {
-        location.href =_server_url + 'home/searchList?categoryId=' + idx + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
-    }
-
-    function logout() {
-        swal({
-            title: "警告!",
-            text: "您确定要退出吗？",
-            icon: "warning",
-
-            buttons: ["不", "是"],
-        })
-            .then((isok) => {
-                if (isok) {
-                    location.href = _server_url + 'data/logout';
-                }
-            });
-    }
-
-    function judgeInt(text, maxNum, minNum) {
-        var retFlag;
-        var intReg = /^[1-9]\d*|[0]$/;
-        if (intReg.test(text)) {
-            if (text > parseInt(maxNum)) {
-                retFlag = 1;
-            } else if (text < parseInt(minNum)) {
-                retFlag = -1;
-            } else {
-                retFlag = 0;
-            }
-        } else {
-            retFlag = -2;
-        }
-        return retFlag;
-    }
-
-    function countAmount(_this) {
-        var maxNum = $(_this).attr("data-max");
-        var minNum = $(_this).attr("data-min");
-        var thisVal = $(_this).val();
-        var judge = judgeInt(thisVal, maxNum, minNum);
-
-        if (thisVal == '') {
-            thisVal = minNum;
-            $(_this).val(minNum);
+        function goods_detail(obj, idx) {
+            location.href =_server_url + 'home/goodsInfo?productId=' + idx;
         }
 
-        if (judge == 0) {
-        } else if (judge == 1) {
-            $(_this).val(thisVal.substring(0, thisVal.length - 1));
-        } else {
-            $(_this).val(minNum);
+        function goodsList(obj, idx) {
+            location.href =_server_url + 'home/goodsList';
         }
 
-        // var totalNum = 0;
-        var totalAmount = 0.00;
-        var numbox = $(".input-numbox");
-        $.each(numbox, function (index, val) {
-            var thisNum = $(val).val();
-            if (thisNum == '') {
-                thisNum = minNum;
-            }
-            var thisPrice = $(val).attr("data-price");
-            var thisAmount = accMul(parseFloat(thisNum), thisPrice);
-            totalAmount = accAdd(thisAmount, totalAmount);
-        })
-        // layer.msg(totalAmount)
-        $("#sumb-price").html(totalAmount);
-        $("#total-price").val(totalAmount);
-        $("#hidden_amount").val($("#amount").val());
-    }
+        function searchList(idx, pageNum = 1, pageSize = 5) {
+            location.href =_server_url + 'home/searchList?categoryId=' + idx + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+        }
 
-    function search() {
-        var keyword = $("#keyword").val();
-        location.href =_server_url + 'home/searchList?keyword=' + keyword + '&pageNum=1' + '&pageSize=40';
-    }
-
-    function addToCart(idx = null) {
-        if (!$("#user_check").val()){
+        function logout() {
             swal({
-                title: "警告！",
-                text: "首先，你必须登录。.",
+                title: "警告!",
+                text: "您确定要退出吗？",
                 icon: "warning",
+
+                buttons: ["不", "是"],
             })
                 .then((isok) => {
                     if (isok) {
-                        location.href =_server_url + 'home/signin';
+                        location.href = _server_url + 'data/logout';
                     }
                 });
-        } else {
-            if (idx != null){
-                var more_goods_name = $("#more_name").text();
-                var more_goods_price = $("#more_price").text();
-                var more_goods_brand = $("#more_brand").text();
-                var more_goods_type = $("#more_type").text();
-                var more_goods_amount = $("#more_amount"+idx).val();
-                var more_goods_scale = $("#more_scale").text();
-                alert(more_goods_amount);
-
-                $.post(_server_url + 'api/cart/create',
-                    {
-                        'inventory_name': more_goods_name,
-                        'brand_name': more_goods_brand,
-                        'serial_no': more_goods_type,
-                        'price': more_goods_price,
-                        'amount': more_goods_amount,
-                        'specs': more_goods_scale
-
-                    },
-                    function (data) {
-                        var result = JSON.parse(data);
-
-                        if (result['status'] == "success") {
-                            swal({
-                                title: "成功！",
-                                text: "您已在购物车中成功添加商品。.",
-                                icon: "success",
-                            })
-                        }
-                    });
-
-            } else {
-                var goods_name = $("#goods_name").text();
-                var goods_price = $("#goods_price").text();
-                var goods_brand = $("#goods_brand").text();
-                var e = document.getElementById("goods_ship");
-                var goods_place = e.options[e.selectedIndex].value;
-                var goods_type = $("#goods_type").text();
-                var goods_amount = $("#goods_amount").val();
-                var goods_scale = $("#goods_scale.active").text();
-
-                $.post(_server_url + 'api/cart/create',
-                    {
-                        'inventory_name': goods_name,
-                        'brand_name': goods_brand,
-                        'serial_no': goods_type,
-                        'place_of': goods_place,
-                        'price': goods_price,
-                        'amount': goods_amount,
-                        'specs': goods_scale
-
-                    },
-                    function (data) {
-                        var result = JSON.parse(data);
-
-                        if (result['status'] == "success") {
-                            swal({
-                                title: "成功！",
-                                text: "您已在购物车中成功添加商品。.",
-                                icon: "success",
-                            })
-                                .then((isok) => {
-                                    if (isok) {
-                                        location.href = _server_url + 'home/cartsList';
-                                    }
-                                });
-                        } else {
-                            swal("警告!", "你失败了。 请再试一次或稍后。", "warning");
-
-                        }
-
-                    });
-            }
         }
 
-
-    }
-
-    $('.carousel').carousel({
-        interval: 3000
-    });
-
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            province: '',
-            city: '',
-            ps: Area,
-            cs: []
-        },
-
-        components: {
-            'pageHelper': {
-                template: "#page-helper",
-                data() {
-                    return {
-                        currentPage: this.pageNumber,
-                        currentSize: $("#page_size").val(),
-                        jumpPageNumber: 1,
-                        showPrevMore: false,
-                        showNextMore: false
-                    }
-                },
-                props: {
-                    pageNumber: {   //当前页面
-                        type: Number,
-                        default: parseInt($("#page_num").val())
-                    },
-                    totalCount: {   //总条数
-                        type: Number,
-                        default: parseInt($("#total_counts").val())
-                    },
-                    pageGroup: {   //连续页码个数
-                        type: Number,
-                        default: 5
-                    }
-                },
-                computed: {
-                    showPageHelper() {
-                        return this.totalCount > this.currentSize
-                    },
-                    totalPage() {   //总页数
-                        return Math.ceil(this.totalCount / this.currentSize);
-                    },
-                    groupList() {  //获取分页码
-                        const groupArray = []
-                        const totalPage = this.totalPage
-                        const pageGroup = this.pageGroup
-                        const _offset = (pageGroup - 1) / 2
-                        let current = this.currentPage
-                        const offset = {
-                            start: current - _offset,
-                            end: current + _offset
-                        }
-                        if (offset.start < 1) {
-                            offset.end = offset.end + (1 - offset.start)
-                            offset.start = 1
-                        }
-                        if (offset.end > totalPage) {
-                            offset.start = offset.start - (offset.end - totalPage)
-                            offset.end = totalPage
-                        }
-                        if (offset.start < 1) offset.start = 1
-                        this.showPrevMore = (offset.start > 1)
-                        this.showNextMore = (offset.end < totalPage)
-                        for (let i = offset.start; i <= offset.end; i++) {
-                            groupArray.push(i)
-                        }
-                        return groupArray
-                    }
-                },
-                methods: {
-                    prevPage() {
-                        if (this.currentPage > 1) {
-                            this.jumpPage(this.currentPage - 1)
-                        }
-                    },
-                    nextPage() {
-                        if (this.currentPage < this.totalPage) {
-                            this.jumpPage(this.currentPage + 1)
-                        }
-                    },
-                    showPrevPage() {
-
-                        this.currentPage = this.currentPage - this.pageGroup > 0 ? this.currentPage - this.pageGroup : 1;
-                        this.jumpPage(this.currentPage);
-
-                    },
-                    showNextPage() {
-                        this.currentPage = this.currentPage + this.pageGroup < this.totalPage ? this.currentPage + this.pageGroup : this.totalPage;
-                        this.jumpPage(this.currentPage);
-                    },
-                    goPage(jumpPageNumber) {
-                        if (Number(jumpPageNumber) <= 0) {
-                            jumpPageNumber = 1
-                        } if (Number(jumpPageNumber) >= this.totalPage) {
-                            jumpPageNumber = this.totalPage
-                        }
-                        this.jumpPage(Number(jumpPageNumber))
-                    },
-                    jumpPage(pageNumber) {
-                        if (this.currentPage !== pageNumber) {  //点击的页码不是当前页码
-                            this.currentPage = pageNumber
-                            //父组件通过change方法来接受当前的页码
-                            this.$emit('jumpPage', { currentPage: this.currentPage, currentSize: this.currentSize })
-                            searchList($("#category_id").val(), pageNumber);
-                        }
-                    }
-                },
-                watch: {
-                    currentSize(newValue, oldValue) {
-                        if (newValue !== oldValue) {
-                            if (this.currentPage >= this.totalPage) { //当前页面大于总页面数
-                                this.currentPage = this.totalPage
-                            }
-                            this.$emit('jumpPage', { currentPage: this.currentPage, currentSize: this.currentSize })
-                        }
-                    }
-                }
-            }
-        },
-        methods: {
-            loadAreas(initFlag, rank, val) {
-                if (initFlag) {
-                    // 初始化页面
-                    if (this.province != '' && this.province != null) {
-                        // 有值初始化
-                        for (var i = 0; i < Area.length; i++) {
-                            if (Area[i].provinceCode == this.province) {
-                                this.cs = Area[i].mallCityList;
-                            }
-                        }
-                    } else {
-                        // 无值初始化，默认浙江省杭州市
-                        this.province = 330000;
-                        for (var i = 0; i < Area.length; i++) {
-                            if (Area[i].provinceCode == this.province) {
-                                this.cs = Area[i].mallCityList;
-                            }
-                        }
-                        this.city = 330100;
-                    }
+        function judgeInt(text, maxNum, minNum) {
+            var retFlag;
+            var intReg = /^[1-9]\d*|[0]$/;
+            if (intReg.test(text)) {
+                if (text > parseInt(maxNum)) {
+                    retFlag = 1;
+                } else if (text < parseInt(minNum)) {
+                    retFlag = -1;
                 } else {
-                    // 手动选择
-                    if (rank == 'p') {
-                        // 选择省，市清空
-                        this.province = val
-                        for (var i = 0; i < Area.length; i++) {
-                            if (Area[i].provinceCode == this.province) {
-                                this.cs = Area[i].mallCityList;
+                    retFlag = 0;
+                }
+            } else {
+                retFlag = -2;
+            }
+            return retFlag;
+        }
+
+        function countAmount(_this) {
+            var maxNum = $(_this).attr("data-max");
+            var minNum = $(_this).attr("data-min");
+            var thisVal = $(_this).val();
+            var judge = judgeInt(thisVal, maxNum, minNum);
+
+            if (thisVal == '') {
+                thisVal = minNum;
+                $(_this).val(minNum);
+            }
+
+            if (judge == 0) {
+            } else if (judge == 1) {
+                $(_this).val(thisVal.substring(0, thisVal.length - 1));
+            } else {
+                $(_this).val(minNum);
+            }
+
+            // var totalNum = 0;
+            var totalAmount = 0.00;
+            var numbox = $(".input-numbox");
+            $.each(numbox, function (index, val) {
+                var thisNum = $(val).val();
+                if (thisNum == '') {
+                    thisNum = minNum;
+                }
+                var thisPrice = $(val).attr("data-price");
+                var thisAmount = accMul(parseFloat(thisNum), thisPrice);
+                totalAmount = accAdd(thisAmount, totalAmount);
+            })
+            // layer.msg(totalAmount)
+            $("#sumb-price").html(totalAmount);
+            $("#total-price").val(totalAmount);
+            $("#hidden_amount").val($("#amount").val());
+        }
+
+        function search() {
+            var keyword = $("#keyword").val();
+            location.href =_server_url + 'home/searchList?keyword=' + keyword + '&pageNum=1' + '&pageSize=40';
+        }
+
+        function addToCart(idx = null) {
+            if (!$("#user_check").val()){
+                swal({
+                    title: "警告！",
+                    text: "首先，你必须登录。.",
+                    icon: "warning",
+                })
+                    .then((isok) => {
+                        if (isok) {
+                            location.href =_server_url + 'home/signin';
+                        }
+                    });
+            } else {
+                if (idx != null){
+                    var more_goods_name = $("#more_name").text();
+                    var more_goods_price = $("#more_price").text();
+                    var more_goods_brand = $("#more_brand").text();
+                    var more_goods_type = $("#more_type").text();
+                    var more_goods_amount = $("#more_amount"+idx).val();
+                    var more_goods_scale = $("#more_scale").text();
+                    alert(more_goods_amount);
+
+                    $.post(_server_url + 'api/cart/create',
+                        {
+                            'inventory_name': more_goods_name,
+                            'brand_name': more_goods_brand,
+                            'serial_no': more_goods_type,
+                            'price': more_goods_price,
+                            'amount': more_goods_amount,
+                            'specs': more_goods_scale
+
+                        },
+                        function (data) {
+                            var result = JSON.parse(data);
+
+                            if (result['status'] == "success") {
+                                swal({
+                                    title: "成功！",
+                                    text: "您已在购物车中成功添加商品。.",
+                                    icon: "success",
+                                })
+                            }
+                        });
+
+                } else {
+                    var goods_name = $("#goods_name").text();
+                    var goods_price = $("#goods_price").text();
+                    var goods_brand = $("#goods_brand").text();
+                    var e = document.getElementById("goods_ship");
+                    var goods_place = e.options[e.selectedIndex].value;
+                    var goods_type = $("#goods_type").text();
+                    var goods_amount = $("#goods_amount").val();
+                    var goods_scale = $("#goods_scale.active").text();
+
+                    $.post(_server_url + 'api/cart/create',
+                        {
+                            'inventory_name': goods_name,
+                            'brand_name': goods_brand,
+                            'serial_no': goods_type,
+                            'place_of': goods_place,
+                            'price': goods_price,
+                            'amount': goods_amount,
+                            'specs': goods_scale
+
+                        },
+                        function (data) {
+                            var result = JSON.parse(data);
+
+                            if (result['status'] == "success") {
+                                swal({
+                                    title: "成功！",
+                                    text: "您已在购物车中成功添加商品。.",
+                                    icon: "success",
+                                })
+                                    .then((isok) => {
+                                        if (isok) {
+                                            location.href = _server_url + 'home/cartsList';
+                                        }
+                                    });
+                            } else {
+                                swal("警告!", "你失败了。 请再试一次或稍后。", "warning");
+
+                            }
+
+                        });
+                }
+            }
+
+
+        }
+
+        $('.carousel').carousel({
+            interval: 3000
+        });
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                province: '',
+                city: '',
+                ps: Area,
+                cs: []
+            },
+
+            components: {
+                'pageHelper': {
+                    template: "#page-helper",
+                    data() {
+                        return {
+                            currentPage: this.pageNumber,
+                            currentSize: $("#page_size").val(),
+                            jumpPageNumber: 1,
+                            showPrevMore: false,
+                            showNextMore: false
+                        }
+                    },
+                    props: {
+                        pageNumber: {   //当前页面
+                            type: Number,
+                            default: parseInt($("#page_num").val())
+                        },
+                        totalCount: {   //总条数
+                            type: Number,
+                            default: parseInt($("#total_counts").val())
+                        },
+                        pageGroup: {   //连续页码个数
+                            type: Number,
+                            default: 5
+                        }
+                    },
+                    computed: {
+                        showPageHelper() {
+                            return this.totalCount > this.currentSize
+                        },
+                        totalPage() {   //总页数
+                            return Math.ceil(this.totalCount / this.currentSize);
+                        },
+                        groupList() {  //获取分页码
+                            const groupArray = []
+                            const totalPage = this.totalPage
+                            const pageGroup = this.pageGroup
+                            const _offset = (pageGroup - 1) / 2
+                            let current = this.currentPage
+                            const offset = {
+                                start: current - _offset,
+                                end: current + _offset
+                            }
+                            if (offset.start < 1) {
+                                offset.end = offset.end + (1 - offset.start)
+                                offset.start = 1
+                            }
+                            if (offset.end > totalPage) {
+                                offset.start = offset.start - (offset.end - totalPage)
+                                offset.end = totalPage
+                            }
+                            if (offset.start < 1) offset.start = 1
+                            this.showPrevMore = (offset.start > 1)
+                            this.showNextMore = (offset.end < totalPage)
+                            for (let i = offset.start; i <= offset.end; i++) {
+                                groupArray.push(i)
+                            }
+                            return groupArray
+                        }
+                    },
+                    methods: {
+                        prevPage() {
+                            if (this.currentPage > 1) {
+                                this.jumpPage(this.currentPage - 1)
+                            }
+                        },
+                        nextPage() {
+                            if (this.currentPage < this.totalPage) {
+                                this.jumpPage(this.currentPage + 1)
+                            }
+                        },
+                        showPrevPage() {
+
+                            this.currentPage = this.currentPage - this.pageGroup > 0 ? this.currentPage - this.pageGroup : 1;
+                            this.jumpPage(this.currentPage);
+
+                        },
+                        showNextPage() {
+                            this.currentPage = this.currentPage + this.pageGroup < this.totalPage ? this.currentPage + this.pageGroup : this.totalPage;
+                            this.jumpPage(this.currentPage);
+                        },
+                        goPage(jumpPageNumber) {
+                            if (Number(jumpPageNumber) <= 0) {
+                                jumpPageNumber = 1
+                            } if (Number(jumpPageNumber) >= this.totalPage) {
+                                jumpPageNumber = this.totalPage
+                            }
+                            this.jumpPage(Number(jumpPageNumber))
+                        },
+                        jumpPage(pageNumber) {
+                            if (this.currentPage !== pageNumber) {  //点击的页码不是当前页码
+                                this.currentPage = pageNumber
+                                //父组件通过change方法来接受当前的页码
+                                this.$emit('jumpPage', { currentPage: this.currentPage, currentSize: this.currentSize })
+                                searchList($("#category_id").val(), pageNumber);
                             }
                         }
-                        this.city = '';
-                    } else {
-                        this.city = val;
+                    },
+                    watch: {
+                        currentSize(newValue, oldValue) {
+                            if (newValue !== oldValue) {
+                                if (this.currentPage >= this.totalPage) { //当前页面大于总页面数
+                                    this.currentPage = this.totalPage
+                                }
+                                this.$emit('jumpPage', { currentPage: this.currentPage, currentSize: this.currentSize })
+                            }
+                        }
                     }
                 }
             },
-            search(params) {
-                // 执行搜索方法
-                console.log(params)
+            methods: {
+                loadAreas(initFlag, rank, val) {
+                    if (initFlag) {
+                        // 初始化页面
+                        if (this.province != '' && this.province != null) {
+                            // 有值初始化
+                            for (var i = 0; i < Area.length; i++) {
+                                if (Area[i].provinceCode == this.province) {
+                                    this.cs = Area[i].mallCityList;
+                                }
+                            }
+                        } else {
+                            // 无值初始化，默认浙江省杭州市
+                            this.province = 330000;
+                            for (var i = 0; i < Area.length; i++) {
+                                if (Area[i].provinceCode == this.province) {
+                                    this.cs = Area[i].mallCityList;
+                                }
+                            }
+                            this.city = 330100;
+                        }
+                    } else {
+                        // 手动选择
+                        if (rank == 'p') {
+                            // 选择省，市清空
+                            this.province = val
+                            for (var i = 0; i < Area.length; i++) {
+                                if (Area[i].provinceCode == this.province) {
+                                    this.cs = Area[i].mallCityList;
+                                }
+                            }
+                            this.city = '';
+                        } else {
+                            this.city = val;
+                        }
+                    }
+                },
+                search(params) {
+                    // 执行搜索方法
+                    console.log(params)
+                },
+                goodsInfo(id) {
+                    window.location.href = "./goodsInfo.html?id=" + id
+                }
             },
-            goodsInfo(id) {
-                window.location.href = "./goodsInfo.html?id=" + id
-            }
-        },
-        created() {
-            // 进入页面时数据操作
-            this.loadAreas(true, '', '');
+            created() {
+                // 进入页面时数据操作
+                this.loadAreas(true, '', '');
 
-        },
-        mounted: function () {
-            // 页面完全加载之后开始执行mounted方法
-            // centeredSlides表示是否滑到中间，false表示从最左侧滑动到最右侧
-            // scrollbarSnapOnRelease表示释放时是否自动贴合
-            var floorNum = parseInt($("#array_length").val());
-            for (var i = 0; i < floorNum; i++) {
-                new Swiper('.swiper-container' + i, {
-                    scrollbar: '.swiper-scrollbar' + i,
+            },
+            mounted: function () {
+                // 页面完全加载之后开始执行mounted方法
+                // centeredSlides表示是否滑到中间，false表示从最左侧滑动到最右侧
+                // scrollbarSnapOnRelease表示释放时是否自动贴合
+                var floorNum = parseInt($("#array_length").val());
+                for (var i = 0; i < floorNum; i++) {
+                    new Swiper('.swiper-container' + i, {
+                        scrollbar: '.swiper-scrollbar' + i,
+                        scrollbarHide: true,
+                        slidesPerView: 'auto',
+                        centeredSlides: false,
+                        spaceBetween: 0,
+                        grabCursor: true,
+                        scrollbarDraggable: true,
+                        scrollbarSnapOnRelease: false,
+                        nextButton: '.product-slider' + i + '.next',
+                        prevButton: '.product-slider' + i + '.prev'
+                    });
+                }
+
+                new Swiper('.mui-scroll-wrapper.swiper-container', {
+                    scrollbar: '.mui-swiper-scrollbar.swiper-scrollbar',
+                    scrollbarHide: true,
+                    slidesPerView: 'auto',
+                    centeredSlides: false,
+                    spaceBetween: 0,
+                    grabCursor: true,
+                    scrollbarDraggable: true,
+                    scrollbarSnapOnRelease: false
+                });
+
+                new Swiper('.swiper-container', {
+                    scrollbar: '.swiper-scrollbar',
                     scrollbarHide: true,
                     slidesPerView: 'auto',
                     centeredSlides: false,
@@ -556,131 +582,106 @@
                     grabCursor: true,
                     scrollbarDraggable: true,
                     scrollbarSnapOnRelease: false,
-                    nextButton: '.product-slider' + i + '.next',
-                    prevButton: '.product-slider' + i + '.prev'
+                    nextButton: '.goods-next',
+                    prevButton: '.goods-prev'
                 });
-            }
 
-            new Swiper('.mui-scroll-wrapper.swiper-container', {
-                scrollbar: '.mui-swiper-scrollbar.swiper-scrollbar',
-                scrollbarHide: true,
-                slidesPerView: 'auto',
-                centeredSlides: false,
-                spaceBetween: 0,
-                grabCursor: true,
-                scrollbarDraggable: true,
-                scrollbarSnapOnRelease: false
-            });
-
-            new Swiper('.swiper-container', {
-                scrollbar: '.swiper-scrollbar',
-                scrollbarHide: true,
-                slidesPerView: 'auto',
-                centeredSlides: false,
-                spaceBetween: 0,
-                grabCursor: true,
-                scrollbarDraggable: true,
-                scrollbarSnapOnRelease: false,
-                nextButton: '.goods-next',
-                prevButton: '.goods-prev'
-            });
-
-            $(".search-more-btn").click(function () {
-                if ($(this).find("i.fa-angle-down").length == 1) {
-                    $(this).find("i.fa").removeClass("fa-angle-down").addClass("fa-angle-up")
-                } else {
-                    $(this).find("i.fa").removeClass("fa-angle-up").addClass("fa-angle-down")
-                }
-            })
-
-            // 按标签查询
-            $(".tags-box .tag-span").click(function () {
-                $(this).addClass("active").siblings().removeClass("active");
-                // 装配新tag条件并搜索
-                vm.search('filter:' + $(this).attr("filter") + "---value:" + $(this).attr("value"));
-                // var idx = $("#tag-span").val();
-                // console.log(idx);
-                // searchList(idx);
-            })
-
-            // 按filter-opt查询
-            $(".search-filter-opt-box .search-filter-opt").click(function () {
-                var parentEl = $(this).parents(".search-filter-item");
-                $(parentEl).find(".search-filter-opt").removeClass("active");
-                $(this).addClass("active");
-                // 装配新filter条件并搜索
-                vm.search('filter:' + $(this).attr("filter") + "---value:" + $(this).attr("value"));
-            })
-
-            // 排序
-            $(".sort-by-ul .sort-by-li").click(function () {
-                $(this).addClass("active").siblings().removeClass("active");
-                // 装配新filter条件并搜索
-                var thisOrderBy = $(this).attr("orderBy");
-                if (thisOrderBy == 'asc') {
-                    thisOrderBy = 'desc'
-                    $(this).find("i.fa").removeClass("fa-caret-up").addClass("fa-caret-down")
-                } else if (thisOrderBy == 'desc') {
-                    thisOrderBy = 'asc'
-                    $(this).find("i.fa").removeClass("fa-caret-down").addClass("fa-caret-up")
-                }
-
-                $(this).attr("orderBy", thisOrderBy);
-                vm.search('sort:' + $(this).attr("sort") + "---orderBy:" + thisOrderBy);
-            })
-
-            $(".tag-content-li .goods-specification").click(function () {
-                $(this).addClass("active").siblings().removeClass("active");
-            })
-
-            $(".btn-cut").click(function () {
-                var numBox = $(this).parent().siblings(".input-numbox");
-                var num = $(numBox).val();
-                var minNum = $(numBox).attr("data-min");
-                if (num > minNum) {
-                    $(numBox).val(--num);
-                    countAmount(numBox);
-                } else if (num == minNum) {
-                    $(numBox).val(minNum);
-                    countAmount(numBox);
-                }
-            });
-            $(".btn-add").click(function () {
-                var numBox = $(this).parent().siblings(".input-numbox");
-                var num = $(numBox).val();
-                var maxNum = $(numBox).attr("data-max");
-                if (parseInt(num) < parseInt(maxNum)) {
-                    $(numBox).val(++num);
-                    countAmount(numBox);
-                } else if (num == '') {
-                    $(numBox).val(1);
-                    countAmount(numBox);
-                }
-            });
-
-
-
-            $(".product-img").mousemove(function () {
-                $("#main-pic").attr("src", $(this).attr("src"));
-            })
-
-
-            $('#more-goods-tabs a').click(function (e) {
-                e.preventDefault()
-                $(this).tab('show')
-            })
-        },
-        directives: {
-            "focus": function (elem) {
-                $(elem).mouseover(param => {
-                    $(elem).focus().select()
+                $(".search-more-btn").click(function () {
+                    if ($(this).find("i.fa-angle-down").length == 1) {
+                        $(this).find("i.fa").removeClass("fa-angle-down").addClass("fa-angle-up")
+                    } else {
+                        $(this).find("i.fa").removeClass("fa-angle-up").addClass("fa-angle-down")
+                    }
                 })
+
+                // 按标签查询
+                $(".tags-box .tag-span").click(function () {
+                    $(this).addClass("active").siblings().removeClass("active");
+                    // 装配新tag条件并搜索
+                    vm.search('filter:' + $(this).attr("filter") + "---value:" + $(this).attr("value"));
+                    // var idx = $("#tag-span").val();
+                    // console.log(idx);
+                    // searchList(idx);
+                })
+
+                // 按filter-opt查询
+                $(".search-filter-opt-box .search-filter-opt").click(function () {
+                    var parentEl = $(this).parents(".search-filter-item");
+                    $(parentEl).find(".search-filter-opt").removeClass("active");
+                    $(this).addClass("active");
+                    // 装配新filter条件并搜索
+                    vm.search('filter:' + $(this).attr("filter") + "---value:" + $(this).attr("value"));
+                })
+
+                // 排序
+                $(".sort-by-ul .sort-by-li").click(function () {
+                    $(this).addClass("active").siblings().removeClass("active");
+                    // 装配新filter条件并搜索
+                    var thisOrderBy = $(this).attr("orderBy");
+                    if (thisOrderBy == 'asc') {
+                        thisOrderBy = 'desc'
+                        $(this).find("i.fa").removeClass("fa-caret-up").addClass("fa-caret-down")
+                    } else if (thisOrderBy == 'desc') {
+                        thisOrderBy = 'asc'
+                        $(this).find("i.fa").removeClass("fa-caret-down").addClass("fa-caret-up")
+                    }
+
+                    $(this).attr("orderBy", thisOrderBy);
+                    vm.search('sort:' + $(this).attr("sort") + "---orderBy:" + thisOrderBy);
+                })
+
+                $(".tag-content-li .goods-specification").click(function () {
+                    $(this).addClass("active").siblings().removeClass("active");
+                })
+
+                $(".btn-cut").click(function () {
+                    var numBox = $(this).parent().siblings(".input-numbox");
+                    var num = $(numBox).val();
+                    var minNum = $(numBox).attr("data-min");
+                    if (num > minNum) {
+                        $(numBox).val(--num);
+                        countAmount(numBox);
+                    } else if (num == minNum) {
+                        $(numBox).val(minNum);
+                        countAmount(numBox);
+                    }
+                });
+                $(".btn-add").click(function () {
+                    var numBox = $(this).parent().siblings(".input-numbox");
+                    var num = $(numBox).val();
+                    var maxNum = $(numBox).attr("data-max");
+                    if (parseInt(num) < parseInt(maxNum)) {
+                        $(numBox).val(++num);
+                        countAmount(numBox);
+                    } else if (num == '') {
+                        $(numBox).val(1);
+                        countAmount(numBox);
+                    }
+                });
+
+
+
+                $(".product-img").mousemove(function () {
+                    $("#main-pic").attr("src", $(this).attr("src"));
+                })
+
+
+                $('#more-goods-tabs a').click(function (e) {
+                    e.preventDefault()
+                    $(this).tab('show')
+                })
+            },
+            directives: {
+                "focus": function (elem) {
+                    $(elem).mouseover(param => {
+                        $(elem).focus().select()
+                    })
+                }
             }
-        }
-    })
+        })
 
 
-</script>
+    </script>
 </body>
 
 </html>

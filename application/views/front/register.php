@@ -1,47 +1,5 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="renderer" content="webkit" />
-    <title>免费注册 | <?php echo APPNAME;?></title>
-    <link rel="shortcut icon" href="<?php echo base_url();?>public/front/img/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="<?php echo base_url();?>public/front/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>public/front/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>public/front/layer/skin/layer.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>public/front/Swiper/css/swiper.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url();?>public/front/css/login.css">
-    <!--[if lt IE 9]>
-        <script src="<?php echo base_url();?>public/front/js/respond.min.js"></script>
-        <script src="<?php echo base_url();?>public/front/js/html5shiv.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="page-header">
-                <h3>
-                    <small></small>
-                    <small>
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/signin');?>">请登录</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/register');?>">免费注册</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url();?>">商城首页</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/cartsList');?>">订购清单</a>|
-                        <a type="button" class="btn btn-link" href="<?php echo base_url('home/orderList');?>">我的订单</a>|
-                        <a type="button" class="btn btn-link" href="#">网站服务</a>|
-                        <a type="button" class="btn btn-link" href="#">国际站</a>
-                    </small>
-                </h3>
-            </div>
-        </div>
-    </div>
 
     <div class="page-content">
         <div class="logo-box">
@@ -128,9 +86,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="<?php echo base_url();?>public/front/js/jquery.min.js"></script>
     <script src="<?php echo base_url();?>public/front/js/file-upload.js"></script>
     <script src="<?php echo base_url();?>public/front/js/sweetalert.min.js"></script>
-    <script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url();?>public/front/bootstrap/js/bootstrap-hover-dropdown.js"></script>
+    <script type="text/javascript">
         var image=null;
         var _server_url = '<?php echo base_url();?>';
+
+        $(document).ready(function () {
+            document.getElementById('search_box').style.display = 'none';
+        });
 
         function image_upload(input) {
 

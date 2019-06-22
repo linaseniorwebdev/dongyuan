@@ -157,22 +157,36 @@ class Home extends Base {
 
     public function signin()
     {
+        $data = array(
+            'title' => '登录',
+            'userdata' => '',
+        );
+
         if ($this->login) {
             redirect('/');
         } else {
+            $this->load->view('front/header', $data);
             $this->load->view('front/login');
+
         }
     }
 
     public function register()
     {
         $this->load->model('Permissions_model');
+
+        $data = array(
+            'title' => '注册',
+            'userdata' => '',
+        );
+
         if ($this->login) {
             redirect('/');
         } else {
             $results = $this->Permissions_model->get_all_permissions();
-
-            $this->load->view('front/register', array('permit_data' => $results));
+            $data['permit_data'] = $results;
+            $this->load->view('front/header', $data);
+            $this->load->view('front/register', $data);
         }
     }
 

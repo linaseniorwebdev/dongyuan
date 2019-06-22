@@ -119,7 +119,7 @@ class Data extends  Base {
             $this->session->unset_userdata('user');
         }
         $baseurl = $this->Global_model->get_baseurl();
-        redirect($baseurl."/page/signin", 'refresh');
+        redirect($baseurl."/home/signin", 'refresh');
 
 
     }
