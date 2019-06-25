@@ -123,28 +123,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </a>
                 </div>
                 <div class="col-sm-8" style="padding: 10px 15px 15px;">
-                    <form action="" method="POST" class="form-inline search-form" role="form">
+<!--                    <form action="" method="POST" class="form-inline search-form" role="form">-->
                         <div class="row" style="margin-bottom: 7px;">
                             <div class="col-sm-8">
                                 <ul class="shortcut-search">
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">商品</a></li>
+                                    <li><a href="#" onclick="goods_search(this);">商品</a></li>
                                     <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">公司</a></li>
+                                    <li><a href="#" onclick="goods_search(this);">公司</a></li>
                                     <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">品牌</a></li>
+                                    <li><a href="#" onclick="goods_search((this);">品牌</a></li>
                                     <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">***</a></li>
+                                    <li><a href="#" onclick="goods_search(this);">***</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-9">
                                 <div class="input-group w-100">
-                                    <input type="text" class="form-control keywords-input" placeholder="请输入关键词"
-                                           v-focus>
+                                    <input type="search" id="search_key"
+                                           class="form-control keywords-input" value="<?php if (isset($search_key)) echo $search_key?>"
+                                           onkeypress="searchKeypress(event);" placeholder="请输入关键词">
                                     <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="button">搜索</button>
-                                        </span>
+                                        <button class="btn btn-primary" type="button" onclick="searchList()">搜索</button>
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-sm-3" style="padding-left: 45px;">
@@ -159,19 +160,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row">
                             <div class="col-sm-8">
                                 <ul class="shortcut-search">
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">易损件专区</a></li>
+                                    <li><a href="#" onclick="goods_search(this)">易损件专区</a></li>
                                     <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">二手酉件</a></li>
+                                    <li><a href="#" onclick="goods_search(this)">二手酉件</a></li>
                                     <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">再制造商品</a></li>
+                                    <li><a href="#" onclick="goods_search(this)">再制造商品</a></li>
                                     <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">低价促销</a></li>
+                                    <li><a href="#" onclick="goods_search(this)">低价促销</a></li>
                                     <li>|</li>
-                                    <li><a href="<?php echo base_url('home/goodsList')?>">限时促销 </a></li>
+                                    <li><a href="#" onclick="goods_search(this)">限时促销 </a></li>
                                 </ul>
                             </div>
                         </div>
-                    </form>
+<!--                    </form>-->
                 </div>
 
                 <div class="col-sm-1" style="margin-left: 5%;">

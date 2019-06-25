@@ -16,8 +16,8 @@ class Brands_model extends CI_Model {
 	 * @param null $status
 	 * @return mixed
 	 */
-	public function get_all_brands($type = null, $status = null) {
-		$this->db->order_by('id', 'asc');
+	public function get_all_brands($status = null, $type = null) {
+		$this->db->order_by('sales', 'desc');
 
 		if ($type !== null) {
 			if ($status !== null) {

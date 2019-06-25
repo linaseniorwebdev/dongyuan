@@ -163,6 +163,17 @@
     <script type="text/javascript">
 
         var _server_url = '<?php echo base_url();?>';
+        function _root() {
+            var path = location.href;
+            if (path == _server_url)
+                return path;
+            if(path.indexOf('Home'))
+                return _server_url;
+            ar = path.split('/');
+            ar.pop();
+            root = ar.join('/')+'/';
+            return root;
+        }
 
         function getBrowser() {
             if (window.navigator.userAgent.indexOf("Chrome") == -1) {
@@ -201,8 +212,37 @@
             location.href =_server_url + 'home/goodsList';
         }
 
-        function searchList(idx, pageNum = 1, pageSize = 5) {
-            location.href =_server_url + 'home/searchList?categoryId=' + idx + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+        function searchKeypress(evt) {
+            if ( evt.which == 13 ) {
+                searchList();
+            }
+        }
+
+        function searchList(idx = null, pageNum = 1, pageSize = 5) {
+            if (idx != null) {
+                location.href =_server_url + 'home/searchList?categoryId=' + idx + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+
+            } else {
+                var search_key = $("#search_key").val();
+                if (!search_key) {
+                    swal({
+                        title: "警告!",
+                        text: "请输入搜索关键字。",
+                        icon: "warning",
+                    });
+                } else {
+                    console.log(search_key);
+                    location.href =_server_url + 'home/searchList?search_key='+ search_key + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+                }
+            }
+        }
+        function goods_by_brand(idx, pageNum = 1, pageSize = 5) {
+            location.href =_server_url + 'home/searchList?brandId=' + idx + '&pageNum=' + pageNum + '&pageSize=' + pageSize;
+        }
+
+        function goods_search(target) {
+            var search_key = $(target).text();
+            location.href =_server_url + 'home/searchList?search_key='+ search_key;
         }
 
         function logout() {
@@ -271,11 +311,6 @@
             $("#sumb-price").html(totalAmount);
             $("#total-price").val(totalAmount);
             $("#hidden_amount").val($("#amount").val());
-        }
-
-        function search() {
-            var keyword = $("#keyword").val();
-            location.href =_server_url + 'home/searchList?keyword=' + keyword + '&pageNum=1' + '&pageSize=40';
         }
 
         function addToCart(idx = null) {
@@ -367,6 +402,11 @@
             }
 
 
+        }
+
+        function brandsList()
+        {
+            location.href =_server_url + 'home/brandsList';
         }
 
         $('.carousel').carousel({
@@ -606,9 +646,12 @@
 
                 // 按filter-opt查询
                 $(".search-filter-opt-box .search-filter-opt").click(function () {
+                    var brand_id = $(this).attr("value");
                     var parentEl = $(this).parents(".search-filter-item");
                     $(parentEl).find(".search-filter-opt").removeClass("active");
                     $(this).addClass("active");
+
+                    goods_by_brand(brand_id);
                     // 装配新filter条件并搜索
                     vm.search('filter:' + $(this).attr("filter") + "---value:" + $(this).attr("value"));
                 })

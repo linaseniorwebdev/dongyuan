@@ -514,6 +514,10 @@ ul.hot-brands-ul li img.brand-img {
     max-height: 120px;
 }
 
+ul.hot-brands-ul li img.brand-img:hover {
+    cursor: pointer;
+}
+
 .production-header {
     display: flex;
     justify-content: space-between;

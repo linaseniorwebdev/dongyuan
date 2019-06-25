@@ -200,17 +200,26 @@
                 <div class="container">
                     <ul class="hot-brands-ul">
                         <?php
-                        foreach ($brand as $item) {
+                        foreach ($brand as $key=>$item) {
                             ?>
-                            <li class="text-center">
+                            <li class="text-center" onclick="goods_by_brand(<?php echo $item['id'];?>);">
                                 <div class="v-center">
                                     <img class="brand-img" src="<?php echo $item['image'];?>">
                                 </div>
                                 <!-- <p>{{ brand.title }}</p> -->
                             </li>
+
                             <?php
+                            if ($key == 7){
+                                break;
+                            }
                         }
                         ?>
+                        <li class="text-center" onclick="brandsList();">
+                            <div class="v-center">
+                                <img class="brand-img" src="<?php echo base_url();?>public/front/img/more_brands.png">
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

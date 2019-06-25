@@ -217,20 +217,16 @@
                                 <ul>
                                     <?php if (!$related) {?>
                                         <div>没有相关产品推荐</div>
-                                    <?php } else {?>
-                                        <li onclick="goods_detail(this, <?php echo $related[0]['id'];?>)">
-                                            <a href="#">
-                                                <img src="<?php echo $related[0]['images'][0]?>" alt="">
-                                                <p class="text-center extra-goods-name"><?php echo $related[0]['name']?></p>
-                                            </a>
-                                        </li>
-                                        <li onclick="goods_detail(this, <?php echo $related[1]['id'];?>)">
-                                            <a href="#">
-                                                <img src="<?php echo $related[1]['images'][0]?>" alt="">
-                                                <p class="text-center extra-goods-name"><?php echo $related[1]['name']?></p>
-                                            </a>
-                                        </li>
-                                    <?php }?>
+                                    <?php } else { foreach ($related as $key=>$item) {?>
+
+                                            <li onclick="goods_detail(this, <?php echo $related[$key]['id'];?>)">
+                                                <a href="#">
+                                                    <img src="<?php echo $related[$key]['images'][0]?>" alt="">
+                                                    <p class="text-center extra-goods-name"><?php echo $related[$key]['name']?></p>
+                                                </a>
+                                            </li>
+
+                                    <?php } } ?>
                                     <li>
                                         <a href="#">
                                             <p class="change">换一批</p>
@@ -269,6 +265,7 @@
                         <th class="text-center">商品列表</th>
                         <th class="text-center">品牌</th>
                         <th class="text-center">型号</th>
+                        <th class="text-center">替代型号</th>
                         <th class="text-center">规格</th>
                         <th class="text-center">价格</th>
                         <th class="text-center">数量</th>
@@ -281,6 +278,7 @@
                         ?>
                         <td class="text-center" id="more_name"><?php echo $item['name']; ?></td>
                         <td class="text-center" id="more_brand"><?php echo $item['brands_name']['name']; ?></td>
+                        <td class="text-center" id="more_type"><?php echo $item['serial_no']; ?></td>
                         <td class="text-center" id="more_type"><?php echo $item['serial_no']; ?></td>
                         <td class="text-center" id="more-scale"><?php echo $item['branches'][0]['model']; ?></td>
                         <td class="text-center" id="more_price"><?php echo $item['branches'][0]['price']; ?></td>

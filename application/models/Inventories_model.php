@@ -119,20 +119,50 @@ class Inventories_model extends CI_Model {
 
 		return $row;
 	}
+	
+	/**
+	 * Function to get inventory by id
+	 * @param $brand_id
+	 * @return array
+	 */
+	public function get_by_brand($brand_id, $limit, $offset) {
+        $this->db->order_by('id', 'asc');
+        $this->db->limit($limit, $offset);
+		$rows = $this->db->like('brands',  'i:0;s:' . strlen($brand_id) . ':"' . $brand_id . '"')->get('inventories')->result_array();
+		
+		foreach ($rows as &$row) {
+			if ($row['images']) {
+				$row['images'] = unserialize($row['images']);
+			}
+			
+			if ($row['brands']) {
+				$row['brands'] = unserialize($row['brands']);
+			}
+			
+			if ($row['branches']) {
+				$row['branches'] = unserialize($row['branches']);
+			}
+			
+			if ($row['place_of']) {
+				$row['place_of'] = unserialize($row['place_of']);
+			}
+			if ($row['links']) {
+				$row['links'] = unserialize($row['links']);
+			}
+		}
+		
+		return $rows;
+	}
 
-    public function get_count() {
-        return $this->db->count_all($this->table);
-    }
-
-    public function get_authors($limit, $start) {
-        $this->db->limit($limit, $start);
-        $query = $this->db->get($this->table);
-
-        return $query->result();
-    }
-
-    public function getCounts($level, $level_id)
+	public function get_count_brand($brand_id)
     {
+        $this->db->from('inventories');
+        $this->db->like('brands',  'i:0;s:' . strlen($brand_id) . ':"' . $brand_id . '"');
+        $result_val = $this->db->count_all_results();
+        return $result_val;
+    }
+
+    public function getCounts($level, $level_id) {
         $this->db->from('inventories');
         $this->db->where(array('level_' . $level => $level_id));
         $result_val = $this->db->count_all_results();
@@ -140,10 +170,56 @@ class Inventories_model extends CI_Model {
         return $result_val;
     }
 
-    public function get_by_level_1($level, $level_id, $limit, $offset) {
+    public function get_by_level_pagination($level, $level_id, $limit, $offset) {
 	    $this->db->order_by('id', 'asc');
         $this->db->limit($limit, $offset);
         $rows = $this->db->get_where('inventories', array('level_' . $level => $level_id))->result_array();
+        foreach ($rows as &$row) {
+            if ($row['images']) {
+                $row['images'] = unserialize($row['images']);
+            }
+
+            if ($row['brands']) {
+                $row['brands'] = unserialize($row['brands']);
+            }
+
+            if ($row['branches']) {
+                $row['branches'] = unserialize($row['branches']);
+            }
+
+            if ($row['place_of']) {
+                $row['place_of'] = unserialize($row['place_of']);
+            }
+            if ($row['links']) {
+                $row['links'] = unserialize($row['links']);
+            }
+        }
+        return $rows;
+    }
+    /**
+     * Function to get counts of inventories by searchkey
+     * @param $search_key
+     * @return array
+     */
+    public function getCountsBykey($where)
+    {
+        $this->db->from('inventories');
+        $this->db->where($where);
+        $result_val = $this->db->count_all_results();
+
+        return $result_val;
+    }
+
+    /**
+     * Function to get of inventories by searchkey
+     * @param $search_key
+     * @return array
+     */
+    public function get_by_keyword($where, $limit, $offset)
+    {
+        $this->db->order_by('id', 'asc');
+        $this->db->limit($limit, $offset);
+        $rows = $this->db->where($where)->get('inventories')->result_array();
         foreach ($rows as &$row) {
             if ($row['images']) {
                 $row['images'] = unserialize($row['images']);
