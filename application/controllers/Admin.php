@@ -425,8 +425,8 @@ class Admin extends Base {
 
 					$this->load->model('Brands_model');
 					$data['brands1'] = $this->Brands_model->get_all_brands(1, 1);
-					$data['brands2'] = $this->Brands_model->get_all_brands(2, 1);
-					$data['brands3'] = $this->Brands_model->get_all_brands(3, 1);
+					$data['brands2'] = $this->Brands_model->get_all_brands(1, 2);
+					$data['brands3'] = $this->Brands_model->get_all_brands(1, 3);
 
 					$arr = array();
 					$this->load->model('Provinces_model');
@@ -472,8 +472,8 @@ class Admin extends Base {
 
 					$this->load->model('Brands_model');
 					$data['brands1'] = $this->Brands_model->get_all_brands(1, 1);
-					$data['brands2'] = $this->Brands_model->get_all_brands(2, 1);
-					$data['brands3'] = $this->Brands_model->get_all_brands(3, 1);
+					$data['brands2'] = $this->Brands_model->get_all_brands(1, 2);
+					$data['brands3'] = $this->Brands_model->get_all_brands(1, 3);
 
 					$arr = array();
 					$this->load->model('Provinces_model');
